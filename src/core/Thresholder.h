@@ -22,6 +22,7 @@ class ThresholderImpl;
 class Thresholder {
 public:
   void configure(const ThreshParameters& params);
+  void generate(const PointSet& points, LineSet* lines);
   LineSet generate(const PointSet& points);
 private:
   ofPtr<ThresholderImpl> _impl;

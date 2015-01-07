@@ -77,10 +77,14 @@ void Thresholder::configure(const ThreshParameters& params) {
   _impl->configure(params);
 }
 
+void Thresholder::generate(const PointSet &points, LineSet *lines) {
+  if (_impl)
+    _impl->generate(points, lines);
+}
+
 LineSet Thresholder::generate(const PointSet &points) {
   LineSet lines;
-  if (_impl)
-    _impl->generate(points, &lines);
+  generate(points, &lines);
   return lines;
 }
 

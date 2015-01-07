@@ -13,6 +13,9 @@
 
 class ThreshPoint : public ofVec3f {
 public:
+  ThreshPoint();
+  explicit ThreshPoint(const ofVec3f& position, int i);
+  
   int index;
 };
 

@@ -7,3 +7,10 @@
 //
 
 #include "Point.h"
+
+ThreshPoint::ThreshPoint() {
+  
+}
+
+ThreshPoint::ThreshPoint(const ofVec3f& pos, int i)
+: ofVec3f(pos), index(i) { }

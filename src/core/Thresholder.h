@@ -9,15 +9,22 @@
 #ifndef __threshold__Thresholder__
 #define __threshold__Thresholder__
 
-#include <vector>
+#include <ofTypes.h>
 
-#include "LineSet.h"
+class ThreshParameters;
+class ThreshPoint;
+class ThreshLine;
+class LineSet;
+class PointSet;
+
+class ThresholderImpl;
 
 class Thresholder {
 public:
-  void generate(std::vector<ThreshPoint>& points);
+  void configure(const ThreshParameters& params);
+  LineSet generate(const PointSet& points);
 private:
-  LineSet _lines;
+  ofPtr<ThresholderImpl> _impl;
 };
 
 #endif /* defined(__threshold__Thresholder__) */

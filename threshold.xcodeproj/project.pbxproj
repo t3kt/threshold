@@ -16,6 +16,8 @@
 		329F68D71A5CC73F00B1FED7 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68D51A5CC73F00B1FED7 /* Point.cpp */; };
 		329F68DA1A5CC8A300B1FED7 /* LineSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68D81A5CC8A300B1FED7 /* LineSet.cpp */; };
 		329F68DD1A5CC93E00B1FED7 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68DB1A5CC93E00B1FED7 /* Line.cpp */; };
+		32E054BB1A5CD4D0001CAC3A /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054B91A5CD4D0001CAC3A /* Parameters.cpp */; };
+		32E054BF1A5CDA95001CAC3A /* PointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054BD1A5CDA95001CAC3A /* PointSet.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
 		7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4FBB646797B9F2C403446BE /* ofxXmlSettings.cpp */; };
 		8E4B38BFD068409CC33E8EF4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03848B7C0EDDE6BED9783E0C /* tinyxmlerror.cpp */; };
@@ -91,6 +93,10 @@
 		329F68D91A5CC8A300B1FED7 /* LineSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineSet.h; path = core/LineSet.h; sourceTree = "<group>"; };
 		329F68DB1A5CC93E00B1FED7 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Line.cpp; path = core/Line.cpp; sourceTree = "<group>"; };
 		329F68DC1A5CC93E00B1FED7 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Line.h; path = core/Line.h; sourceTree = "<group>"; };
+		32E054B91A5CD4D0001CAC3A /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Parameters.cpp; path = core/Parameters.cpp; sourceTree = "<group>"; };
+		32E054BA1A5CD4D0001CAC3A /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameters.h; path = core/Parameters.h; sourceTree = "<group>"; };
+		32E054BD1A5CDA95001CAC3A /* PointSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointSet.cpp; path = core/PointSet.cpp; sourceTree = "<group>"; };
+		32E054BE1A5CDA95001CAC3A /* PointSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointSet.h; path = core/PointSet.h; sourceTree = "<group>"; };
 		3413947B945ACD229F00DBBE /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSliderGroup.cpp; path = ../of_v0.8.4_osx_release/addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
 		3877F60E4A0079027579DB8A /* tinyxmlparser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlparser.cpp; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
 		39783A9656B1D4A78782703C /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
@@ -180,14 +186,18 @@
 		329F68CE1A5CC65800B1FED7 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				32E054B91A5CD4D0001CAC3A /* Parameters.cpp */,
+				32E054BA1A5CD4D0001CAC3A /* Parameters.h */,
 				329F68D21A5CC6AA00B1FED7 /* Thresholder.cpp */,
 				329F68D31A5CC6AA00B1FED7 /* Thresholder.h */,
 				329F68D51A5CC73F00B1FED7 /* Point.cpp */,
 				329F68D61A5CC73F00B1FED7 /* Point.h */,
-				329F68D81A5CC8A300B1FED7 /* LineSet.cpp */,
-				329F68D91A5CC8A300B1FED7 /* LineSet.h */,
 				329F68DB1A5CC93E00B1FED7 /* Line.cpp */,
 				329F68DC1A5CC93E00B1FED7 /* Line.h */,
+				32E054BD1A5CDA95001CAC3A /* PointSet.cpp */,
+				32E054BE1A5CDA95001CAC3A /* PointSet.h */,
+				329F68D81A5CC8A300B1FED7 /* LineSet.cpp */,
+				329F68D91A5CC8A300B1FED7 /* LineSet.h */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -418,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				329F68CC1A5CC64300B1FED7 /* ofApp.cpp in Sources */,
+				32E054BB1A5CD4D0001CAC3A /* Parameters.cpp in Sources */,
 				C9893715C4B972F7387711FD /* ofxBaseGui.cpp in Sources */,
 				DE407E9EE9F292F730D30FEF /* ofxButton.cpp in Sources */,
 				1E5FEDF788EB25A15DC2460C /* ofxGuiGroup.cpp in Sources */,
@@ -435,6 +446,7 @@
 				329F68CB1A5CC64300B1FED7 /* main.cpp in Sources */,
 				8E4B38BFD068409CC33E8EF4 /* tinyxmlerror.cpp in Sources */,
 				AB8A4587A21CD2325D587E8A /* tinyxmlparser.cpp in Sources */,
+				32E054BF1A5CDA95001CAC3A /* PointSet.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,14 +15,15 @@ class ThreshLine {
 public:
   ThreshLine(const ThreshPoint& start,
              const ThreshPoint& end);
+  ThreshLine(const ThreshLine& other);
   
-  const ThreshPoint& start() const { return _start; }
-  const ThreshPoint& end() const { return _end; }
+  const ThreshPoint& start() const { return *_start; }
+  const ThreshPoint& end() const { return *_end; }
   float squareDistance() const { return _squareDist; }
 private:
   float _squareDist;
-  const ThreshPoint& _start;
-  const ThreshPoint& _end;
+  const ThreshPoint* _start;
+  const ThreshPoint* _end;
 };
 
 #endif /* defined(__threshold__Line__) */

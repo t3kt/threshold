@@ -3,6 +3,7 @@
 #include <ofMain.h>
 #include "Thresholder.h"
 #include "LineSet.h"
+#include "PointSet.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -21,10 +22,13 @@ public:
   void gotMessage(ofMessage msg);
   
 private:
+  void dumpToLog() const;
+  
   bool _drawInputPoints;
   bool _drawThreshLines;
   ofMesh _pointsMesh;
   Thresholder _thresholder;
+  PointSet _inputPoints;
   LineSet _threshLines;
-  ofCamera _cam;
+  ofEasyCam _cam;
 };

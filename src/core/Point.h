@@ -9,6 +9,7 @@
 #ifndef __threshold__Point__
 #define __threshold__Point__
 
+#include <iostream>
 #include <ofVec3f.h>
 
 class ThreshPoint : public ofVec3f {
@@ -18,5 +19,7 @@ public:
   
   int index;
 };
+
+std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt);
 
 #endif /* defined(__threshold__Point__) */

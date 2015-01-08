@@ -1,16 +1,15 @@
 #include "ofApp.h"
+
+#include <math.h>
+
 #include "Parameters.h"
 #include "PointSet.h"
 
 void ofApp::setup() {
-//  auto width = ofGetWidth();
-//  auto height = ofGetHeight();
-  int numPoints = 10;
+  int numPoints = 40;
   _pointsMesh.setMode(OF_PRIMITIVE_POINTS);
   for (int i = 0; i < numPoints; i++) {
     ofVec3f pos;
-//    pos.x = ofMap(ofSignedNoise(i), -1, 1, 0, width);
-//    pos.y = ofMap(ofSignedNoise(i + numPoints), -1, 1, 0, height);
     pos.x = ofSignedNoise(i);
     pos.y = ofSignedNoise(i + numPoints * 1000);
     _inputPoints.push_back(ThreshPoint(pos, i));
@@ -19,34 +18,30 @@ void ofApp::setup() {
   ThreshParameters params;
   params.maxLines = numPoints;
   params.minDist = 0;
+  params.maxDist = 0.1;
   params.maxLines = 50;
   _thresholder.configure(params);
   _drawInputPoints = true;
   _drawThreshLines = true;
-//  _cam.move(0, 0, -5);
-//  _cam.lookAt(ofVec3f::zero());
   _cam.setTarget(ofVec3f::zero());
   _cam.setAutoDistance(true);
 }
 
 void ofApp::update() {
   float time = ofGetElapsedTimef();
-//  auto width = ofGetWidth();
-//  auto height = ofGetHeight();
   auto width = 2;
   auto height = 2;
-  auto pointStep = ofVec2f(width * 0.02, height * 0.02);
-//  auto pointStep = ofVec3f(0.02);
-//  auto numPoints = _pointsMesh.getNumVertices();
+  auto pointStep = ofVec3f(0.02);
   auto numPoints = _inputPoints.size();
   for (int i = 0; i < numPoints; i++) {
-//    ThreshPoint point(_pointsMesh.getVertex(i), i);
     auto& point = _inputPoints[i];
     float noisePosition = time + i * 200;
     point.x += ofSignedNoise(noisePosition) * pointStep.x;
     point.y += ofSignedNoise(noisePosition + numPoints * 400) * pointStep.y;
-    point.x = ofWrap(point.x, -width/2, width/2);
-    point.y = ofWrap(point.y, -height/2, height/2);
+    point.z += ofSignedNoise(noisePosition + numPoints * 1003) * pointStep.z;
+    point.x = ofWrap(point.x, -1, 1);
+    point.y = ofWrap(point.y, -1, 1);
+    point.z = ofWrap(point.z, -1, 1);
     _pointsMesh.setVertex(i, point);
   }
   _threshLines.clear();
@@ -56,7 +51,9 @@ void ofApp::update() {
 void ofApp::draw() {
   _cam.begin();
   ofPushMatrix();
-  auto size = ofVec2f(ofGetWidth(), ofGetHeight());
+  auto winSize = ofGetWindowSize();
+  auto size = ::min(winSize.x, winSize.y) / 2;
+  ofScale(size, size, size);
   
   if (_drawInputPoints) {
     ofPushStyle();
@@ -66,33 +63,30 @@ void ofApp::draw() {
     float radius = .02;
     auto numPoints = _inputPoints.size();
     for (int i = 0; i < numPoints; i++) {
-//      ofDrawSphere(_pointsMesh.getVertex(i), radius);
-//      auto vertex = _pointsMesh.getVertex(i);
       const auto& vertex = _inputPoints[i];
-      ofCircle(vertex.x,
-               vertex.y,
-               radius);
+      ofDrawSphere(vertex, radius);
     }
     ofPopStyle();
   }
   
   if (_drawThreshLines) {
     ofPushStyle();
-    ofMesh linesMesh;
-    linesMesh.setMode(OF_PRIMITIVE_LINES);
+//    ofMesh linesMesh;
+//    linesMesh.setMode(OF_PRIMITIVE_LINES);
     for (const auto& line : _threshLines) {
-      linesMesh.addVertex(line.start());
-      linesMesh.addVertex(line.end());
+      ofLine(line.start(), line.end());
+//      linesMesh.addVertex(line.start());
+//      linesMesh.addVertex(line.end());
     }
-    linesMesh.draw();
+//    linesMesh.draw();
     ofPopStyle();
   }
   
   {
     ofPushStyle();
     ofNoFill();
-    ofSetColor(255, 0, 255);
-    ofDrawBox(200);
+    ofSetColor(255, 0, 255, 63);
+    ofDrawBox(1);
     ofPopStyle();
   }
   

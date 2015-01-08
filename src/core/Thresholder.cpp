@@ -7,6 +7,7 @@
 //
 
 #include <vector>
+#include <ofMath.h>
 
 #include "Thresholder.h"
 #include "Parameters.h"
@@ -18,8 +19,8 @@ public:
   void configure(const ThreshParameters& params);
   void generate(const PointSet& points, LineSet* lines);
 private:
-  ThreshLine createLine(const ThreshPoint& pointA,
-                        const ThreshPoint& pointB);
+  ThreshLine createLine(const ThreshPoint& start,
+                        const ThreshPoint& end);
   bool testLine(const ThreshLine& line);
   ThreshParameters _params;
 };
@@ -54,14 +55,23 @@ void ThresholderImpl::generate(const PointSet &points,
   }
 }
 
-ThreshLine ThresholderImpl::createLine(const ThreshPoint &pointA,
-                                       const ThreshPoint &pointB) {
-  ThreshLine line(pointA, pointB);
+ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
+                                       const ThreshPoint &end) {
+  ThreshLine line;
+  line.start = &start;
+  line.end = &end;
+  line.squareDistance = start.distanceSquared(end);
+  line.closeness = 0;
+  if (_params.hasMaxDist()) {
+    auto min = _params.hasMinDist() ? _params.minDist : 0;
+    line.closeness = ofMap(line.squareDistance,
+                           min, _params.maxDist, 1.0f, 0.0f);
+  }
   return line;
 }
 
 bool ThresholderImpl::testLine(const ThreshLine &line) {
-  auto dist = line.squareDistance();
+  auto dist = line.squareDistance;
   if (_params.hasMinDist() && dist < _params.minDist) {
     return false;
   }

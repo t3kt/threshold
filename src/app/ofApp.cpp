@@ -15,16 +15,16 @@ void ofApp::setup() {
     _inputPoints.push_back(ThreshPoint(pos, i));
     _pointsMesh.addVertex(pos);
   }
-  ThreshParameters params;
-  params.maxLines = numPoints;
-  params.minDist = 0;
-  params.maxDist = 0.1;
-  params.maxLines = 50;
-  _thresholder.configure(params);
+  _threshParams.maxLines = numPoints;
+  _threshParams.minDist = 0;
+  _threshParams.maxDist = 0.1;
+  _threshParams.maxLines = 50;
+  _thresholder.configure(_threshParams);
   _drawInputPoints = true;
   _drawThreshLines = true;
   _cam.setTarget(ofVec3f::zero());
   _cam.setAutoDistance(true);
+  ofEnableAlphaBlending();
 }
 
 void ofApp::update() {
@@ -59,8 +59,7 @@ void ofApp::draw() {
     ofPushStyle();
     ofSetColor(0, 0, 255);
     ofFill();
-//    _pointsMesh.draw();
-    float radius = .02;
+    float radius = .005;
     auto numPoints = _inputPoints.size();
     for (int i = 0; i < numPoints; i++) {
       const auto& vertex = _inputPoints[i];
@@ -71,14 +70,11 @@ void ofApp::draw() {
   
   if (_drawThreshLines) {
     ofPushStyle();
-//    ofMesh linesMesh;
-//    linesMesh.setMode(OF_PRIMITIVE_LINES);
     for (const auto& line : _threshLines) {
-      ofLine(line.start(), line.end());
-//      linesMesh.addVertex(line.start());
-//      linesMesh.addVertex(line.end());
+//      ofSetLineWidth(line.closeness * 5);
+      ofSetColor(0, 0, 0, line.closeness * 255);
+      ofLine(*line.start, *line.end);
     }
-//    linesMesh.draw();
     ofPopStyle();
   }
   

@@ -4,6 +4,7 @@
 #include "Thresholder.h"
 #include "LineSet.h"
 #include "PointSet.h"
+#include "Parameters.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -26,6 +27,7 @@ private:
   
   bool _drawInputPoints;
   bool _drawThreshLines;
+  ThreshParameters _threshParams;
   ofMesh _pointsMesh;
   Thresholder _thresholder;
   PointSet _inputPoints;

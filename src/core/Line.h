@@ -13,20 +13,11 @@
 
 #include "Point.h"
 
-class ThreshLine {
-public:
-  ThreshLine(const ThreshPoint& start,
-             const ThreshPoint& end);
-  ThreshLine(const ThreshLine& other);
-  ThreshLine& operator=(const ThreshLine& other);
-  
-  const ThreshPoint& start() const { return *_start; }
-  const ThreshPoint& end() const { return *_end; }
-  float squareDistance() const { return _squareDist; }
-private:
-  float _squareDist;
-  const ThreshPoint* _start;
-  const ThreshPoint* _end;
+struct ThreshLine {
+  const ThreshPoint* start;
+  const ThreshPoint* end;
+  float squareDistance;
+  float closeness;
 };
 
 std::ostream& operator<<(std::ostream& os, const ThreshLine& ln);

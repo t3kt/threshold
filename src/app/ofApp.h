@@ -1,6 +1,8 @@
 #pragma once
 
 #include <ofMain.h>
+#include <vector>
+
 #include "Thresholder.h"
 #include "LineSet.h"
 #include "PointSet.h"
@@ -32,5 +34,6 @@ private:
   Thresholder _thresholder;
   PointSet _inputPoints;
   LineSet _threshLines;
+  std::vector<ofVec3f> _pointNoiseOffsets;
   ofEasyCam _cam;
 };

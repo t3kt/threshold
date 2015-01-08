@@ -6,24 +6,28 @@
 #include "PointSet.h"
 
 void ofApp::setup() {
-  int numPoints = 40;
+  int numPoints = 400;
   _pointsMesh.setMode(OF_PRIMITIVE_POINTS);
   for (int i = 0; i < numPoints; i++) {
+    ofVec3f noisePos(ofRandom(939.4910),
+                     ofRandom(8284.01),
+                     ofRandom(-12562.23));
     ofVec3f pos;
-    pos.x = ofSignedNoise(i);
-    pos.y = ofSignedNoise(i + numPoints * 1000);
-    pos.z = ofSignedNoise(i + numPoints - 7005);
+    pos.x = ofSignedNoise(-noisePos.x);
+    pos.y = ofSignedNoise(-noisePos.y);
+    pos.z = ofSignedNoise(-noisePos.z);
     ThreshPoint pt(pos, i);
     pt.color = i % 2 == 1
       ? ofFloatColor(0, .4, .7)
       : ofFloatColor(0, .9, .2);
     _inputPoints.push_back(pt);
     _pointsMesh.addVertex(pos);
+    _pointNoiseOffsets.push_back(noisePos);
   }
   _threshParams.maxLines = numPoints;
   _threshParams.minDist = 0;
   _threshParams.maxDist = 0.1;
-  _threshParams.maxLines = 50;
+  _threshParams.maxLines = 10000;
   _thresholder.configure(_threshParams);
   _drawInputPoints = true;
   _drawThreshLines = true;
@@ -40,10 +44,10 @@ void ofApp::update() {
   auto numPoints = _inputPoints.size();
   for (int i = 0; i < numPoints; i++) {
     auto& point = _inputPoints[i];
-    float noisePosition = time + i * 200;
-    point.x += ofSignedNoise(noisePosition) * pointStep.x;
-    point.y += ofSignedNoise(noisePosition + numPoints * 400) * pointStep.y;
-    point.z += ofSignedNoise(noisePosition + numPoints * 1003) * pointStep.z;
+    auto noisePos = _pointNoiseOffsets[i] + time * 0.3;
+    point.x += ofSignedNoise(noisePos.x) * pointStep.x;
+    point.y += ofSignedNoise(noisePos.y) * pointStep.y;
+    point.z += ofSignedNoise(noisePos.z) * pointStep.z;
     point.x = ofWrap(point.x, -1, 1);
     point.y = ofWrap(point.y, -1, 1);
     point.z = ofWrap(point.z, -1, 1);
@@ -54,6 +58,7 @@ void ofApp::update() {
 }
 
 void ofApp::draw() {
+  ofBackground(0);
   _cam.begin();
   ofPushMatrix();
   auto winSize = ofGetWindowSize();
@@ -68,6 +73,7 @@ void ofApp::draw() {
     auto numPoints = _inputPoints.size();
     for (int i = 0; i < numPoints; i++) {
       const auto& vertex = _inputPoints[i];
+      ofSetColor(vertex.color);
       ofDrawSphere(vertex, radius);
     }
     ofPopStyle();

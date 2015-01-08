@@ -12,7 +12,12 @@ void ofApp::setup() {
     ofVec3f pos;
     pos.x = ofSignedNoise(i);
     pos.y = ofSignedNoise(i + numPoints * 1000);
-    _inputPoints.push_back(ThreshPoint(pos, i));
+    pos.z = ofSignedNoise(i + numPoints - 7005);
+    ThreshPoint pt(pos, i);
+    pt.color = i % 2 == 1
+      ? ofFloatColor(0, .4, .7)
+      : ofFloatColor(0, .9, .2);
+    _inputPoints.push_back(pt);
     _pointsMesh.addVertex(pos);
   }
   _threshParams.maxLines = numPoints;
@@ -70,11 +75,20 @@ void ofApp::draw() {
   
   if (_drawThreshLines) {
     ofPushStyle();
+    ofMesh linesMesh;
+    linesMesh.setMode(OF_PRIMITIVE_LINES);
     for (const auto& line : _threshLines) {
-//      ofSetLineWidth(line.closeness * 5);
-      ofSetColor(0, 0, 0, line.closeness * 255);
-      ofLine(*line.start, *line.end);
+      auto alpha = line.closeness;
+      auto color1 = line.start->color;
+      auto color2 = line.end->color;
+      color1.a = color2.a = alpha;
+      linesMesh.addVertex(*line.start);
+      linesMesh.addColor(color1);
+      linesMesh.addVertex(*line.end);
+      linesMesh.addColor(color2);
     }
+    ofNoFill();
+    linesMesh.drawWireframe();
     ofPopStyle();
   }
   

@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <ofVec3f.h>
+#include <ofColor.h>
 
 class ThreshPoint : public ofVec3f {
 public:
@@ -18,6 +19,7 @@ public:
   explicit ThreshPoint(const ofVec3f& position, int i);
   
   int index;
+  ofFloatColor color;
 };
 
 std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt);

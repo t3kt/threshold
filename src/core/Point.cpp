@@ -19,6 +19,7 @@ ThreshPoint::ThreshPoint(const ofVec3f& pos, int i)
 std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt) {
   os << "Point{#" << pt.index;
   os << ", (" << pt.x << ", " << pt.y << ", " << pt.z << ")";
+  os << ", color:" << pt.color;
   os << "}";
   return os;
 }

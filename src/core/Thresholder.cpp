@@ -60,7 +60,7 @@ ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
   ThreshLine line;
   line.start = &start;
   line.end = &end;
-  line.squareDistance = start.distanceSquared(end);
+  line.squareDistance = start.position.distanceSquared(end.position);
   line.closeness = 0;
   if (_params.hasMaxDist()) {
     auto min = _params.hasMinDist() ? _params.minDist : 0;

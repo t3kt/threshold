@@ -4,18 +4,14 @@
 
 #include "Parameters.h"
 #include "PointSet.h"
+#include "Common.h"
 
 void ofApp::setup() {
   int numPoints = 400;
   _pointsMesh.setMode(OF_PRIMITIVE_POINTS);
   for (int i = 0; i < numPoints; i++) {
-    ofVec3f noisePos(ofRandom(939.4910),
-                     ofRandom(8284.01),
-                     ofRandom(-12562.23));
-    ofVec3f pos;
-    pos.x = ofSignedNoise(-noisePos.x);
-    pos.y = ofSignedNoise(-noisePos.y);
-    pos.z = ofSignedNoise(-noisePos.z);
+    ofVec3f noisePos = createRandomVec3f(1007000.342);
+    ofVec3f pos = createSignedNoiseVec3f(-noisePos);
     ThreshPoint pt(pos, i);
     pt.color = i % 2 == 1
       ? ofFloatColor(0, .4, .7)
@@ -45,13 +41,9 @@ void ofApp::update() {
   for (int i = 0; i < numPoints; i++) {
     auto& point = _inputPoints[i];
     auto noisePos = _pointNoiseOffsets[i] + time * 0.3;
-    point.x += ofSignedNoise(noisePos.x) * pointStep.x;
-    point.y += ofSignedNoise(noisePos.y) * pointStep.y;
-    point.z += ofSignedNoise(noisePos.z) * pointStep.z;
-    point.x = ofWrap(point.x, -1, 1);
-    point.y = ofWrap(point.y, -1, 1);
-    point.z = ofWrap(point.z, -1, 1);
-    _pointsMesh.setVertex(i, point);
+    point.position += createSignedNoiseVec3f(noisePos) * pointStep;
+    point.position = wrapVec(point.position, -1, 1);
+    _pointsMesh.setVertex(i, point.position);
   }
   _threshLines.clear();
   _thresholder.generate(_inputPoints, &_threshLines);
@@ -74,7 +66,7 @@ void ofApp::draw() {
     for (int i = 0; i < numPoints; i++) {
       const auto& vertex = _inputPoints[i];
       ofSetColor(vertex.color);
-      ofDrawSphere(vertex, radius);
+      ofDrawSphere(vertex.position, radius);
     }
     ofPopStyle();
   }
@@ -88,9 +80,9 @@ void ofApp::draw() {
       auto color1 = line.start->color;
       auto color2 = line.end->color;
       color1.a = color2.a = alpha;
-      linesMesh.addVertex(*line.start);
+      linesMesh.addVertex(line.start->position);
       linesMesh.addColor(color1);
-      linesMesh.addVertex(*line.end);
+      linesMesh.addVertex(line.end->position);
       linesMesh.addColor(color2);
     }
     ofNoFill();

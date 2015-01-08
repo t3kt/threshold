@@ -13,12 +13,13 @@
 #include <ofVec3f.h>
 #include <ofColor.h>
 
-class ThreshPoint : public ofVec3f {
+class ThreshPoint {
 public:
   ThreshPoint();
-  explicit ThreshPoint(const ofVec3f& position, int i);
+  ThreshPoint(const ofVec3f& pos, int i);
   
   int index;
+  ofVec3f position;
   ofFloatColor color;
 };
 

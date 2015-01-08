@@ -12,6 +12,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <ofVec3f.h>
 
 // see http://stackoverflow.com/q/1489830/1456378
 template <class T>
@@ -40,5 +41,12 @@ void outputSet(std::ostream& os, const TSet& things,
   }
   os << "}";
 }
+
+ofVec3f createSignedNoiseVec3f(const ofVec3f& position);
+ofVec3f createRandomVec3f(const ofVec3f& mins,
+                          const ofVec3f& maxs);
+ofVec3f createRandomVec3f(float max);
+ofVec3f wrapVec(ofVec3f vec, float min, float max);
+
 
 #endif /* defined(__threshold__Common__) */

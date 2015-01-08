@@ -8,17 +8,15 @@
 
 #include "Point.h"
 
-ThreshPoint::ThreshPoint() {
-  
-}
+ThreshPoint::ThreshPoint() { }
 
 ThreshPoint::ThreshPoint(const ofVec3f& pos, int i)
-: ofVec3f(pos), index(i) { }
-
+: position(pos), index(i) { }
 
 std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt) {
   os << "Point{#" << pt.index;
-  os << ", (" << pt.x << ", " << pt.y << ", " << pt.z << ")";
+  const auto& pos = pt.position;
+  os << ", (" << pos.x << ", " << pos.y << ", " << pos.z << ")";
   os << ", color:" << pt.color;
   os << "}";
   return os;

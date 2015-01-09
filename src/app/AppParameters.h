@@ -20,6 +20,7 @@ public:
   ThreshAppParameters();
   
   void applyTo(ThreshParameters& params) const;
+  void readFrom(const ThreshParameters& params);
   
   ofParameter<bool> hasMinDist;
   ofParameter<bool> hasMaxDist;

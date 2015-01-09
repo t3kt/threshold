@@ -36,6 +36,7 @@ void ofApp::setup() {
   _appParams.hasMinDist.addListener(this,
                                     &ofApp::onParameterChangedB);
   _paramsChanged = true;
+  _appParams.readFrom(_threshParams);
 }
 
 void ofApp::onParameterChanged(ofAbstractParameter&) {

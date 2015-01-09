@@ -1,0 +1,8 @@
+<group>
+	<Min_Dist?>0</Min_Dist?>
+	<Max_Dist?>0</Max_Dist?>
+	<Distance_Range>2.77781e+37, 3.15976e+38</Distance_Range>
+	<Max_Lines>1000</Max_Lines>
+	<Max_Per_Source?>1</Max_Per_Source?>
+	<Max_Lines_Per_Source>10</Max_Lines_Per_Source>
+</group>

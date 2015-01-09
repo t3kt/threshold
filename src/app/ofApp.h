@@ -1,12 +1,14 @@
 #pragma once
 
 #include <ofMain.h>
+#include <ofxGui.h>
 #include <vector>
 
 #include "Thresholder.h"
 #include "LineSet.h"
 #include "PointSet.h"
 #include "Parameters.h"
+#include "AppParameters.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -26,14 +28,22 @@ public:
   
 private:
   void dumpToLog() const;
+  void updateParameters();
+  void onParameterChanged(ofAbstractParameter& param);
+  void onParameterChangedB(bool&);
+  void onParameterChangedV2(ofVec2f&);
+  void onParameterChangedI(int&);
   
   bool _drawInputPoints;
   bool _drawThreshLines;
+  ThreshAppParameters _appParams;
   ThreshParameters _threshParams;
+  bool _paramsChanged;
   ofMesh _pointsMesh;
   Thresholder _thresholder;
   PointSet _inputPoints;
   LineSet _threshLines;
   std::vector<ofVec3f> _pointNoiseOffsets;
   ofEasyCam _cam;
+  ofxPanel _gui;
 };

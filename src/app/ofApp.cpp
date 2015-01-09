@@ -30,9 +30,40 @@ void ofApp::setup() {
   _cam.setTarget(ofVec3f::zero());
   _cam.setAutoDistance(true);
   ofEnableAlphaBlending();
+  _gui.setup(_appParams.paramGroup);
+  ofAddListener(_appParams.paramGroup.parameterChangedE,
+                this, &ofApp::onParameterChanged);
+  _appParams.hasMinDist.addListener(this,
+                                    &ofApp::onParameterChangedB);
+  _paramsChanged = true;
+}
+
+void ofApp::onParameterChanged(ofAbstractParameter&) {
+  updateParameters();
+}
+
+void ofApp::onParameterChangedB(bool&) {
+  updateParameters();
+}
+
+void ofApp::onParameterChangedV2(ofVec2f&) {
+  updateParameters();
+}
+
+void ofApp::onParameterChangedI(int&) {
+  updateParameters();
+}
+
+void ofApp::updateParameters() {
+  _appParams.applyTo(_threshParams);
+  _paramsChanged = true;
 }
 
 void ofApp::update() {
+  if (_paramsChanged) {
+    _thresholder.configure(_threshParams);
+    _paramsChanged = false;
+  }
   float time = ofGetElapsedTimef();
   auto width = 2;
   auto height = 2;
@@ -51,6 +82,7 @@ void ofApp::update() {
 
 void ofApp::draw() {
   ofBackground(0);
+  _gui.draw();
   _cam.begin();
   ofPushMatrix();
   auto winSize = ofGetWindowSize();

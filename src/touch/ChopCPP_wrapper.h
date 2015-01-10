@@ -9,7 +9,7 @@
 #ifndef threshold_ChopCPP_wrapper_h
 #define threshold_ChopCPP_wrapper_h
 
-#ifdef WIN32
+#if defined(WIN32) || defined(_WIN64)
 
 #include <Windows.h>
 

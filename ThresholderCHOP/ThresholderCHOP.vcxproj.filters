@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ofxGui">
+      <UniqueIdentifier>{96a6962e-73b0-4c19-bfa6-dc1ad5083295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxXmlSettings">
+      <UniqueIdentifier>{38f64090-977d-487a-9b68-30dd97ef5508}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\app\AppParameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\app\Logging.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\app\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\app\ofApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\LineSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Parameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\PointSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Thresholder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\touch\ThresholderCHOP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\touch\TouchCommon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxBaseGui.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxButton.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxLabel.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxPanel.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSlider.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxToggle.cpp">
+      <Filter>ofxGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxml.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxBaseGui.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxButton.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxGui.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxGuiGroup.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxLabel.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxPanel.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSlider.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSliderGroup.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxToggle.h">
+      <Filter>ofxGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxml.h">
+      <Filter>ofxXmlSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h">
+      <Filter>ofxXmlSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\AppParameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\Logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\ofApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\LineSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Parameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\PointSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Thresholder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\touch\ChopCPP_wrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\touch\CHOP_CPlusPlusBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\touch\ThresholderCHOP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\touch\TouchCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

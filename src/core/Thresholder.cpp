@@ -8,6 +8,8 @@
 
 #include <vector>
 #include <ofMath.h>
+#include <math.h>
+#include <float.h>
 
 #include "Thresholder.h"
 #include "Parameters.h"
@@ -63,9 +65,15 @@ ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
   line.squareDistance = start.position.distanceSquared(end.position);
   line.closeness = 0;
   if (_params.hasMaxDist()) {
-    auto min = _params.hasMinDist() ? _params.minDist : 0;
-    line.closeness = ofMap(line.squareDistance,
-                           min, _params.maxDist, 1.0f, 0.0f);
+    auto minDist = _params.hasMinDist() ? _params.minDist : 0;
+    auto maxDist = _params.maxDist;
+    if (fabs(minDist - maxDist) < FLT_EPSILON ||
+        minDist >= maxDist) {
+      line.closeness = 1;
+    } else {
+      line.closeness = ofMap(line.squareDistance,
+                             minDist, maxDist, 1.0f, 0.0f);
+    }
   }
   return line;
 }

@@ -18,8 +18,8 @@ public:
   
   ThreshParameters();
   
-  bool hasMinDist() const { return minDist >= 0; }
-  bool hasMaxDist() const { return maxDist >= 0; }
+  bool hasMinDist() const { return minDist > 0; }
+  bool hasMaxDist() const { return maxDist > 0; }
   bool hasMaxLinesPerSource() const {
     return maxLinesPerSource > 0;
   }

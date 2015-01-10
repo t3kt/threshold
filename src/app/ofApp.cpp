@@ -34,24 +34,22 @@ void ofApp::setup() {
   ofAddListener(_appParams.paramGroup.parameterChangedE,
                 this, &ofApp::onParameterChanged);
   _appParams.hasMinDist.addListener(this,
-                                    &ofApp::onParameterChangedB);
+                                    &ofApp::onTypedParameterChanged<bool>);
+  _appParams.hasMaxDist.addListener(this,
+                                    &ofApp::onTypedParameterChanged<bool>);
+  _appParams.distRange.addListener(this,
+                                   &ofApp::onTypedParameterChanged<ofVec2f>);
+  _appParams.maxLines.addListener(this,
+                                  &ofApp::onTypedParameterChanged<int>);
+  _appParams.hasMaxPerSource.addListener(this,
+                                         &ofApp::onTypedParameterChanged<bool>);
+  _appParams.maxLinesPerSource.addListener(this,
+                                           &ofApp::onTypedParameterChanged<int>);
   _paramsChanged = true;
   _appParams.readFrom(_threshParams);
 }
 
 void ofApp::onParameterChanged(ofAbstractParameter&) {
-  updateParameters();
-}
-
-void ofApp::onParameterChangedB(bool&) {
-  updateParameters();
-}
-
-void ofApp::onParameterChangedV2(ofVec2f&) {
-  updateParameters();
-}
-
-void ofApp::onParameterChangedI(int&) {
   updateParameters();
 }
 

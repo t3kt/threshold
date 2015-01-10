@@ -29,10 +29,11 @@ public:
 private:
   void dumpToLog() const;
   void updateParameters();
-  void onParameterChanged(ofAbstractParameter& param);
-  void onParameterChangedB(bool&);
-  void onParameterChangedV2(ofVec2f&);
-  void onParameterChangedI(int&);
+  void onParameterChanged(ofAbstractParameter&);
+  template<typename T>
+  void onTypedParameterChanged(T&) {
+    updateParameters();
+  }
   
   bool _drawInputPoints;
   bool _drawThreshLines;

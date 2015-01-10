@@ -42,6 +42,9 @@
     <ClCompile Include="..\src\touch\TouchCommon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChopDllExports.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\core\Common.h">

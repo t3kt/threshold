@@ -205,8 +205,8 @@ static void outputLine(const ThreshLine& line,
   channels[OUT_TZ2][i] = line.end.z;
   channels[OUT_SQRDIST][i] = line.squareDistance;
   channels[OUT_CLOSENESS][i] = line.closeness;
-  channels[OUT_INDEX1][i] = line.start.index;
-  channels[OUT_INDEX2][i] = line.end.index;
+  channels[OUT_INDEX1][i] = static_cast<float>(line.start.index);
+  channels[OUT_INDEX2][i] = static_cast<float>(line.end.index);
   if (hasColor) {
     channels[OUT_R1][i] = line.start.r;
     channels[OUT_G1][i] = line.start.g;
@@ -227,7 +227,7 @@ void ThresholderCHOP::execute(const CHOP_Output *outputs,
     outputLine(dummy, outputs->channels, 0, _hasColor);
   } else {
     auto length = _lines.size();
-    for (int i = 0; i < length; ++i) {
+    for (std::size_t i = 0; i < length; ++i) {
       const auto& line = _lines[i];
       outputLine(line, outputs->channels, i, _hasColor);
     }

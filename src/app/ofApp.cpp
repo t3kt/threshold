@@ -11,19 +11,19 @@ void ofApp::setup() {
   int numPoints = 400;
   _pointsMesh.setMode(OF_PRIMITIVE_POINTS);
   for (int i = 0; i < numPoints; i++) {
-    ofVec3f noisePos = createRandomVec3f(1007000.342);
+    ofVec3f noisePos = createRandomVec3f(1007000.342f);
     ofVec3f pos = createSignedNoiseVec3f(-noisePos);
     ThreshPoint pt(pos, i);
     pt.color = i % 2 == 1
-      ? ofFloatColor(0, .4, .7)
-      : ofFloatColor(0, .9, .2);
+      ? ofFloatColor(0, .4f, .7f)
+      : ofFloatColor(0, .9f, .2f);
     _inputPoints.push_back(pt);
     _pointsMesh.addVertex(pos);
     _pointNoiseOffsets.push_back(noisePos);
   }
   _threshParams.maxLines = numPoints;
   _threshParams.minDist = 0;
-  _threshParams.maxDist = 0.1;
+  _threshParams.maxDist = 0.1f;
   _threshParams.maxLines = 10000;
   _thresholder.configure(_threshParams);
   _drawInputPoints = true;
@@ -64,14 +64,12 @@ void ofApp::update() {
     _thresholder.configure(_threshParams);
     _paramsChanged = false;
   }
-  float time = ofGetElapsedTimef();
-  auto width = 2;
-  auto height = 2;
-  auto pointStep = ofVec3f(0.02);
+  auto time = ofGetElapsedTimef();
+  auto pointStep = ofVec3f(0.02f);
   auto numPoints = _inputPoints.size();
   for (int i = 0; i < numPoints; i++) {
     auto& point = _inputPoints[i];
-    auto noisePos = _pointNoiseOffsets[i] + time * 0.3;
+    auto noisePos = _pointNoiseOffsets[i] + time * 0.3f;
     point.position += createSignedNoiseVec3f(noisePos) * pointStep;
     point.position = wrapVec(point.position, -1, 1);
     _pointsMesh.setVertex(i, point.position);

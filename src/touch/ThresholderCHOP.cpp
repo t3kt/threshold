@@ -13,6 +13,7 @@
 #include "Parameters.h"
 #include "Point.h"
 #include "Line.h"
+#include "PointSet.h"
 
 enum {
   SETTING_DISTRANGE,
@@ -36,8 +37,8 @@ enum {
   NUM_OUTS
 };
 
-static void setParameter(ThreshParameters* params,
-                         const CHOP_FloatInput& input) {
+static void setParameter(const CHOP_FloatInput& input,
+                         ThreshParameters* params) {
   switch (input.inputNumber) {
     case SETTING_DISTRANGE:
       params->minDist = input.values[0];
@@ -58,7 +59,7 @@ static ThreshParameters
 loadParameters(const CHOP_FloatInput* inputs) {
   ThreshParameters params;
   for (int i = 0; NUM_SETTINGS; ++i) {
-    setParameter(&params, inputs[i]);
+    setParameter(inputs[i], &params);
   }
   return params;
 }
@@ -73,37 +74,37 @@ hasEnoughInputs(const CHOP_InputArrays* inputs) {
   return true;
 }
 
-static bool
-loadPoints(PointSet* points, const CHOP_InputArrays* inputs) {
-  if (!hasEnoughInputs(inputs)) {
-    
-  }
-  const float* xInput = NULL;
-  const float* yInput = NULL;
-  const float* zInput = NULL;
-  auto chopIn = inputs->CHOPInputs[0];
-  for (int i = 0; chopIn.numChannels; ++i) {
-    const auto& name = chopIn.names[i];
-    const float* vals = chopIn.channels[i];
-    if (strcmp(name, "x") == 0) {
-      xInput = vals;
-    } else if (strcmp(name, "y") == 0) {
-      yInput = vals;
-    } else if (strcmp(name, "z") == 0) {
-      zInput = vals;
+static PointSet
+loadPoints(const CHOP_InputArrays* inputs) {
+  PointSet points;
+  if (hasEnoughInputs(inputs)) {
+    const float* xInput = NULL;
+    const float* yInput = NULL;
+    const float* zInput = NULL;
+    auto chopIn = inputs->CHOPInputs[0];
+    for (int i = 0; chopIn.numChannels; ++i) {
+      const auto& name = chopIn.names[i];
+      const float* vals = chopIn.channels[i];
+      if (strcmp(name, "x") == 0) {
+        xInput = vals;
+      } else if (strcmp(name, "y") == 0) {
+        yInput = vals;
+      } else if (strcmp(name, "z") == 0) {
+        zInput = vals;
+      }
+    }
+    if (xInput && yInput && zInput) {
+      for (int i = 0; chopIn.length; ++i) {
+        ThreshPoint point;
+        point.position.x = xInput[i];
+        point.position.y = yInput[i];
+        point.position.z = zInput[i];
+        point.index = i;
+        points.push_back(point);
+      }
     }
   }
-  if (!xInput || !yInput || !zInput)
-    return false;
-  for (int i = 0; chopIn.length; ++i) {
-    ThreshPoint point;
-    point.position.x = xInput[i];
-    point.position.y = yInput[i];
-    point.position.z = zInput[i];
-    point.index = i;
-    points->push_back(point);
-  }
-  return true;
+  return points;
 }
 
 static void
@@ -147,18 +148,53 @@ void ThresholderCHOP::getGeneralInfo(CHOP_GeneralInfo *ginfo)
 }
 
 bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
+  _lines.clear();
+  info->length = 0;
+  info->numChannels = NUM_OUTS;
+  PointSet points =  loadPoints(info->inputArrays);
+  if (points.empty())
+    return false;
+  ThreshParameters params = loadParameters(info->inputArrays->floatInputs);
+  _thresholder.configure(params);
+  _thresholder.generate(points, &_lines);
+  if (_lines.empty()) {
+    info->length = 1;
+  } else {
+    info->length = _lines.size();
+  }
   return true;
 }
 
 const char* ThresholderCHOP::getChannelName(int index,
                                             void *reserved) {
+  switch(index)
+  {
+    case OUT_TX1:
+      return "tx1";
+    case OUT_TY1:
+      return "ty1";
+    case OUT_TZ1:
+      return "tz1";
+    case OUT_TX2:
+      return "tx2";
+    case OUT_TY2:
+      return "ty2";
+    case OUT_TZ2:
+      return "tz2";
+    case OUT_SQRDIST:
+      return "sqrdist";
+    case OUT_INDEX1:
+      return "index1";
+    case OUT_INDEX2:
+      return "index2";
+  }
   return NULL;
 }
 
-void ThresholderCHOP::execute(const CHOP_Output *,
-                              const CHOP_InputArrays *,
+void ThresholderCHOP::execute(const CHOP_Output *outputs,
+                              const CHOP_InputArrays *inputs,
                               void *reserved) {
-  
+  outputValues(_lines, outputs);
 }
 
 int ThresholderCHOP::getNumInfoCHOPChans() {

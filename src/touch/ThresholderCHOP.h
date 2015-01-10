@@ -12,7 +12,6 @@
 #include "ChopCPP_wrapper.h"
 
 #include "Thresholder.h"
-#include "PointSet.h"
 #include "LineSet.h"
 
 class ThresholderCHOP : public CHOP_CPlusPlusBase {
@@ -24,8 +23,8 @@ public:
   bool		getOutputInfo(CHOP_OutputInfo* info) override;
   const char*	getChannelName(int index, void* reserved) override;
   
-  void		execute(const CHOP_Output*,
-                  const CHOP_InputArrays*,
+  void		execute(const CHOP_Output* outputs,
+                  const CHOP_InputArrays* inputs,
                   void* reserved) override;
   
   int			getNumInfoCHOPChans() override;
@@ -33,7 +32,6 @@ public:
                           CHOP_InfoCHOPChan *chan) override;
 private:
   Thresholder _thresholder;
-  PointSet _points;
   LineSet _lines;
 };
 

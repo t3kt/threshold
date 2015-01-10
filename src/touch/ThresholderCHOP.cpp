@@ -18,7 +18,7 @@ enum {
   SETTING_DISTRANGE,
   SETTING_MAXLINES,
   SETTING_MAXPERSOURCE,
-//  SETTING_SEPARATESOURCE,
+  //  SETTING_SEPARATESOURCE,
   NUM_SETTINGS
 };
 
@@ -123,16 +123,16 @@ outputValues(const LineSet& lines, const CHOP_Output* outputs) {
     auto length = lines.size();
     for (int i = 0; i < length; ++i) {
       const auto& line = lines[i];
-      outputs->channels[OUT_TX1][i] = line.start->position.x;
-      outputs->channels[OUT_TY1][i] = line.start->position.y;
-      outputs->channels[OUT_TZ1][i] = line.start->position.z;
-      outputs->channels[OUT_TX2][i] = line.end->position.x;
-      outputs->channels[OUT_TY2][i] = line.end->position.y;
-      outputs->channels[OUT_TZ2][i] = line.end->position.z;
+      outputs->channels[OUT_TX1][i] = line.start.position.x;
+      outputs->channels[OUT_TY1][i] = line.start.position.y;
+      outputs->channels[OUT_TZ1][i] = line.start.position.z;
+      outputs->channels[OUT_TX2][i] = line.end.position.x;
+      outputs->channels[OUT_TY2][i] = line.end.position.y;
+      outputs->channels[OUT_TZ2][i] = line.end.position.z;
       outputs->channels[OUT_SQRDIST][i] = line.squareDistance;
       outputs->channels[OUT_CLOSENESS][i] = line.closeness;
-      outputs->channels[OUT_INDEX1][i] = line.start->index;
-      outputs->channels[OUT_INDEX2][i] = line.end->index;
+      outputs->channels[OUT_INDEX1][i] = line.start.index;
+      outputs->channels[OUT_INDEX2][i] = line.end.index;
     }
   }
 }

@@ -12,6 +12,7 @@
 #include "ChopCPP_wrapper.h"
 
 #include "Thresholder.h"
+#include "PointSet.h"
 #include "LineSet.h"
 
 class ThresholderCHOP : public CHOP_CPlusPlusBase {
@@ -31,8 +32,13 @@ public:
   void		getInfoCHOPChan(int index,
                           CHOP_InfoCHOPChan *chan) override;
 private:
+  void loadParameters(const CHOP_FloatInput* inputs);
+  void loadPoints(const CHOP_InputArrays* inputs);
+  
   Thresholder _thresholder;
+  PointSet _points;
   LineSet _lines;
+  bool _hasColor;
 };
 
 #endif /* defined(__threshold__ThresholderCHOP__) */

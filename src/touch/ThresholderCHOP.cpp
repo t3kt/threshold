@@ -13,7 +13,6 @@
 #include "Parameters.h"
 #include "Point.h"
 #include "Line.h"
-#include "PointSet.h"
 
 enum {
   SETTING_DISTRANGE,
@@ -34,7 +33,21 @@ enum {
   OUT_CLOSENESS,
   OUT_INDEX1,
   OUT_INDEX2,
-  NUM_OUTS
+  //
+  OUT_R1,
+  OUT_G1,
+  OUT_B1,
+  OUT_A1,
+  OUT_R2,
+  OUT_G2,
+  OUT_B2,
+  OUT_A2
+};
+
+enum {
+  NUM_MAIN_OUTS = OUT_INDEX2 + 1,
+  NUM_COLOR_OUTS = 4 * 2,
+  NUM_TOTAL_OUTS = NUM_MAIN_OUTS + NUM_COLOR_OUTS
 };
 
 static void setParameter(const CHOP_FloatInput& input,
@@ -55,13 +68,13 @@ static void setParameter(const CHOP_FloatInput& input,
   }
 }
 
-static ThreshParameters
-loadParameters(const CHOP_FloatInput* inputs) {
+void
+ThresholderCHOP::loadParameters(const CHOP_FloatInput* inputs) {
   ThreshParameters params;
-  for (int i = 0; NUM_SETTINGS; ++i) {
+  for (int i = 0; i < NUM_SETTINGS; ++i) {
     setParameter(inputs[i], &params);
   }
-  return params;
+  _thresholder.configure(params);
 }
 
 static bool
@@ -74,66 +87,54 @@ hasEnoughInputs(const CHOP_InputArrays* inputs) {
   return true;
 }
 
-static PointSet
-loadPoints(const CHOP_InputArrays* inputs) {
-  PointSet points;
-  if (hasEnoughInputs(inputs)) {
-    const float* xInput = NULL;
-    const float* yInput = NULL;
-    const float* zInput = NULL;
-    auto chopIn = inputs->CHOPInputs[0];
-    for (int i = 0; chopIn.numChannels; ++i) {
-      const auto& name = chopIn.names[i];
-      const float* vals = chopIn.channels[i];
-      if (strcmp(name, "x") == 0) {
-        xInput = vals;
-      } else if (strcmp(name, "y") == 0) {
-        yInput = vals;
-      } else if (strcmp(name, "z") == 0) {
-        zInput = vals;
-      }
-    }
-    if (xInput && yInput && zInput) {
-      for (int i = 0; chopIn.length; ++i) {
-        ThreshPoint point;
-        point.position.x = xInput[i];
-        point.position.y = yInput[i];
-        point.position.z = zInput[i];
-        point.index = i;
-        points.push_back(point);
-      }
+void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
+  _points.clear();
+  if (!hasEnoughInputs(inputs))
+    return;
+  const float* xInput = NULL;
+  const float* yInput = NULL;
+  const float* zInput = NULL;
+  const float* rInput = NULL;
+  const float* gInput = NULL;
+  const float* bInput = NULL;
+  const float* aInput = NULL;
+  auto chopIn = inputs->CHOPInputs[0];
+  for (int i = 0; chopIn.numChannels; ++i) {
+    const auto& name = chopIn.names[i];
+    const float* vals = chopIn.channels[i];
+    if (strcmp(name, "x") == 0) {
+      xInput = vals;
+    } else if (strcmp(name, "y") == 0) {
+      yInput = vals;
+    } else if (strcmp(name, "z") == 0) {
+      zInput = vals;
+    } else if (strcmp(name, "r") == 0) {
+      rInput = vals;
+    } else if (strcmp(name, "g") == 0) {
+      gInput = vals;
+    } else if (strcmp(name, "b") == 0) {
+      bInput = vals;
+    } else if (strcmp(name, "a") == 0) {
+      aInput = vals;
     }
   }
-  return points;
-}
-
-static void
-outputValues(const LineSet& lines, const CHOP_Output* outputs) {
-  if (lines.empty()) {
-    outputs->channels[OUT_TX1][0] = 0;
-    outputs->channels[OUT_TY1][0] = 0;
-    outputs->channels[OUT_TZ1][0] = 0;
-    outputs->channels[OUT_TX2][0] = 0;
-    outputs->channels[OUT_TY2][0] = 0;
-    outputs->channels[OUT_TZ2][0] = 0;
-    outputs->channels[OUT_SQRDIST][0] = 0;
-    outputs->channels[OUT_CLOSENESS][0] = 0;
-    outputs->channels[OUT_INDEX1][0] = 0;
-    outputs->channels[OUT_INDEX2][0] = 0;
-  } else {
-    auto length = lines.size();
-    for (int i = 0; i < length; ++i) {
-      const auto& line = lines[i];
-      outputs->channels[OUT_TX1][i] = line.start.position.x;
-      outputs->channels[OUT_TY1][i] = line.start.position.y;
-      outputs->channels[OUT_TZ1][i] = line.start.position.z;
-      outputs->channels[OUT_TX2][i] = line.end.position.x;
-      outputs->channels[OUT_TY2][i] = line.end.position.y;
-      outputs->channels[OUT_TZ2][i] = line.end.position.z;
-      outputs->channels[OUT_SQRDIST][i] = line.squareDistance;
-      outputs->channels[OUT_CLOSENESS][i] = line.closeness;
-      outputs->channels[OUT_INDEX1][i] = line.start.index;
-      outputs->channels[OUT_INDEX2][i] = line.end.index;
+  if (xInput && yInput && zInput) {
+    if (rInput && gInput && bInput) {
+      _hasColor = true;
+    }
+    for (int i = 0; chopIn.length; ++i) {
+      ThreshPoint point;
+      point.position.x = xInput[i];
+      point.position.y = yInput[i];
+      point.position.z = zInput[i];
+      point.index = i;
+      if (_hasColor) {
+        point.color.r = rInput[i];
+        point.color.g = gInput[i];
+        point.color.b = bInput[i];
+        point.color.a = aInput ? aInput[0] : 1.0f;
+      }
+      _points.push_back(point);
     }
   }
 }
@@ -150,13 +151,14 @@ void ThresholderCHOP::getGeneralInfo(CHOP_GeneralInfo *ginfo)
 bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   _lines.clear();
   info->length = 0;
-  info->numChannels = NUM_OUTS;
-  PointSet points =  loadPoints(info->inputArrays);
-  if (points.empty())
+  loadPoints(info->inputArrays);
+  info->numChannels = NUM_MAIN_OUTS;
+  if (_hasColor)
+    info->numChannels += NUM_COLOR_OUTS;
+  if (_points.empty())
     return false;
-  ThreshParameters params = loadParameters(info->inputArrays->floatInputs);
-  _thresholder.configure(params);
-  _thresholder.generate(points, &_lines);
+  loadParameters(info->inputArrays->floatInputs);
+  _thresholder.generate(_points, &_lines);
   if (_lines.empty()) {
     info->length = 1;
   } else {
@@ -169,32 +171,67 @@ const char* ThresholderCHOP::getChannelName(int index,
                                             void *reserved) {
   switch(index)
   {
-    case OUT_TX1:
-      return "tx1";
-    case OUT_TY1:
-      return "ty1";
-    case OUT_TZ1:
-      return "tz1";
-    case OUT_TX2:
-      return "tx2";
-    case OUT_TY2:
-      return "ty2";
-    case OUT_TZ2:
-      return "tz2";
-    case OUT_SQRDIST:
-      return "sqrdist";
-    case OUT_INDEX1:
-      return "index1";
-    case OUT_INDEX2:
-      return "index2";
+    case OUT_TX1: return "tx1";
+    case OUT_TY1: return "ty1";
+    case OUT_TZ1: return "tz1";
+    case OUT_TX2: return "tx2";
+    case OUT_TY2: return "ty2";
+    case OUT_TZ2: return "tz2";
+    case OUT_SQRDIST: return "sqrdist";
+    case OUT_CLOSENESS: return "closeness";
+    case OUT_INDEX1: return "i1";
+    case OUT_INDEX2: return "i2";
+    case OUT_R1: return "r1";
+    case OUT_G1: return "g1";
+    case OUT_B1: return "b1";
+    case OUT_A1: return "a1";
+    case OUT_R2: return "r2";
+    case OUT_G2: return "g2";
+    case OUT_B2: return "b2";
+    case OUT_A2: return "a2";
   }
   return NULL;
+}
+
+static void outputLine(const ThreshLine& line,
+                       float** channels,
+                       int i,
+                       bool hasColor) {
+  channels[OUT_TX1][i] = line.start.position.x;
+  channels[OUT_TY1][i] = line.start.position.y;
+  channels[OUT_TZ1][i] = line.start.position.z;
+  channels[OUT_TX2][i] = line.end.position.x;
+  channels[OUT_TY2][i] = line.end.position.y;
+  channels[OUT_TZ2][i] = line.end.position.z;
+  channels[OUT_SQRDIST][i] = line.squareDistance;
+  channels[OUT_CLOSENESS][i] = line.closeness;
+  channels[OUT_INDEX1][i] = line.start.index;
+  channels[OUT_INDEX2][i] = line.end.index;
+  if (hasColor) {
+    channels[OUT_R1][i] = line.start.color.r;
+    channels[OUT_G1][i] = line.start.color.g;
+    channels[OUT_B1][i] = line.start.color.b;
+    channels[OUT_A1][i] = line.start.color.a;
+    channels[OUT_R2][i] = line.end.color.r;
+    channels[OUT_G2][i] = line.end.color.g;
+    channels[OUT_B2][i] = line.end.color.b;
+    channels[OUT_A2][i] = line.end.color.a;
+  }
 }
 
 void ThresholderCHOP::execute(const CHOP_Output *outputs,
                               const CHOP_InputArrays *inputs,
                               void *reserved) {
-  outputValues(_lines, outputs);
+  if (_lines.empty()) {
+    ThreshLine dummy;
+    outputLine(dummy, outputs->channels, 0, _hasColor);
+  } else {
+    auto length = _lines.size();
+    for (int i = 0; i < length; ++i) {
+      const auto& line = _lines[i];
+      outputLine(line, outputs->channels, i, _hasColor);
+    }
+  }
 }
 
 int ThresholderCHOP::getNumInfoCHOPChans() {

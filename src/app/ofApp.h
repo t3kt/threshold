@@ -2,6 +2,7 @@
 
 #include <ofMain.h>
 #include <ofxGui.h>
+#include <ofxVboParticles.h>
 #include <vector>
 
 #include "Thresholder.h"
@@ -47,4 +48,5 @@ private:
   std::vector<ofVec3f> _pointNoiseOffsets;
   ofEasyCam _cam;
   ofxPanel _gui;
+  ofxVboParticles *_particles;
 };

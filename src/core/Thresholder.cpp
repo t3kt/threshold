@@ -60,8 +60,8 @@ void ThresholderImpl::generate(const PointSet &points,
 ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
                                        const ThreshPoint &end) {
   ThreshLine line;
-  line.start = &start;
-  line.end = &end;
+  line.start = start;
+  line.end = end;
   line.squareDistance = start.position.distanceSquared(end.position);
   line.closeness = 0;
   if (_params.hasMaxDist()) {

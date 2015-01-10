@@ -13,8 +13,8 @@
 
 class ThreshLine {
 public:
-  const ThreshPoint* start;
-  const ThreshPoint* end;
+  ThreshPoint start;
+  ThreshPoint end;
   float squareDistance;
   float closeness;
 };

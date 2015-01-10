@@ -13,7 +13,9 @@ void ofApp::setup() {
   for (int i = 0; i < numPoints; i++) {
     ofVec3f noisePos = createRandomVec3f(1007000.342f);
     ofVec3f pos = createSignedNoiseVec3f(-noisePos);
-    ThreshPoint pt(pos, i);
+    ThreshPoint pt;
+    pt.position = pos;
+    pt.index = i;
     pt.color = i % 2 == 1
       ? ofFloatColor(0, .4f, .7f)
       : ofFloatColor(0, .9f, .2f);
@@ -109,12 +111,12 @@ void ofApp::draw() {
     linesMesh.setMode(OF_PRIMITIVE_LINES);
     for (const auto& line : _threshLines) {
       auto alpha = line.closeness;
-      auto color1 = line.start->color;
-      auto color2 = line.end->color;
+      auto color1 = line.start.color;
+      auto color2 = line.end.color;
       color1.a = color2.a = alpha;
-      linesMesh.addVertex(line.start->position);
+      linesMesh.addVertex(line.start.position);
       linesMesh.addColor(color1);
-      linesMesh.addVertex(line.end->position);
+      linesMesh.addVertex(line.end.position);
       linesMesh.addColor(color2);
     }
     ofNoFill();

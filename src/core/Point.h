@@ -15,9 +15,6 @@
 
 class ThreshPoint {
 public:
-  ThreshPoint();
-  ThreshPoint(const ofVec3f& pos, int i);
-  
   int index;
   ofVec3f position;
   ofFloatColor color;

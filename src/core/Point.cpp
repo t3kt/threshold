@@ -8,7 +8,3 @@
 
 #include "Point.h"
 
-ThreshPoint::ThreshPoint() { }
-
-ThreshPoint::ThreshPoint(const ofVec3f& pos, int i)
-: position(pos), index(i) { }

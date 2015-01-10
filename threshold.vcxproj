@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>threshold</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\of_v0.8.4_vs_release\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\of_v0.8.4_vs_release\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\of_v0.8.4_vs_release\addons\ofxGui\libs;..\of_v0.8.4_vs_release\addons\ofxGui\src;..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs;..\of_v0.8.4_vs_release\addons\ofxXmlSettings\src;.\src\touch;.\src\app;.\src\core</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\of_v0.8.4_vs_release\addons\ofxGui\libs;..\of_v0.8.4_vs_release\addons\ofxGui\src;..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs;..\of_v0.8.4_vs_release\addons\ofxXmlSettings\src;.\src\touch;.\src\app;.\src\core</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxBaseGui.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxButton.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxLabel.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxPanel.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSlider.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxml.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
+    <ClCompile Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+    <ClCompile Include="src\app\AppParameters.cpp" />
+    <ClCompile Include="src\app\Logging.cpp" />
+    <ClCompile Include="src\app\main.cpp" />
+    <ClCompile Include="src\app\ofApp.cpp" />
+    <ClCompile Include="src\core\Common.cpp" />
+    <ClCompile Include="src\core\Line.cpp" />
+    <ClCompile Include="src\core\LineSet.cpp" />
+    <ClCompile Include="src\core\Parameters.cpp" />
+    <ClCompile Include="src\core\Point.cpp" />
+    <ClCompile Include="src\core\PointSet.cpp" />
+    <ClCompile Include="src\core\Thresholder.cpp" />
+    <ClCompile Include="src\touch\ThresholderCHOP.cpp" />
+    <ClCompile Include="src\touch\TouchCommon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxBaseGui.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxButton.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxGui.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxGuiGroup.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxLabel.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxPanel.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSlider.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxSliderGroup.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="..\of_v0.8.4_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
+    <ClInclude Include="src\app\AppParameters.h" />
+    <ClInclude Include="src\app\Logging.h" />
+    <ClInclude Include="src\app\ofApp.h" />
+    <ClInclude Include="src\core\Common.h" />
+    <ClInclude Include="src\core\Line.h" />
+    <ClInclude Include="src\core\LineSet.h" />
+    <ClInclude Include="src\core\Parameters.h" />
+    <ClInclude Include="src\core\Point.h" />
+    <ClInclude Include="src\core\PointSet.h" />
+    <ClInclude Include="src\core\Thresholder.h" />
+    <ClInclude Include="src\touch\ChopCPP_wrapper.h" />
+    <ClInclude Include="src\touch\CHOP_CPlusPlusBase.h" />
+    <ClInclude Include="src\touch\ThresholderCHOP.h" />
+    <ClInclude Include="src\touch\TouchCommon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\of_v0.8.4_vs_release\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
+      <Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

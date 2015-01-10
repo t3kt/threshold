@@ -124,15 +124,15 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
     }
     for (int i = 0; chopIn.length; ++i) {
       ThreshPoint point;
-      point.position.x = xInput[i];
-      point.position.y = yInput[i];
-      point.position.z = zInput[i];
+      point.x = xInput[i];
+      point.y = yInput[i];
+      point.z = zInput[i];
       point.index = i;
       if (_hasColor) {
-        point.color.r = rInput[i];
-        point.color.g = gInput[i];
-        point.color.b = bInput[i];
-        point.color.a = aInput ? aInput[0] : 1.0f;
+        point.r = rInput[i];
+        point.g = gInput[i];
+        point.b = bInput[i];
+        point.a = aInput ? aInput[0] : 1.0f;
       }
       _points.push_back(point);
     }
@@ -197,25 +197,25 @@ static void outputLine(const ThreshLine& line,
                        float** channels,
                        int i,
                        bool hasColor) {
-  channels[OUT_TX1][i] = line.start.position.x;
-  channels[OUT_TY1][i] = line.start.position.y;
-  channels[OUT_TZ1][i] = line.start.position.z;
-  channels[OUT_TX2][i] = line.end.position.x;
-  channels[OUT_TY2][i] = line.end.position.y;
-  channels[OUT_TZ2][i] = line.end.position.z;
+  channels[OUT_TX1][i] = line.start.x;
+  channels[OUT_TY1][i] = line.start.y;
+  channels[OUT_TZ1][i] = line.start.z;
+  channels[OUT_TX2][i] = line.end.x;
+  channels[OUT_TY2][i] = line.end.y;
+  channels[OUT_TZ2][i] = line.end.z;
   channels[OUT_SQRDIST][i] = line.squareDistance;
   channels[OUT_CLOSENESS][i] = line.closeness;
   channels[OUT_INDEX1][i] = line.start.index;
   channels[OUT_INDEX2][i] = line.end.index;
   if (hasColor) {
-    channels[OUT_R1][i] = line.start.color.r;
-    channels[OUT_G1][i] = line.start.color.g;
-    channels[OUT_B1][i] = line.start.color.b;
-    channels[OUT_A1][i] = line.start.color.a;
-    channels[OUT_R2][i] = line.end.color.r;
-    channels[OUT_G2][i] = line.end.color.g;
-    channels[OUT_B2][i] = line.end.color.b;
-    channels[OUT_A2][i] = line.end.color.a;
+    channels[OUT_R1][i] = line.start.r;
+    channels[OUT_G1][i] = line.start.g;
+    channels[OUT_B1][i] = line.start.b;
+    channels[OUT_A1][i] = line.start.a;
+    channels[OUT_R2][i] = line.end.r;
+    channels[OUT_G2][i] = line.end.g;
+    channels[OUT_B2][i] = line.end.b;
+    channels[OUT_A2][i] = line.end.a;
   }
 }
 

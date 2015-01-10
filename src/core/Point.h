@@ -9,15 +9,11 @@
 #ifndef __threshold__Point__
 #define __threshold__Point__
 
-#include <iostream>
-#include <ofVec3f.h>
-#include <ofColor.h>
-
 class ThreshPoint {
 public:
   int index;
-  ofVec3f position;
-  ofFloatColor color;
+  float x, y, z;
+  float r, g, b, a;
 };
 
 #endif /* defined(__threshold__Point__) */

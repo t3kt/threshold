@@ -13,12 +13,13 @@
 #include "PointSet.h"
 #include "LineSet.h"
 #include "Common.h"
+#include "AppCommon.h"
 
 std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt) {
   os << "Point{#" << pt.index;
-  const auto& pos = pt.position;
-  os << ", (" << pos.x << ", " << pos.y << ", " << pos.z << ")";
-  os << ", color:" << pt.color;
+  os << ", (" << pt.x << ", " << pt.y << ", " << pt.z << ")";
+  os << ", color:(" << pt.r << ", " << pt.g << ", " << pt.b
+                    << ", " << pt.a << ")";
   os << "}";
   return os;
 }

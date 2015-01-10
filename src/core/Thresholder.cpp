@@ -6,8 +6,6 @@
 //
 //
 
-#include <vector>
-#include <ofMath.h>
 #include <math.h>
 #include <float.h>
 
@@ -57,12 +55,31 @@ void ThresholderImpl::generate(const PointSet &points,
   }
 }
 
+static float distanceSquared(float x1, float y1, float z1,
+                             float x2, float y2, float z2) {
+  float vx = x2 - x1;
+  float vy = y2 - y1;
+  float vz = z2 - z1;
+  return vx*vx + vy*vy + vz*vz;
+}
+static float mapRange(float value, float inputMin, float inputMax,
+                      float outputMin, float outputMax) {
+  
+  if (fabs(inputMin - inputMax) < FLT_EPSILON){
+    return outputMin;
+  } else {
+    float outVal = ((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin);
+    return outVal;
+  }
+}
+
 ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
                                        const ThreshPoint &end) {
   ThreshLine line;
   line.start = start;
   line.end = end;
-  line.squareDistance = start.position.distanceSquared(end.position);
+  line.squareDistance = distanceSquared(start.x, start.y, start.z,
+                                        end.x, end.y, end.z);
   line.closeness = 0;
   if (_params.hasMaxDist()) {
     auto minDist = _params.hasMinDist() ? _params.minDist : 0;
@@ -71,8 +88,8 @@ ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
         minDist >= maxDist) {
       line.closeness = 1;
     } else {
-      line.closeness = ofMap(line.squareDistance,
-                             minDist, maxDist, 1.0f, 0.0f);
+      line.closeness = mapRange(line.squareDistance,
+                                minDist, maxDist, 1.0f, 0.0f);
     }
   }
   return line;

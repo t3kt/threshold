@@ -16,6 +16,7 @@
 		329F68D71A5CC73F00B1FED7 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68D51A5CC73F00B1FED7 /* Point.cpp */; };
 		329F68DA1A5CC8A300B1FED7 /* LineSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68D81A5CC8A300B1FED7 /* LineSet.cpp */; };
 		329F68DD1A5CC93E00B1FED7 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68DB1A5CC93E00B1FED7 /* Line.cpp */; };
+		32BD669B1A61D0E600544ED2 /* AppCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32BD66991A61D0E600544ED2 /* AppCommon.cpp */; };
 		32E054BB1A5CD4D0001CAC3A /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054B91A5CD4D0001CAC3A /* Parameters.cpp */; };
 		32E054BF1A5CDA95001CAC3A /* PointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054BD1A5CDA95001CAC3A /* PointSet.cpp */; };
 		32E054C21A5E2DB2001CAC3A /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054C01A5E2DB2001CAC3A /* Common.cpp */; };
@@ -98,6 +99,8 @@
 		329F68D91A5CC8A300B1FED7 /* LineSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineSet.h; path = core/LineSet.h; sourceTree = "<group>"; };
 		329F68DB1A5CC93E00B1FED7 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Line.cpp; path = core/Line.cpp; sourceTree = "<group>"; };
 		329F68DC1A5CC93E00B1FED7 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Line.h; path = core/Line.h; sourceTree = "<group>"; };
+		32BD66991A61D0E600544ED2 /* AppCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppCommon.cpp; path = app/AppCommon.cpp; sourceTree = "<group>"; };
+		32BD669A1A61D0E600544ED2 /* AppCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCommon.h; path = app/AppCommon.h; sourceTree = "<group>"; };
 		32E054B91A5CD4D0001CAC3A /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Parameters.cpp; path = core/Parameters.cpp; sourceTree = "<group>"; };
 		32E054BA1A5CD4D0001CAC3A /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameters.h; path = core/Parameters.h; sourceTree = "<group>"; };
 		32E054BD1A5CDA95001CAC3A /* PointSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointSet.cpp; path = core/PointSet.cpp; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 				32E054C51A5F8C14001CAC3A /* AppParameters.h */,
 				32E054C81A60AB3B001CAC3A /* Logging.cpp */,
 				32E054C91A60AB3B001CAC3A /* Logging.h */,
+				32BD66991A61D0E600544ED2 /* AppCommon.cpp */,
+				32BD669A1A61D0E600544ED2 /* AppCommon.h */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -464,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32BD669B1A61D0E600544ED2 /* AppCommon.cpp in Sources */,
 				329F68CC1A5CC64300B1FED7 /* ofApp.cpp in Sources */,
 				32E054BB1A5CD4D0001CAC3A /* Parameters.cpp in Sources */,
 				32E054D91A60D15E001CAC3A /* ThresholderCHOP.cpp in Sources */,

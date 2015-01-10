@@ -7,9 +7,3 @@
 //
 
 #include "PointSet.h"
-#include "Common.h"
-
-std::ostream& operator<<(std::ostream& os, const PointSet& points) {
-  outputSet(os, points, "PointSet");
-  return os << std::endl;
-}

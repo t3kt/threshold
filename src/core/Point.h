@@ -23,6 +23,4 @@ public:
   ofFloatColor color;
 };
 
-std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt);
-
 #endif /* defined(__threshold__Point__) */

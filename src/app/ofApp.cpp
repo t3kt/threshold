@@ -5,6 +5,7 @@
 #include "Parameters.h"
 #include "PointSet.h"
 #include "Common.h"
+#include "Logging.h"
 
 void ofApp::setup() {
   int numPoints = 400;

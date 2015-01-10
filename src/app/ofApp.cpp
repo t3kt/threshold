@@ -90,13 +90,15 @@ void ofApp::draw() {
   
   if (_drawInputPoints) {
     ofPushStyle();
-    ofSetColor(0, 0, 255);
     ofFill();
-    float radius = .005;
+    float radius = _appParams.pointSize.get();
+    float opacity = _appParams.pointOpacity.get();
     auto numPoints = _inputPoints.size();
     for (int i = 0; i < numPoints; i++) {
       const auto& vertex = _inputPoints[i];
-      ofSetColor(vertex.color);
+      auto color = vertex.color;
+      color.a = opacity;
+      ofSetColor(color);
       ofDrawSphere(vertex.position, radius);
     }
     ofPopStyle();
@@ -118,14 +120,6 @@ void ofApp::draw() {
     }
     ofNoFill();
     linesMesh.drawWireframe();
-    ofPopStyle();
-  }
-  
-  {
-    ofPushStyle();
-    ofNoFill();
-    ofSetColor(255, 0, 255, 63);
-    ofDrawBox(1);
     ofPopStyle();
   }
   

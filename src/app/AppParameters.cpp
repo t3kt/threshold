@@ -18,16 +18,20 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(distRange.set("Distance Range",
                                ofVec2f(0, .5),
                                ofVec2f(0.000000001, 0.000000001),
-                               ofVec2f(4, 4)));
+                               ofVec2f(1, 1)));
   paramGroup.add(maxLines.set("Max Lines", 1000, 1, 10000));
   paramGroup.add(hasMaxPerSource.set("Max Per Source?", false));
   paramGroup.add(maxLinesPerSource.set("Max Lines Per Source", 10, 1, 100));
+  paramGroup.add(pointOpacity.set("Point Opacity", .6, 0, 1));
+  paramGroup.add(pointSize.set("Point Size", 0.005, 0.0001, 0.02));
   hasMinDist.enableEvents();
   hasMaxDist.enableEvents();
   distRange.enableEvents();
   maxLines.enableEvents();
   hasMaxPerSource.enableEvents();
   maxLinesPerSource.enableEvents();
+  pointOpacity.enableEvents();
+  pointSize.enableEvents();
 }
 
 void ThreshAppParameters::applyTo(ThreshParameters &params) const {

@@ -10,27 +10,13 @@
 #include <float.h>
 
 #include "Thresholder.h"
-#include "Parameters.h"
-#include "LineSet.h"
-#include "PointSet.h"
 
-class ThresholderImpl {
-public:
-  void configure(const ThreshParameters& params);
-  void generate(const PointSet& points, LineSet* lines);
-private:
-  ThreshLine createLine(const ThreshPoint& start,
-                        const ThreshPoint& end);
-  bool testLine(const ThreshLine& line);
-  ThreshParameters _params;
-};
-
-void ThresholderImpl::configure(const ThreshParameters &params) {
+void Thresholder::configure(const ThreshParameters &params) {
   _params = params;
 }
 
-void ThresholderImpl::generate(const PointSet &points,
-                               LineSet *lines) {
+void Thresholder::generate(const PointSet &points,
+                           LineSet *lines) {
   for (int indexA = 0; indexA < points.size(); indexA++) {
     const auto& pointA = points[indexA];
     int linesFromPointA = 0;
@@ -73,8 +59,8 @@ static float mapRange(float value, float inputMin, float inputMax,
   }
 }
 
-ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
-                                       const ThreshPoint &end) {
+ThreshLine Thresholder::createLine(const ThreshPoint &start,
+                                   const ThreshPoint &end) {
   ThreshLine line;
   line.start = start;
   line.end = end;
@@ -95,7 +81,7 @@ ThreshLine ThresholderImpl::createLine(const ThreshPoint &start,
   return line;
 }
 
-bool ThresholderImpl::testLine(const ThreshLine &line) {
+bool Thresholder::testLine(const ThreshLine &line) {
   auto dist = line.squareDistance;
   if (_params.hasMinDist() && dist < _params.minDist) {
     return false;
@@ -104,17 +90,6 @@ bool ThresholderImpl::testLine(const ThreshLine &line) {
     return false;
   }
   return true;
-}
-
-void Thresholder::configure(const ThreshParameters& params) {
-  if (!_impl)
-    _impl.reset(new ThresholderImpl());
-  _impl->configure(params);
-}
-
-void Thresholder::generate(const PointSet &points, LineSet *lines) {
-  if (_impl)
-    _impl->generate(points, lines);
 }
 
 LineSet Thresholder::generate(const PointSet &points) {

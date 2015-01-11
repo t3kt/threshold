@@ -10,14 +10,9 @@
 #define __threshold__Thresholder__
 
 #include "Common.h"
-
-class ThreshParameters;
-class ThreshPoint;
-class ThreshLine;
-class LineSet;
-class PointSet;
-
-class ThresholderImpl;
+#include "Parameters.h"
+#include "LineSet.h"
+#include "PointSet.h"
 
 class Thresholder {
 public:
@@ -25,7 +20,11 @@ public:
   void generate(const PointSet& points, LineSet* lines);
   LineSet generate(const PointSet& points);
 private:
-  std::shared_ptr<ThresholderImpl> _impl;
+  ThreshLine createLine(const ThreshPoint& start,
+                        const ThreshPoint& end);
+  bool testLine(const ThreshLine& line);
+  
+  ThreshParameters _params;
 };
 
 #endif /* defined(__threshold__Thresholder__) */

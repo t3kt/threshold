@@ -47,7 +47,7 @@ void setPointPos(ThreshPoint& point, const ofVec3f& pos) {
 }
 
 ofFloatColor getPointColor(const ThreshPoint& point) {
-  return ofFloatColor(point.r, point.g, point.g, point.a);
+  return ofFloatColor(point.r, point.g, point.b, point.a);
 }
 
 void setPointColor(ThreshPoint& point, const ofFloatColor& color) {

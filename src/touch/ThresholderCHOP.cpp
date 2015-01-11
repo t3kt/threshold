@@ -99,7 +99,7 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
   const float* bInput = NULL;
   const float* aInput = NULL;
   auto chopIn = inputs->CHOPInputs[0];
-  for (int i = 0; chopIn.numChannels; ++i) {
+  for (int i = 0; i < chopIn.numChannels; ++i) {
     const auto& name = chopIn.names[i];
     const float* vals = chopIn.channels[i];
     if (strcmp(name, "x") == 0) {
@@ -119,10 +119,8 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
     }
   }
   if (xInput && yInput && zInput) {
-    if (rInput && gInput && bInput) {
-      _hasColor = true;
-    }
-    for (int i = 0; chopIn.length; ++i) {
+    _hasColor = rInput && gInput && bInput;
+    for (int i = 0; i < chopIn.length; ++i) {
       ThreshPoint point;
       point.x = xInput[i];
       point.y = yInput[i];
@@ -162,7 +160,7 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   if (_lines.empty()) {
     info->length = 1;
   } else {
-    info->length = _lines.size();
+    info->length = static_cast<int>(_lines.size());
   }
   return true;
 }
@@ -195,7 +193,7 @@ const char* ThresholderCHOP::getChannelName(int index,
 
 static void outputLine(const ThreshLine& line,
                        float** channels,
-                       int i,
+                       std::size_t i,
                        bool hasColor) {
   channels[OUT_TX1][i] = line.start.x;
   channels[OUT_TY1][i] = line.start.y;

@@ -32,6 +32,13 @@ ThreshAppParameters::ThreshAppParameters() {
   maxLinesPerSource.enableEvents();
   pointOpacity.enableEvents();
   pointSize.enableEvents();
+  
+  ofParameterGroup postParams;
+  postParams.setName("Post-Processing");
+  postParams.add(postParams);
+  paramGroup.add(enableBloom.set("Bloom?", false));
+  paramGroup.add(enableKaliedoscope.set("Kaleidoscope?", false));
+  paramGroup.add(kaliedoscopeSegments.set("Kaleidoscope Segments", 3., 0., 12.));
 }
 
 void ThreshAppParameters::applyTo(ThreshParameters &params) const {

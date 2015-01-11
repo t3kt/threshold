@@ -52,6 +52,9 @@ void ofApp::setup() {
                                            &ofApp::onTypedParameterChanged<int>);
   _paramsChanged = true;
   _appParams.readFrom(_threshParams);
+  _postProc.init(ofGetWidth(), ofGetHeight());
+  _bloom = _postProc.createPass<BloomPass>();
+  _kaleidoscope = _postProc.createPass<KaleidoscopePass>();
 }
 
 void ofApp::onParameterChanged(ofAbstractParameter&) {
@@ -82,12 +85,17 @@ void ofApp::update() {
   }
   _threshLines.clear();
   _thresholder.generate(_inputPoints, &_threshLines);
+  _bloom->setEnabled(_appParams.enableBloom.get());
+  _kaleidoscope->setEnabled(_appParams.enableKaliedoscope.get());
+  _kaleidoscope->setSegments(_appParams.kaliedoscopeSegments.get());
 }
 
 void ofApp::draw() {
   ofBackground(0);
-  _gui.draw();
-  _cam.begin();
+  glPushAttrib(GL_ENABLE_BIT);
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+  _postProc.begin(_cam);
   ofPushMatrix();
   auto winSize = ofGetWindowSize();
   auto size = ::min(winSize.x, winSize.y) / 2;
@@ -129,7 +137,9 @@ void ofApp::draw() {
   }
   
   ofPopMatrix();
-  _cam.end();
+  _postProc.end();
+  glPopAttrib();
+  _gui.draw();
 }
 
 void ofApp::keyPressed(int key) {

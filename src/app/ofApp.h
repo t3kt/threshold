@@ -2,6 +2,7 @@
 
 #include <ofMain.h>
 #include <ofxGui.h>
+#include <ofxPostProcessing.h>
 #include <vector>
 
 #include "Thresholder.h"
@@ -45,6 +46,9 @@ private:
   PointSet _inputPoints;
   LineSet _threshLines;
   std::vector<ofVec3f> _pointNoiseOffsets;
-  ofEasyCam _cam;
   ofxPanel _gui;
+  ofEasyCam _cam;
+  ofxPostProcessing _postProc;
+  shared_ptr<BloomPass> _bloom;
+  shared_ptr<KaleidoscopePass> _kaleidoscope;
 };

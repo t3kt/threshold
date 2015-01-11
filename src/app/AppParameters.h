@@ -32,6 +32,10 @@ public:
   ofParameter<float> pointOpacity;
   ofParameter<float> pointSize;
   
+  ofParameter<bool> enableBloom;
+  ofParameter<bool> enableKaliedoscope;
+  ofParameter<float> kaliedoscopeSegments;
+  
   ofParameterGroup paramGroup;
 };
 

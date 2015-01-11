@@ -9,7 +9,7 @@
 #ifndef __threshold__Thresholder__
 #define __threshold__Thresholder__
 
-#include <ofTypes.h>
+#include "Common.h"
 
 class ThreshParameters;
 class ThreshPoint;
@@ -25,7 +25,7 @@ public:
   void generate(const PointSet& points, LineSet* lines);
   LineSet generate(const PointSet& points);
 private:
-  ofPtr<ThresholderImpl> _impl;
+  std::shared_ptr<ThresholderImpl> _impl;
 };
 
 #endif /* defined(__threshold__Thresholder__) */

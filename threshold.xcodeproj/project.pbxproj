@@ -16,11 +16,14 @@
 		329F68D71A5CC73F00B1FED7 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68D51A5CC73F00B1FED7 /* Point.cpp */; };
 		329F68DA1A5CC8A300B1FED7 /* LineSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68D81A5CC8A300B1FED7 /* LineSet.cpp */; };
 		329F68DD1A5CC93E00B1FED7 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68DB1A5CC93E00B1FED7 /* Line.cpp */; };
+		32BD669B1A61D0E600544ED2 /* AppCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32BD66991A61D0E600544ED2 /* AppCommon.cpp */; };
 		32E054BB1A5CD4D0001CAC3A /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054B91A5CD4D0001CAC3A /* Parameters.cpp */; };
 		32E054BF1A5CDA95001CAC3A /* PointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054BD1A5CDA95001CAC3A /* PointSet.cpp */; };
 		32E054C21A5E2DB2001CAC3A /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054C01A5E2DB2001CAC3A /* Common.cpp */; };
 		32E054C61A5F8C14001CAC3A /* AppParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054C41A5F8C14001CAC3A /* AppParameters.cpp */; };
 		32E054CA1A60AB3B001CAC3A /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054C81A60AB3B001CAC3A /* Logging.cpp */; };
+		32E054D91A60D15E001CAC3A /* ThresholderCHOP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054D71A60D15E001CAC3A /* ThresholderCHOP.cpp */; };
+		32E054DC1A60D34D001CAC3A /* TouchCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E054DA1A60D34D001CAC3A /* TouchCommon.cpp */; };
 		66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE74B76815262F7E72DB951 /* ofxLabel.cpp */; };
 		7EFCFE727D9DE492780174E1 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4FBB646797B9F2C403446BE /* ofxXmlSettings.cpp */; };
 		8E4B38BFD068409CC33E8EF4 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03848B7C0EDDE6BED9783E0C /* tinyxmlerror.cpp */; };
@@ -96,6 +99,8 @@
 		329F68D91A5CC8A300B1FED7 /* LineSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineSet.h; path = core/LineSet.h; sourceTree = "<group>"; };
 		329F68DB1A5CC93E00B1FED7 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Line.cpp; path = core/Line.cpp; sourceTree = "<group>"; };
 		329F68DC1A5CC93E00B1FED7 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Line.h; path = core/Line.h; sourceTree = "<group>"; };
+		32BD66991A61D0E600544ED2 /* AppCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppCommon.cpp; path = app/AppCommon.cpp; sourceTree = "<group>"; };
+		32BD669A1A61D0E600544ED2 /* AppCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCommon.h; path = app/AppCommon.h; sourceTree = "<group>"; };
 		32E054B91A5CD4D0001CAC3A /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Parameters.cpp; path = core/Parameters.cpp; sourceTree = "<group>"; };
 		32E054BA1A5CD4D0001CAC3A /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameters.h; path = core/Parameters.h; sourceTree = "<group>"; };
 		32E054BD1A5CDA95001CAC3A /* PointSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointSet.cpp; path = core/PointSet.cpp; sourceTree = "<group>"; };
@@ -106,6 +111,12 @@
 		32E054C51A5F8C14001CAC3A /* AppParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppParameters.h; path = app/AppParameters.h; sourceTree = "<group>"; };
 		32E054C81A60AB3B001CAC3A /* Logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logging.cpp; path = app/Logging.cpp; sourceTree = "<group>"; };
 		32E054C91A60AB3B001CAC3A /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logging.h; path = app/Logging.h; sourceTree = "<group>"; };
+		32E054D41A60D0C5001CAC3A /* CHOP_CPlusPlusBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHOP_CPlusPlusBase.h; path = touch/CHOP_CPlusPlusBase.h; sourceTree = "<group>"; };
+		32E054D61A60D12C001CAC3A /* ChopCPP_wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChopCPP_wrapper.h; path = touch/ChopCPP_wrapper.h; sourceTree = "<group>"; };
+		32E054D71A60D15E001CAC3A /* ThresholderCHOP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThresholderCHOP.cpp; path = touch/ThresholderCHOP.cpp; sourceTree = "<group>"; };
+		32E054D81A60D15E001CAC3A /* ThresholderCHOP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThresholderCHOP.h; path = touch/ThresholderCHOP.h; sourceTree = "<group>"; };
+		32E054DA1A60D34D001CAC3A /* TouchCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TouchCommon.cpp; path = touch/TouchCommon.cpp; sourceTree = "<group>"; };
+		32E054DB1A60D34D001CAC3A /* TouchCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchCommon.h; path = touch/TouchCommon.h; sourceTree = "<group>"; };
 		3413947B945ACD229F00DBBE /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSliderGroup.cpp; path = ../of_v0.8.4_osx_release/addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
 		3877F60E4A0079027579DB8A /* tinyxmlparser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlparser.cpp; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
 		39783A9656B1D4A78782703C /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../of_v0.8.4_osx_release/addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
@@ -192,6 +203,8 @@
 				32E054C51A5F8C14001CAC3A /* AppParameters.h */,
 				32E054C81A60AB3B001CAC3A /* Logging.cpp */,
 				32E054C91A60AB3B001CAC3A /* Logging.h */,
+				32BD66991A61D0E600544ED2 /* AppCommon.cpp */,
+				32BD669A1A61D0E600544ED2 /* AppCommon.h */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -215,6 +228,19 @@
 				32E054C11A5E2DB2001CAC3A /* Common.h */,
 			);
 			name = core;
+			sourceTree = "<group>";
+		};
+		32E054D51A60D0CA001CAC3A /* touch */ = {
+			isa = PBXGroup;
+			children = (
+				32E054D41A60D0C5001CAC3A /* CHOP_CPlusPlusBase.h */,
+				32E054D61A60D12C001CAC3A /* ChopCPP_wrapper.h */,
+				32E054D71A60D15E001CAC3A /* ThresholderCHOP.cpp */,
+				32E054D81A60D15E001CAC3A /* ThresholderCHOP.h */,
+				32E054DA1A60D34D001CAC3A /* TouchCommon.cpp */,
+				32E054DB1A60D34D001CAC3A /* TouchCommon.h */,
+			);
+			name = touch;
 			sourceTree = "<group>";
 		};
 		480A780D8D0308AE4A368801 /* ofxGui */ = {
@@ -340,6 +366,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				32E054D51A60D0CA001CAC3A /* touch */,
 				329F68CE1A5CC65800B1FED7 /* core */,
 				329F68CD1A5CC64900B1FED7 /* app */,
 			);
@@ -442,8 +469,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32BD669B1A61D0E600544ED2 /* AppCommon.cpp in Sources */,
 				329F68CC1A5CC64300B1FED7 /* ofApp.cpp in Sources */,
 				32E054BB1A5CD4D0001CAC3A /* Parameters.cpp in Sources */,
+				32E054D91A60D15E001CAC3A /* ThresholderCHOP.cpp in Sources */,
 				C9893715C4B972F7387711FD /* ofxBaseGui.cpp in Sources */,
 				DE407E9EE9F292F730D30FEF /* ofxButton.cpp in Sources */,
 				1E5FEDF788EB25A15DC2460C /* ofxGuiGroup.cpp in Sources */,
@@ -455,6 +484,7 @@
 				181852019B0A9DEA7D78D274 /* ofxPanel.cpp in Sources */,
 				32E054CA1A60AB3B001CAC3A /* Logging.cpp in Sources */,
 				329F68DD1A5CC93E00B1FED7 /* Line.cpp in Sources */,
+				32E054DC1A60D34D001CAC3A /* TouchCommon.cpp in Sources */,
 				EE0AFEED578C90CDB485FBB7 /* ofxSlider.cpp in Sources */,
 				0B79D1370C521A99743B84F8 /* ofxSliderGroup.cpp in Sources */,
 				FBA20CC9B0626C7D5A9D5F9C /* ofxToggle.cpp in Sources */,

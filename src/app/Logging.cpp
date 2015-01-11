@@ -17,7 +17,9 @@
 
 std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt) {
   os << "Point{#" << pt.index;
-  os << ", (" << pt.x << ", " << pt.y << ", " << pt.z << ")";
+  os << ", (" << pt.position.x <<
+        ", " << pt.position.y <<
+        ", " << pt.position.z << ")";
   os << ", color:(" << pt.r << ", " << pt.g << ", " << pt.b
                     << ", " << pt.a << ")";
   os << "}";

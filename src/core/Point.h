@@ -9,10 +9,12 @@
 #ifndef __threshold__Point__
 #define __threshold__Point__
 
+#include "Common.h"
+
 class ThreshPoint {
 public:
   int index;
-  float x, y, z;
+  ThVec3f position;
   float r, g, b, a;
 };
 

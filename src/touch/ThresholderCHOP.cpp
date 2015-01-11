@@ -122,9 +122,9 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
     _hasColor = rInput && gInput && bInput;
     for (int i = 0; i < chopIn.length; ++i) {
       ThreshPoint point;
-      point.x = xInput[i];
-      point.y = yInput[i];
-      point.z = zInput[i];
+      point.position.x = xInput[i];
+      point.position.y = yInput[i];
+      point.position.z = zInput[i];
       point.index = i;
       if (_hasColor) {
         point.r = rInput[i];
@@ -195,12 +195,12 @@ static void outputLine(const ThreshLine& line,
                        float** channels,
                        std::size_t i,
                        bool hasColor) {
-  channels[OUT_TX1][i] = line.start.x;
-  channels[OUT_TY1][i] = line.start.y;
-  channels[OUT_TZ1][i] = line.start.z;
-  channels[OUT_TX2][i] = line.end.x;
-  channels[OUT_TY2][i] = line.end.y;
-  channels[OUT_TZ2][i] = line.end.z;
+  channels[OUT_TX1][i] = line.start.position.x;
+  channels[OUT_TY1][i] = line.start.position.y;
+  channels[OUT_TZ1][i] = line.start.position.z;
+  channels[OUT_TX2][i] = line.end.position.x;
+  channels[OUT_TY2][i] = line.end.position.y;
+  channels[OUT_TZ2][i] = line.end.position.z;
   channels[OUT_SQRDIST][i] = line.squareDistance;
   channels[OUT_CLOSENESS][i] = line.closeness;
   channels[OUT_INDEX1][i] = static_cast<float>(line.start.index);

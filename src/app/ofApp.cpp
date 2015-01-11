@@ -15,7 +15,7 @@ void ofApp::setup() {
     ofVec3f noisePos = createRandomVec3f(1007000.342f);
     ofVec3f pos = createSignedNoiseVec3f(-noisePos);
     ThreshPoint pt;
-    setPointPos(pt, pos);
+    pt.position = pos;
     pt.index = i;
     setPointColor(pt,
                   i % 2 == 1
@@ -74,11 +74,11 @@ void ofApp::update() {
   for (int i = 0; i < numPoints; i++) {
     auto& point = _inputPoints[i];
     auto noisePos = _pointNoiseOffsets[i] + time * 0.3f;
-    auto position = getPointPos(point);
+    ofVec3f position = point.position;
     position += createSignedNoiseVec3f(noisePos) * pointStep;
     position = wrapVec(position, -1, 1);
     _pointsMesh.setVertex(i, position);
-    setPointPos(point, position);
+    point.position = position;
   }
   _threshLines.clear();
   _thresholder.generate(_inputPoints, &_threshLines);
@@ -104,7 +104,7 @@ void ofApp::draw() {
       auto color = getPointColor(vertex);
       color.a = opacity;
       ofSetColor(color);
-      ofDrawSphere(getPointPos(vertex), radius);
+      ofDrawSphere(vertex.position, radius);
     }
     ofPopStyle();
   }
@@ -118,9 +118,9 @@ void ofApp::draw() {
       auto color1 = getPointColor(line.start);
       auto color2 = getPointColor(line.end);
       color1.a = color2.a = alpha;
-      linesMesh.addVertex(getPointPos(line.start));
+      linesMesh.addVertex(line.start.position);
       linesMesh.addColor(color1);
-      linesMesh.addVertex(getPointPos(line.end));
+      linesMesh.addVertex(line.end.position);
       linesMesh.addColor(color2);
     }
     ofNoFill();

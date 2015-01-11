@@ -36,16 +36,6 @@ ofVec3f wrapVec(ofVec3f vec, float min, float max) {
   return vec;
 }
 
-ofVec3f getPointPos(const ThreshPoint& point) {
-  return ofVec3f(point.x, point.y, point.z);
-}
-
-void setPointPos(ThreshPoint& point, const ofVec3f& pos) {
-  point.x = pos.x;
-  point.y = pos.y;
-  point.z = pos.z;
-}
-
 ofFloatColor getPointColor(const ThreshPoint& point) {
   return ofFloatColor(point.r, point.g, point.b, point.a);
 }

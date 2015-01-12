@@ -17,8 +17,7 @@
 class Thresholder {
 public:
   void configure(const ThreshParameters& params);
-  void generate(const PointSet& points, LineSet* lines);
-  LineSet generate(const PointSet& points);
+  void generate(const PointSource& points, LineSet* lines);
 private:
   ThreshLine createLine(const ThreshPoint& start,
                         const ThreshPoint& end);

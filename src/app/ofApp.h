@@ -10,6 +10,7 @@
 #include "PointSet.h"
 #include "Parameters.h"
 #include "AppParameters.h"
+#include "PointSystem.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -41,11 +42,9 @@ private:
   ThreshAppParameters _appParams;
   ThreshParameters _threshParams;
   bool _paramsChanged;
-  ofMesh _pointsMesh;
+  shared_ptr<PointSystem> _pointSystem;
   Thresholder _thresholder;
-  PointSet _inputPoints;
   LineSet _threshLines;
-  std::vector<ofVec3f> _pointNoiseOffsets;
   ofxPanel _gui;
   ofEasyCam _cam;
   ofxPostProcessing _postProc;

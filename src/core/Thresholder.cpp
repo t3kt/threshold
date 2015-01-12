@@ -15,7 +15,7 @@ void Thresholder::configure(const ThreshParameters &params) {
   _params = params;
 }
 
-void Thresholder::generate(const PointSet &points,
+void Thresholder::generate(const PointSource &points,
                            LineSet *lines) {
   for (int indexA = 0; indexA < points.size(); indexA++) {
     const auto& pointA = points[indexA];
@@ -33,9 +33,6 @@ void Thresholder::generate(const PointSet &points,
         if (lines->size() >= _params.maxLines) {
           break;
         }
-      }
-      if (lines->size() >= _params.maxLines) {
-        break;
       }
     }
   }
@@ -94,12 +91,6 @@ bool Thresholder::testLine(const ThreshLine &line) {
     return false;
   }
   return true;
-}
-
-LineSet Thresholder::generate(const PointSet &points) {
-  LineSet lines;
-  generate(points, &lines);
-  return lines;
 }
 
 

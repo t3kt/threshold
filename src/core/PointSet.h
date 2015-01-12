@@ -13,8 +13,18 @@
 
 #include "Point.h"
 
-class PointSet : public std::vector<ThreshPoint> {
-  
+class PointSource {
+public:
+  virtual int size() const = 0;
+  virtual ThreshPoint operator[](int i) const = 0;
+};
+
+class PointSet
+: public std::vector<ThreshPoint>
+, public PointSource {
+public:
+  int size() const override;
+  ThreshPoint operator[](int i) const override;
 };
 
 #endif /* defined(__threshold__PointSet__) */

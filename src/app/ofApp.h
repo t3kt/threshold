@@ -2,6 +2,7 @@
 
 #include <ofMain.h>
 #include <ofxGui.h>
+#include <ofxPostProcessing.h>
 #include <vector>
 
 #include "Thresholder.h"
@@ -9,6 +10,7 @@
 #include "PointSet.h"
 #include "Parameters.h"
 #include "AppParameters.h"
+#include "PointSystem.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -40,11 +42,12 @@ private:
   ThreshAppParameters _appParams;
   ThreshParameters _threshParams;
   bool _paramsChanged;
-  ofMesh _pointsMesh;
+  shared_ptr<PointSystem> _pointSystem;
   Thresholder _thresholder;
-  PointSet _inputPoints;
   LineSet _threshLines;
-  std::vector<ofVec3f> _pointNoiseOffsets;
-  ofEasyCam _cam;
   ofxPanel _gui;
+  ofEasyCam _cam;
+  ofxPostProcessing _postProc;
+  shared_ptr<BloomPass> _bloom;
+  shared_ptr<KaleidoscopePass> _kaleidoscope;
 };

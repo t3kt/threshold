@@ -7,3 +7,11 @@
 //
 
 #include "PointSet.h"
+
+int PointSet::size() const {
+  return std::vector<ThreshPoint>::size();
+}
+
+ThreshPoint PointSet::operator[](int i) const {
+  return (*this)[i];
+}

@@ -37,7 +37,7 @@ std::ostream& operator<<(std::ostream& os, const ThreshLine& ln) {
   return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const PointSet& points) {
+std::ostream& operator<<(std::ostream& os, const PointSource& points) {
   outputSet(os, points, "PointSet");
   return os << std::endl;
 }

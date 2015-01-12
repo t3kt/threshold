@@ -13,14 +13,14 @@
 
 class ThreshPoint;
 class ThreshLine;
-class PointSet;
+class PointSource;
 class LineSet;
 
 std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt);
 
 std::ostream& operator<<(std::ostream& os, const ThreshLine& ln);
 
-std::ostream& operator<<(std::ostream& os, const PointSet& points);
+std::ostream& operator<<(std::ostream& os, const PointSource& points);
 
 std::ostream& operator<<(std::ostream& os, const LineSet& lines);
 

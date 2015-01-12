@@ -29,8 +29,13 @@ public:
   ofParameter<bool> hasMaxPerSource;
   ofParameter<int> maxLinesPerSource;
   
+  ofParameter<int> numPoints;
   ofParameter<float> pointOpacity;
   ofParameter<float> pointSize;
+  
+  ofParameter<bool> enableBloom;
+  ofParameter<bool> enableKaliedoscope;
+  ofParameter<float> kaliedoscopeSegments;
   
   ofParameterGroup paramGroup;
 };

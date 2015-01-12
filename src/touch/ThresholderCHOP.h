@@ -49,7 +49,6 @@ private:
   Thresholder _thresholder;
   PointSet _points;
   LineSet _lines;
-  bool _hasColor;
   std::vector<OutputChannel> _extraPointChannels;
 };
 

@@ -92,10 +92,6 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
   const float* xInput = NULL;
   const float* yInput = NULL;
   const float* zInput = NULL;
-  const float* rInput = NULL;
-  const float* gInput = NULL;
-  const float* bInput = NULL;
-  const float* aInput = NULL;
   auto chopIn = inputs->CHOPInputs[0];
   for (int i = 0; i < chopIn.numChannels; ++i) {
     const auto& name = chopIn.names[i];
@@ -106,33 +102,18 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
       yInput = vals;
     } else if (strcmp(name, "z") == 0) {
       zInput = vals;
-    } else if (strcmp(name, "r") == 0) {
-      rInput = vals;
-    } else if (strcmp(name, "g") == 0) {
-      gInput = vals;
-    } else if (strcmp(name, "b") == 0) {
-      bInput = vals;
-    } else if (strcmp(name, "a") == 0) {
-      aInput = vals;
     } else {
       addChannel(_extraPointChannels, std::string(name) + '0', i);
       addChannel(_extraPointChannels, std::string(name) + '1', i);
     }
   }
   if (xInput && yInput && zInput) {
-    _hasColor = rInput && gInput && bInput;
     for (int i = 0; i < chopIn.length; ++i) {
       ThreshPoint point;
       point.position.x = xInput[i];
       point.position.y = yInput[i];
       point.position.z = zInput[i];
       point.index = i;
-      if (_hasColor) {
-        point.color.r = rInput[i];
-        point.color.g = gInput[i];
-        point.color.b = bInput[i];
-        point.color.a = aInput ? aInput[0] : 1.0f;
-      }
       _points.push_back(point);
     }
   }
@@ -151,7 +132,7 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   _lines.clear();
   info->length = 0;
   loadPoints(info->inputArrays);
-  info->numChannels = NUM_MAIN_OUTS + _extraPointChannels.size();
+  info->numChannels = NUM_MAIN_OUTS + static_cast<int>(_extraPointChannels.size());
   if (_points.empty())
     return false;
   loadParameters(info->inputArrays->floatInputs);

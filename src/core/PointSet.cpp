@@ -9,7 +9,7 @@
 #include "PointSet.h"
 
 int PointSet::size() const {
-  return std::vector<ThreshPoint>::size();
+  return static_cast<int>(std::vector<ThreshPoint>::size());
 }
 
 ThreshPoint PointSet::operator[](int i) const {

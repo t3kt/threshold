@@ -12,15 +12,14 @@ void ofApp::setup() {
   int numPoints = 400;
   _pointsMesh.setMode(OF_PRIMITIVE_POINTS);
   for (int i = 0; i < numPoints; i++) {
-    ofVec3f noisePos = createRandomVec3f(1007000.342f);
-    ofVec3f pos = createSignedNoiseVec3f(-noisePos);
+    auto noisePos = createRandomVec3f(1007000.342f);
+    auto pos = createSignedNoiseVec3f(-noisePos);
     ThreshPoint pt;
-    setPointPos(pt, pos);
+    pt.position = pos;
     pt.index = i;
-    setPointColor(pt,
-                  i % 2 == 1
-                  ? ofFloatColor(0, .4f, .7f)
-                  : ofFloatColor(0, .9f, .2f));
+    pt.color = (i % 2 == 1)
+                ? ofFloatColor(0, .4f, .7f)
+                : ofFloatColor(0, .9f, .2f);
     _inputPoints.push_back(pt);
     _pointsMesh.addVertex(pos);
     _pointNoiseOffsets.push_back(noisePos);
@@ -77,11 +76,11 @@ void ofApp::update() {
   for (int i = 0; i < numPoints; i++) {
     auto& point = _inputPoints[i];
     auto noisePos = _pointNoiseOffsets[i] + time * 0.3f;
-    auto position = getPointPos(point);
+    ofVec3f position = point.position;
     position += createSignedNoiseVec3f(noisePos) * pointStep;
     position = wrapVec(position, -1, 1);
     _pointsMesh.setVertex(i, position);
-    setPointPos(point, position);
+    point.position = position;
   }
   _threshLines.clear();
   _thresholder.generate(_inputPoints, &_threshLines);
@@ -109,10 +108,10 @@ void ofApp::draw() {
     auto numPoints = _inputPoints.size();
     for (int i = 0; i < numPoints; i++) {
       const auto& vertex = _inputPoints[i];
-      auto color = getPointColor(vertex);
+      ofFloatColor color = vertex.color;
       color.a = opacity;
       ofSetColor(color);
-      ofDrawSphere(getPointPos(vertex), radius);
+      ofDrawSphere(vertex.position, radius);
     }
     ofPopStyle();
   }
@@ -123,12 +122,12 @@ void ofApp::draw() {
     linesMesh.setMode(OF_PRIMITIVE_LINES);
     for (const auto& line : _threshLines) {
       auto alpha = line.closeness;
-      auto color1 = getPointColor(line.start);
-      auto color2 = getPointColor(line.end);
+      auto color1 = line.start.color;
+      auto color2 = line.end.color;
       color1.a = color2.a = alpha;
-      linesMesh.addVertex(getPointPos(line.start));
+      linesMesh.addVertex(line.start.position);
       linesMesh.addColor(color1);
-      linesMesh.addVertex(getPointPos(line.end));
+      linesMesh.addVertex(line.end.position);
       linesMesh.addColor(color2);
     }
     ofNoFill();

@@ -23,32 +23,29 @@ enum {
 };
 
 enum {
+  OUT_INDEX1,
+  OUT_INDEX2,
+  OUT_SQRDIST,
+  OUT_CLOSENESS,
   OUT_TX1,
   OUT_TY1,
   OUT_TZ1,
   OUT_TX2,
   OUT_TY2,
   OUT_TZ2,
-  OUT_SQRDIST,
-  OUT_CLOSENESS,
-  OUT_INDEX1,
-  OUT_INDEX2,
-  //
-  OUT_R1,
-  OUT_G1,
-  OUT_B1,
-  OUT_A1,
-  OUT_R2,
-  OUT_G2,
-  OUT_B2,
-  OUT_A2
+  
+  NUM_MAIN_OUTS
 };
 
-enum {
-  NUM_MAIN_OUTS = OUT_INDEX2 + 1,
-  NUM_COLOR_OUTS = 4 * 2,
-  NUM_TOTAL_OUTS = NUM_MAIN_OUTS + NUM_COLOR_OUTS
-};
+static inline void addChannel(std::vector<OutputChannel>& channels,
+                              std::string outName,
+                              std::size_t sourceIndex = -1) {
+  OutputChannel channel;
+  channel.outName = outName;
+  channel.outIndex = NUM_MAIN_OUTS + channels.size();
+  channel.sourceIndex = sourceIndex;
+  channels.push_back(channel);
+}
 
 static void setParameter(const CHOP_FloatInput& input,
                          ThreshParameters* params) {
@@ -91,13 +88,10 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
   _points.clear();
   if (!hasEnoughInputs(inputs))
     return;
+  _extraPointChannels.clear();
   const float* xInput = NULL;
   const float* yInput = NULL;
   const float* zInput = NULL;
-  const float* rInput = NULL;
-  const float* gInput = NULL;
-  const float* bInput = NULL;
-  const float* aInput = NULL;
   auto chopIn = inputs->CHOPInputs[0];
   for (int i = 0; i < chopIn.numChannels; ++i) {
     const auto& name = chopIn.names[i];
@@ -108,30 +102,18 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
       yInput = vals;
     } else if (strcmp(name, "z") == 0) {
       zInput = vals;
-    } else if (strcmp(name, "r") == 0) {
-      rInput = vals;
-    } else if (strcmp(name, "g") == 0) {
-      gInput = vals;
-    } else if (strcmp(name, "b") == 0) {
-      bInput = vals;
-    } else if (strcmp(name, "a") == 0) {
-      aInput = vals;
+    } else {
+      addChannel(_extraPointChannels, std::string(name) + '0', i);
+      addChannel(_extraPointChannels, std::string(name) + '1', i);
     }
   }
   if (xInput && yInput && zInput) {
-    _hasColor = rInput && gInput && bInput;
     for (int i = 0; i < chopIn.length; ++i) {
       ThreshPoint point;
-      point.x = xInput[i];
-      point.y = yInput[i];
-      point.z = zInput[i];
+      point.position.x = xInput[i];
+      point.position.y = yInput[i];
+      point.position.z = zInput[i];
       point.index = i;
-      if (_hasColor) {
-        point.r = rInput[i];
-        point.g = gInput[i];
-        point.b = bInput[i];
-        point.a = aInput ? aInput[0] : 1.0f;
-      }
       _points.push_back(point);
     }
   }
@@ -150,9 +132,7 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   _lines.clear();
   info->length = 0;
   loadPoints(info->inputArrays);
-  info->numChannels = NUM_MAIN_OUTS;
-  if (_hasColor)
-    info->numChannels += NUM_COLOR_OUTS;
+  info->numChannels = NUM_MAIN_OUTS + static_cast<int>(_extraPointChannels.size());
   if (_points.empty())
     return false;
   loadParameters(info->inputArrays->floatInputs);
@@ -169,51 +149,43 @@ const char* ThresholderCHOP::getChannelName(int index,
                                             void *reserved) {
   switch(index)
   {
+    case OUT_SQRDIST: return "sqrdist";
+    case OUT_CLOSENESS: return "closeness";
+    case OUT_INDEX1: return "i1";
+    case OUT_INDEX2: return "i2";
     case OUT_TX1: return "tx1";
     case OUT_TY1: return "ty1";
     case OUT_TZ1: return "tz1";
     case OUT_TX2: return "tx2";
     case OUT_TY2: return "ty2";
     case OUT_TZ2: return "tz2";
-    case OUT_SQRDIST: return "sqrdist";
-    case OUT_CLOSENESS: return "closeness";
-    case OUT_INDEX1: return "i1";
-    case OUT_INDEX2: return "i2";
-    case OUT_R1: return "r1";
-    case OUT_G1: return "g1";
-    case OUT_B1: return "b1";
-    case OUT_A1: return "a1";
-    case OUT_R2: return "r2";
-    case OUT_G2: return "g2";
-    case OUT_B2: return "b2";
-    case OUT_A2: return "a2";
+    default:
+      int i = index - NUM_MAIN_OUTS;
+      if (i >= _extraPointChannels.size())
+        return NULL;
+      return _extraPointChannels[i].outName.c_str();
   }
   return NULL;
 }
 
-static void outputLine(const ThreshLine& line,
-                       float** channels,
-                       std::size_t i,
-                       bool hasColor) {
-  channels[OUT_TX1][i] = line.start.x;
-  channels[OUT_TY1][i] = line.start.y;
-  channels[OUT_TZ1][i] = line.start.z;
-  channels[OUT_TX2][i] = line.end.x;
-  channels[OUT_TY2][i] = line.end.y;
-  channels[OUT_TZ2][i] = line.end.z;
-  channels[OUT_SQRDIST][i] = line.squareDistance;
-  channels[OUT_CLOSENESS][i] = line.closeness;
+void ThresholderCHOP::outputLine(const ThreshLine& line,
+                                 std::size_t i,
+                                 float **channels,
+                                 const CHOP_InputArrays *inputs) const {
   channels[OUT_INDEX1][i] = static_cast<float>(line.start.index);
   channels[OUT_INDEX2][i] = static_cast<float>(line.end.index);
-  if (hasColor) {
-    channels[OUT_R1][i] = line.start.r;
-    channels[OUT_G1][i] = line.start.g;
-    channels[OUT_B1][i] = line.start.b;
-    channels[OUT_A1][i] = line.start.a;
-    channels[OUT_R2][i] = line.end.r;
-    channels[OUT_G2][i] = line.end.g;
-    channels[OUT_B2][i] = line.end.b;
-    channels[OUT_A2][i] = line.end.a;
+  channels[OUT_SQRDIST][i] = line.squareDistance;
+  channels[OUT_CLOSENESS][i] = line.closeness;
+  channels[OUT_TX1][i] = line.start.position.x;
+  channels[OUT_TY1][i] = line.start.position.y;
+  channels[OUT_TZ1][i] = line.start.position.z;
+  channels[OUT_TX2][i] = line.end.position.x;
+  channels[OUT_TY2][i] = line.end.position.y;
+  channels[OUT_TZ2][i] = line.end.position.z;
+  auto inChans = inputs->CHOPInputs[0].channels;
+  for (const auto& outChan : _extraPointChannels) {
+    auto val = inChans[outChan.sourceIndex][line.start.index];
+    channels[outChan.outIndex][i] = val;
   }
 }
 
@@ -222,12 +194,12 @@ void ThresholderCHOP::execute(const CHOP_Output *outputs,
                               void *reserved) {
   if (_lines.empty()) {
     ThreshLine dummy;
-    outputLine(dummy, outputs->channels, 0, _hasColor);
+    outputLine(dummy, 0, outputs->channels, inputs);
   } else {
     auto length = _lines.size();
     for (std::size_t i = 0; i < length; ++i) {
       const auto& line = _lines[i];
-      outputLine(line, outputs->channels, i, _hasColor);
+      outputLine(line, i, outputs->channels, inputs);
     }
   }
 }

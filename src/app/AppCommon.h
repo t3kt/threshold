@@ -49,11 +49,4 @@ ofVec3f createRandomVec3f(const ofVec3f& mins,
 ofVec3f createRandomVec3f(float max);
 ofVec3f wrapVec(ofVec3f vec, float min, float max);
 
-class ThreshPoint;
-
-ofVec3f getPointPos(const ThreshPoint& point);
-void setPointPos(ThreshPoint& point, const ofVec3f& pos);
-ofFloatColor getPointColor(const ThreshPoint& point);
-void setPointColor(ThreshPoint& point, const ofFloatColor& color);
-
 #endif /* defined(__threshold__AppCommon__) */

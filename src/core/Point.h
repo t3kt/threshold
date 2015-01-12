@@ -9,11 +9,13 @@
 #ifndef __threshold__Point__
 #define __threshold__Point__
 
+#include "Common.h"
+
 class ThreshPoint {
 public:
   int index;
-  float x, y, z;
-  float r, g, b, a;
+  ThVec3f position;
+  ThColor color;
 };
 
 #endif /* defined(__threshold__Point__) */

@@ -10,8 +10,6 @@
 
 #include <ofMath.h>
 
-#include "Point.h"
-
 ofVec3f createSignedNoiseVec3f(const ofVec3f& position) {
   return ofVec3f(ofSignedNoise(position.x),
                  ofSignedNoise(position.y),
@@ -34,25 +32,4 @@ ofVec3f wrapVec(ofVec3f vec, float min, float max) {
   vec.y = ofWrap(vec.y, min, max);
   vec.z = ofWrap(vec.z, min, max);
   return vec;
-}
-
-ofVec3f getPointPos(const ThreshPoint& point) {
-  return ofVec3f(point.x, point.y, point.z);
-}
-
-void setPointPos(ThreshPoint& point, const ofVec3f& pos) {
-  point.x = pos.x;
-  point.y = pos.y;
-  point.z = pos.z;
-}
-
-ofFloatColor getPointColor(const ThreshPoint& point) {
-  return ofFloatColor(point.r, point.g, point.b, point.a);
-}
-
-void setPointColor(ThreshPoint& point, const ofFloatColor& color) {
-  point.r = color.r;
-  point.g = color.g;
-  point.b = color.b;
-  point.a = color.a;
 }

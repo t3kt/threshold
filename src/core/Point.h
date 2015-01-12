@@ -15,7 +15,7 @@ class ThreshPoint {
 public:
   int index;
   ThVec3f position;
-  float r, g, b, a;
+  ThColor color;
 };
 
 #endif /* defined(__threshold__Point__) */

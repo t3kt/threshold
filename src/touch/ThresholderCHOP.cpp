@@ -127,10 +127,10 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
       point.position.z = zInput[i];
       point.index = i;
       if (_hasColor) {
-        point.r = rInput[i];
-        point.g = gInput[i];
-        point.b = bInput[i];
-        point.a = aInput ? aInput[0] : 1.0f;
+        point.color.r = rInput[i];
+        point.color.g = gInput[i];
+        point.color.b = bInput[i];
+        point.color.a = aInput ? aInput[0] : 1.0f;
       }
       _points.push_back(point);
     }
@@ -206,14 +206,14 @@ static void outputLine(const ThreshLine& line,
   channels[OUT_INDEX1][i] = static_cast<float>(line.start.index);
   channels[OUT_INDEX2][i] = static_cast<float>(line.end.index);
   if (hasColor) {
-    channels[OUT_R1][i] = line.start.r;
-    channels[OUT_G1][i] = line.start.g;
-    channels[OUT_B1][i] = line.start.b;
-    channels[OUT_A1][i] = line.start.a;
-    channels[OUT_R2][i] = line.end.r;
-    channels[OUT_G2][i] = line.end.g;
-    channels[OUT_B2][i] = line.end.b;
-    channels[OUT_A2][i] = line.end.a;
+    channels[OUT_R1][i] = line.start.color.r;
+    channels[OUT_G1][i] = line.start.color.g;
+    channels[OUT_B1][i] = line.start.color.b;
+    channels[OUT_A1][i] = line.start.color.a;
+    channels[OUT_R2][i] = line.end.color.r;
+    channels[OUT_G2][i] = line.end.color.g;
+    channels[OUT_B2][i] = line.end.color.b;
+    channels[OUT_A2][i] = line.end.color.a;
   }
 }
 

@@ -19,7 +19,7 @@ ThreshAppParameters::ThreshAppParameters() {
                                ofVec2f(0, .03),
                                ofVec2f(0.000000001, 0.000000001),
                                ofVec2f(.4, .4)));
-  paramGroup.add(maxLines.set("Max Lines", 1000, 1, 10000));
+  paramGroup.add(maxLines.set("Max Lines", 1000, 1, 20000));
   paramGroup.add(hasMaxPerSource.set("Max Per Source?", false));
   paramGroup.add(maxLinesPerSource.set("Max Lines Per Source", 10, 1, 100));
   hasMinDist.enableEvents();

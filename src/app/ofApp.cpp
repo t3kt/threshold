@@ -104,6 +104,21 @@ void ofApp::draw() {
   ofPopMatrix();
   _postProc.end();
   glPopAttrib();
+  if (_pointSystem) {
+    ofVec2f position;
+    position.x = 10;
+    position.y = winSize.y - 100;
+    ofDrawBitmapString("Points: " +
+                       ofToString(_pointSystem->size()),
+                       position);
+    position.y -= 40;
+    ofDrawBitmapString("Lines: " +
+                       ofToString(_threshLines.size()),
+                       position);
+    position.y -= 40;
+    ofDrawBitmapString("FPS: " + ofToString(ofGetFrameRate()),
+                       position);
+  }
   _gui.draw();
 }
 

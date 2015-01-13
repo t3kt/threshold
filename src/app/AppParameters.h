@@ -36,6 +36,7 @@ public:
   ofParameter<bool> enableBloom;
   ofParameter<bool> enableKaliedoscope;
   ofParameter<float> kaliedoscopeSegments;
+  ofParameter<bool> showDebugInfo;
   
   ofParameterGroup paramGroup;
 };

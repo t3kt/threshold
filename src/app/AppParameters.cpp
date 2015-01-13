@@ -39,6 +39,7 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(enableBloom.set("Bloom?", false));
   paramGroup.add(enableKaliedoscope.set("Kaleidoscope?", false));
   paramGroup.add(kaliedoscopeSegments.set("Kaleidoscope Segments", 3., 0., 12.));
+  paramGroup.add(showDebugInfo.set("Show Debug Info?", false));
 }
 
 void ThreshAppParameters::applyTo(ThreshParameters &params) const {

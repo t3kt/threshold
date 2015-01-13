@@ -104,7 +104,7 @@ void ofApp::draw() {
   ofPopMatrix();
   _postProc.end();
   glPopAttrib();
-  if (_pointSystem) {
+  if (_pointSystem && _appParams.showDebugInfo.get()) {
     ofVec2f position;
     position.x = 10;
     position.y = winSize.y - 100;

@@ -21,5 +21,5 @@ int PointSet::size() const {
 }
 
 ThreshPoint PointSet::operator[](int i) const {
-  return (*this)[i];
+  return std::vector<ThreshPoint>::operator[](i);
 }

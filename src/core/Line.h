@@ -13,8 +13,8 @@
 
 class ThreshLine {
 public:
-  ThreshPoint start;
-  ThreshPoint end;
+  int startIndex;
+  int endIndex;
   float squareDistance;
   float closeness;
 };

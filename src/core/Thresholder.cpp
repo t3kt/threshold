@@ -59,8 +59,8 @@ static float mapRange(float value, float inputMin, float inputMax,
 ThreshLine Thresholder::createLine(const ThreshPoint &start,
                                    const ThreshPoint &end) {
   ThreshLine line;
-  line.start = start;
-  line.end = end;
+  line.startIndex = start.index;
+  line.endIndex = end.index;
   line.squareDistance = distanceSquared(start.position.x,
                                         start.position.y,
                                         start.position.z,

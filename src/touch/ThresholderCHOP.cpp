@@ -19,6 +19,7 @@ enum {
   SETTING_MAXLINES,
   SETTING_MAXPERSOURCE,
   //  SETTING_SEPARATESOURCE,
+  SETTING_RESET_CHANS,
   NUM_SETTINGS
 };
 
@@ -27,22 +28,18 @@ enum {
   OUT_INDEX2,
   OUT_SQRDIST,
   OUT_CLOSENESS,
-  OUT_TX1,
-  OUT_TY1,
-  OUT_TZ1,
-  OUT_TX2,
-  OUT_TY2,
-  OUT_TZ2,
   
   NUM_MAIN_OUTS
 };
 
 static inline void addChannel(std::vector<OutputChannel>& channels,
                               std::string outName,
+                              bool isStart,
                               std::size_t sourceIndex = -1) {
   OutputChannel channel;
   channel.outName = outName;
   channel.outIndex = NUM_MAIN_OUTS + channels.size();
+  channel.isStart = isStart;
   channel.sourceIndex = sourceIndex;
   channels.push_back(channel);
 }
@@ -88,24 +85,47 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
   _points.clear();
   if (!hasEnoughInputs(inputs))
     return;
-  _extraPointChannels.clear();
+  auto& chopIn = inputs->CHOPInputs[0];
   const float* xInput = NULL;
   const float* yInput = NULL;
   const float* zInput = NULL;
-  auto chopIn = inputs->CHOPInputs[0];
-  for (int i = 0; i < chopIn.numChannels; ++i) {
-    const auto& name = chopIn.names[i];
-    const float* vals = chopIn.channels[i];
-    if (strcmp(name, "x") == 0) {
-      xInput = vals;
-    } else if (strcmp(name, "y") == 0) {
-      yInput = vals;
-    } else if (strcmp(name, "z") == 0) {
-      zInput = vals;
-    } else {
-      addChannel(_extraPointChannels, std::string(name) + '0', i);
-      addChannel(_extraPointChannels, std::string(name) + '1', i);
+  if (_xInputIndex < 0 ||
+      _yInputIndex < 0 ||
+      _zInputIndex < 0 ||
+      inputs->floatInputs[SETTING_RESET_CHANS].values[0] < 0) {
+    _xInputIndex = 0;
+    _yInputIndex = 1;
+    _zInputIndex = 2;
+    _pointChannels.clear();
+    for (int i = 0; i < chopIn.numChannels; ++i) {
+      const auto& name = chopIn.names[i];
+      const float* vals = chopIn.channels[i];
+      if (strcmp(name, "x") == 0) {
+        xInput = vals;
+        _xInputIndex = i;
+        addChannel(_pointChannels, "tx1", true);
+        addChannel(_pointChannels, "tx2", false);
+      } else if (strcmp(name, "y") == 0) {
+        yInput = vals;
+        _yInputIndex = i;
+        addChannel(_pointChannels, "ty1", true);
+        addChannel(_pointChannels, "ty2", false);
+      } else if (strcmp(name, "z") == 0) {
+        zInput = vals;
+        _zInputIndex = i;
+        addChannel(_pointChannels, "tz1", true);
+        addChannel(_pointChannels, "tz2", false);
+      } else {
+        addChannel(_pointChannels, std::string(name) + '0',
+                   true, i);
+        addChannel(_pointChannels, std::string(name) + '1',
+                   false, i);
+      }
     }
+  } else {
+    xInput = chopIn.channels[_xInputIndex];
+    yInput = chopIn.channels[_yInputIndex];
+    zInput = chopIn.channels[_zInputIndex];
   }
   if (xInput && yInput && zInput) {
     for (int i = 0; i < chopIn.length; ++i) {
@@ -132,7 +152,7 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   _lines.clear();
   info->length = 0;
   loadPoints(info->inputArrays);
-  info->numChannels = NUM_MAIN_OUTS + static_cast<int>(_extraPointChannels.size());
+  info->numChannels = NUM_MAIN_OUTS + static_cast<int>(_pointChannels.size());
   if (_points.empty())
     return false;
   loadParameters(info->inputArrays->floatInputs);
@@ -153,17 +173,11 @@ const char* ThresholderCHOP::getChannelName(int index,
     case OUT_CLOSENESS: return "closeness";
     case OUT_INDEX1: return "i1";
     case OUT_INDEX2: return "i2";
-    case OUT_TX1: return "tx1";
-    case OUT_TY1: return "ty1";
-    case OUT_TZ1: return "tz1";
-    case OUT_TX2: return "tx2";
-    case OUT_TY2: return "ty2";
-    case OUT_TZ2: return "tz2";
     default:
       int i = index - NUM_MAIN_OUTS;
-      if (i >= _extraPointChannels.size())
+      if (i >= _pointChannels.size())
         return NULL;
-      return _extraPointChannels[i].outName.c_str();
+      return _pointChannels[i].outName.c_str();
   }
   return NULL;
 }
@@ -172,19 +186,16 @@ void ThresholderCHOP::outputLine(const ThreshLine& line,
                                  std::size_t i,
                                  float **channels,
                                  const CHOP_InputArrays *inputs) const {
-  channels[OUT_INDEX1][i] = static_cast<float>(line.start.index);
-  channels[OUT_INDEX2][i] = static_cast<float>(line.end.index);
+  const auto& startIndex = line.startIndex;
+  const auto& endIndex = line.endIndex;
+  channels[OUT_INDEX1][i] = static_cast<float>(startIndex);
+  channels[OUT_INDEX2][i] = static_cast<float>(endIndex);
   channels[OUT_SQRDIST][i] = line.squareDistance;
   channels[OUT_CLOSENESS][i] = line.closeness;
-  channels[OUT_TX1][i] = line.start.position.x;
-  channels[OUT_TY1][i] = line.start.position.y;
-  channels[OUT_TZ1][i] = line.start.position.z;
-  channels[OUT_TX2][i] = line.end.position.x;
-  channels[OUT_TY2][i] = line.end.position.y;
-  channels[OUT_TZ2][i] = line.end.position.z;
   auto inChans = inputs->CHOPInputs[0].channels;
-  for (const auto& outChan : _extraPointChannels) {
-    auto val = inChans[outChan.sourceIndex][line.start.index];
+  for (const auto& outChan : _pointChannels) {
+    auto srcIndex = outChan.isStart ? startIndex : endIndex;
+    auto val = inChans[outChan.sourceIndex][srcIndex];
     channels[outChan.outIndex][i] = val;
   }
 }

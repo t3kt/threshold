@@ -29,8 +29,8 @@ std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt) {
 }
 
 std::ostream& operator<<(std::ostream& os, const ThreshLine& ln) {
-  os << "Line{start:" << ln.start
-  << ", end:" << ln.end
+  os << "Line{start:#" << ln.startIndex
+  << ", end:#" << ln.endIndex
   << ", sqdist:" << ln.squareDistance
   << ", closeness:" << ln.closeness
   << "}";

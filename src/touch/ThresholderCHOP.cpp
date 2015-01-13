@@ -18,8 +18,8 @@ enum {
   SETTING_DISTRANGE,
   SETTING_MAXLINES,
   SETTING_MAXPERSOURCE,
-  //  SETTING_SEPARATESOURCE,
   SETTING_RESET_CHANS,
+  //  SETTING_SEPARATESOURCE,
   NUM_SETTINGS
 };
 
@@ -35,7 +35,7 @@ enum {
 static inline void addChannel(std::vector<OutputChannel>& channels,
                               std::string outName,
                               bool isStart,
-                              std::size_t sourceIndex = -1) {
+                              std::size_t sourceIndex) {
   OutputChannel channel;
   channel.outName = outName;
   channel.outIndex = NUM_MAIN_OUTS + channels.size();
@@ -92,7 +92,7 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
   if (_xInputIndex < 0 ||
       _yInputIndex < 0 ||
       _zInputIndex < 0 ||
-      inputs->floatInputs[SETTING_RESET_CHANS].values[0] < 0) {
+      inputs->floatInputs[SETTING_RESET_CHANS].values[0] != 0) {
     _xInputIndex = 0;
     _yInputIndex = 1;
     _zInputIndex = 2;
@@ -103,18 +103,18 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
       if (strcmp(name, "x") == 0) {
         xInput = vals;
         _xInputIndex = i;
-        addChannel(_pointChannels, "tx1", true);
-        addChannel(_pointChannels, "tx2", false);
+        addChannel(_pointChannels, "tx1", true, i);
+        addChannel(_pointChannels, "tx2", false, i);
       } else if (strcmp(name, "y") == 0) {
         yInput = vals;
         _yInputIndex = i;
-        addChannel(_pointChannels, "ty1", true);
-        addChannel(_pointChannels, "ty2", false);
+        addChannel(_pointChannels, "ty1", true, i);
+        addChannel(_pointChannels, "ty2", false, i);
       } else if (strcmp(name, "z") == 0) {
         zInput = vals;
         _zInputIndex = i;
-        addChannel(_pointChannels, "tz1", true);
-        addChannel(_pointChannels, "tz2", false);
+        addChannel(_pointChannels, "tz1", true, i);
+        addChannel(_pointChannels, "tz2", false, i);
       } else {
         addChannel(_pointChannels, std::string(name) + '0',
                    true, i);

@@ -234,3 +234,5 @@ zprivate/
 
 .idea/
 ThresholderCHOP/bin/
+
+*.trace*

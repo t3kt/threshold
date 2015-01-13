@@ -17,6 +17,8 @@ class PointSource {
 public:
   virtual int size() const = 0;
   virtual ThreshPoint operator[](int i) const = 0;
+  virtual ThVec3f getPosition(int i) const;
+  virtual ThColor getColor(int i) const;
 };
 
 class PointSet

@@ -21,12 +21,13 @@
 struct OutputChannel {
   std::string outName;
   std::size_t outIndex;
+  bool isStart;
   std::size_t sourceIndex;
 };
 
 class ThresholderCHOP : public CHOP_CPlusPlusBase {
 public:
-  ThresholderCHOP(const CHOP_NodeInfo* info) {}
+  ThresholderCHOP(const CHOP_NodeInfo* info) : _xInputIndex(-1), _yInputIndex(-1), _zInputIndex(-1) {}
   virtual ~ThresholderCHOP() {}
   
   void getGeneralInfo(CHOP_GeneralInfo* info) override;
@@ -49,7 +50,10 @@ private:
   Thresholder _thresholder;
   PointSet _points;
   LineSet _lines;
-  std::vector<OutputChannel> _extraPointChannels;
+  int _xInputIndex;
+  int _yInputIndex;
+  int _zInputIndex;
+  std::vector<OutputChannel> _pointChannels;
 };
 
 #endif /* defined(__threshold__ThresholderCHOP__) */

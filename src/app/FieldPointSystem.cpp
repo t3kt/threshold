@@ -12,9 +12,31 @@
 
 #include "AppCommon.h"
 
-FieldPointSystem::FieldPointSystem(const ThreshAppParameters& appParams)
+FieldPointSystem::FieldPointSystem(ThreshAppParameters& appParams)
 : _appParams(appParams) {
-  
+  _appParams.pointColor1.addListener(this,
+                     &FieldPointSystem::onPointColorChanged);
+  _appParams.pointColor2.addListener(this,
+                     &FieldPointSystem::onPointColorChanged);
+}
+
+FieldPointSystem::~FieldPointSystem() {
+  _appParams.pointColor1.removeListener(this,
+                     &FieldPointSystem::onPointColorChanged);
+  _appParams.pointColor2.removeListener(this,
+                     &FieldPointSystem::onPointColorChanged);
+}
+
+void FieldPointSystem::onPointColorChanged(ofFloatColor &) {
+  assignPointColors();
+}
+
+void FieldPointSystem::assignPointColors() {
+  const auto& color1 = _appParams.pointColor1.get();
+  const auto& color2 = _appParams.pointColor2.get();
+  for (int i = 0; i < _points.size(); i++) {
+    _points[i].color = (i % 2 == 1) ? color2 : color1;
+  }
 }
 
 void FieldPointSystem::update() {
@@ -29,12 +51,10 @@ void FieldPointSystem::update() {
       ThreshPoint pt;
       pt.position = pos;
       pt.index = i;
-      pt.color = (i % 2 == 1)
-        ? ofFloatColor(0, .4f, .7f)
-        : ofFloatColor(0, .9f, .2f);
       _points.push_back(pt);
       _pointNoiseOffsets.push_back(noisePos);
     }
+    assignPointColors();
   }
   auto time = ofGetElapsedTimef();
   auto pointStep = ofVec3f(0.02f);

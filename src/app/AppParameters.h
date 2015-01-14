@@ -12,6 +12,7 @@
 #include <ofParameter.h>
 #include <ofParameterGroup.h>
 #include <ofVec2f.h>
+#include <ofColor.h>
 
 class ThreshParameters;
 
@@ -32,6 +33,8 @@ public:
   ofParameter<int> numPoints;
   ofParameter<float> pointOpacity;
   ofParameter<float> pointSize;
+  ofParameter<ofFloatColor> pointColor1;
+  ofParameter<ofFloatColor> pointColor2;
   
   ofParameter<bool> enableBloom;
   ofParameter<bool> enableKaliedoscope;

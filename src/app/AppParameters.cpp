@@ -32,6 +32,14 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(numPoints.set("Points", 800, 10, 2000));
   paramGroup.add(pointOpacity.set("Point Opacity", .6, 0, 1));
   paramGroup.add(pointSize.set("Point Size", 0.005, 0.0001, 0.02));
+  paramGroup.add(pointColor1.set("Point Color 1",
+                                 ofFloatColor(0, .4f, .7f),
+                                 ofFloatColor(0, 0, 0, 1),
+                                 ofFloatColor(1, 1, 1, 1)));
+  paramGroup.add(pointColor2.set("Point Color 2",
+                                 ofFloatColor(0, .9f, .2f),
+                                 ofFloatColor(0, 0, 0, 1),
+                                 ofFloatColor(1, 1, 1, 1)));
   
   ofParameterGroup postParams;
   postParams.setName("Post-Processing");

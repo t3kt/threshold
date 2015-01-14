@@ -15,13 +15,17 @@
 
 class FieldPointSystem : public PointSystem {
 public:
-  FieldPointSystem(const ThreshAppParameters& appParams);
+  FieldPointSystem(ThreshAppParameters& appParams);
+  ~FieldPointSystem();
   void update() override;
   void draw() override;
   int size() const override;
   ThreshPoint operator[](int i) const override;
 private:
-  const ThreshAppParameters& _appParams;
+  void onPointColorChanged(ofFloatColor&);
+  void assignPointColors();
+  
+  ThreshAppParameters& _appParams;
   std::vector<ThreshPoint> _points;
   std::vector<ofVec3f> _pointNoiseOffsets;
 };

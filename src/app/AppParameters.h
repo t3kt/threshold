@@ -35,6 +35,7 @@ public:
   ofParameter<float> pointSize;
   ofParameter<ofFloatColor> pointColor1;
   ofParameter<ofFloatColor> pointColor2;
+  ofParameter<float> lineWidth;
   
   ofParameter<bool> enableBloom;
   ofParameter<bool> enableKaliedoscope;

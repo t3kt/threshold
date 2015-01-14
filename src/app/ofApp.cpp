@@ -84,6 +84,7 @@ void ofApp::draw() {
   
   if (_drawThreshLines) {
     ofPushStyle();
+    ofSetLineWidth(_appParams.lineWidth.get());
     ofMesh linesMesh;
     linesMesh.setMode(OF_PRIMITIVE_LINES);
     for (const auto& line : _threshLines) {

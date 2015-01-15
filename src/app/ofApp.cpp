@@ -84,6 +84,7 @@ void ofApp::draw() {
   
   if (_drawThreshLines) {
     ofPushStyle();
+    ofSetLineWidth(_appParams.lineWidth.get());
     ofMesh linesMesh;
     linesMesh.setMode(OF_PRIMITIVE_LINES);
     for (const auto& line : _threshLines) {
@@ -104,6 +105,21 @@ void ofApp::draw() {
   ofPopMatrix();
   _postProc.end();
   glPopAttrib();
+  if (_pointSystem && _appParams.showDebugInfo.get()) {
+    ofVec2f position;
+    position.x = 10;
+    position.y = winSize.y - 100;
+    ofDrawBitmapString("Points: " +
+                       ofToString(_pointSystem->size()),
+                       position);
+    position.y -= 40;
+    ofDrawBitmapString("Lines: " +
+                       ofToString(_threshLines.size()),
+                       position);
+    position.y -= 40;
+    ofDrawBitmapString("FPS: " + ofToString(ofGetFrameRate()),
+                       position);
+  }
   _gui.draw();
 }
 

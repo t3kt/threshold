@@ -42,13 +42,12 @@ public:
   void getInfoCHOPChan(int index, CHOP_InfoCHOPChan *chan) override;
 private:
   void loadParameters(const CHOP_FloatInput* inputs);
-  void loadPoints(const CHOP_InputArrays* inputs);
+  void loadChannels(const CHOP_InputArrays* inputs);
   void outputLine(const ThreshLine& line, std::size_t i,
                   float** channels,
                   const CHOP_InputArrays *inputs) const;
   
   Thresholder _thresholder;
-  PointSet _points;
   LineSet _lines;
   int _xInputIndex;
   int _yInputIndex;

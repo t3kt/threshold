@@ -13,6 +13,7 @@
 #include "Parameters.h"
 #include "Point.h"
 #include "Line.h"
+#include "TouchCommon.h"
 
 enum {
   SETTING_DISTRANGE,
@@ -81,8 +82,7 @@ hasEnoughInputs(const CHOP_InputArrays* inputs) {
   return true;
 }
 
-void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
-  _points.clear();
+void ThresholderCHOP::loadChannels(const CHOP_InputArrays *inputs) {
   if (!hasEnoughInputs(inputs))
     return;
   auto& chopIn = inputs->CHOPInputs[0];
@@ -122,20 +122,6 @@ void ThresholderCHOP::loadPoints(const CHOP_InputArrays *inputs) {
                    false, i);
       }
     }
-  } else {
-    xInput = chopIn.channels[_xInputIndex];
-    yInput = chopIn.channels[_yInputIndex];
-    zInput = chopIn.channels[_zInputIndex];
-  }
-  if (xInput && yInput && zInput) {
-    for (int i = 0; i < chopIn.length; ++i) {
-      ThreshPoint point;
-      point.position.x = xInput[i];
-      point.position.y = yInput[i];
-      point.position.z = zInput[i];
-      point.index = i;
-      _points.push_back(point);
-    }
   }
 }
 
@@ -151,12 +137,16 @@ void ThresholderCHOP::getGeneralInfo(CHOP_GeneralInfo *ginfo)
 bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   _lines.clear();
   info->length = 0;
-  loadPoints(info->inputArrays);
+  loadChannels(info->inputArrays);
   info->numChannels = NUM_MAIN_OUTS + static_cast<int>(_pointChannels.size());
-  if (_points.empty())
+  if (!hasEnoughInputs(info->inputArrays))
     return false;
   loadParameters(info->inputArrays->floatInputs);
-  _thresholder.generate(_points, &_lines);
+  CHOPInputPointSet points(&info->inputArrays->CHOPInputs[0],
+                           _xInputIndex,
+                           _yInputIndex,
+                           _zInputIndex);
+  _thresholder.generate(points, &_lines);
   if (_lines.empty()) {
     info->length = 1;
   } else {

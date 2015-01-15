@@ -31,7 +31,7 @@ void Thresholder::generate(const PointSource &points,
           break;
         }
         if (lines->size() >= _params.maxLines) {
-          break;
+          return;
         }
       }
     }

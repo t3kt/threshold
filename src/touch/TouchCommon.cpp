@@ -14,6 +14,7 @@ int CHOPInputPointSet::size() const  { return _inputs->length; }
 
 ThreshPoint CHOPInputPointSet::operator[](int i) const {
   ThreshPoint point;
+  point.index = i;
   point.position.x = _inputs->channels[_xInputIndex][i];
   point.position.y = _inputs->channels[_yInputIndex][i];
   point.position.z = _inputs->channels[_zInputIndex][i];

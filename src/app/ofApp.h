@@ -43,6 +43,7 @@ private:
   ThreshParameters _threshParams;
   bool _paramsChanged;
   shared_ptr<PointSystem> _pointSystem;
+  shared_ptr<PointSystem> _pointSystem2;
   Thresholder _thresholder;
   LineSet _threshLines;
   ofxPanel _gui;

@@ -8,6 +8,7 @@
 #include "Logging.h"
 #include "AppCommon.h"
 #include "FieldPointSystem.h"
+#include "PrimitivePointSystem.h"
 
 void ofApp::setup() {
   _threshParams.maxLines = _appParams.numPoints.get();
@@ -17,6 +18,12 @@ void ofApp::setup() {
   _thresholder.configure(_threshParams);
   _appParams.readFrom(_threshParams);
   _pointSystem.reset(new FieldPointSystem(_appParams));
+  shared_ptr<ofSpherePrimitive> sphere(new ofSpherePrimitive(0.5, 4));
+  sphere->enableColors();
+//  for (int i = 0; i < sphere->getMesh().getNumVertices(); ++i) {
+//    sphere->getMesh().addColor(_appParams.pointColor1);
+//  }
+  _pointSystem2.reset(new PrimitivePointSystem(sphere));
   _drawInputPoints = true;
   _drawThreshLines = true;
   _cam.setAutoDistance(true);
@@ -36,6 +43,8 @@ void ofApp::setup() {
                                          &ofApp::onTypedParameterChanged<bool>);
   _appParams.maxLinesPerSource.addListener(this,
                                            &ofApp::onTypedParameterChanged<int>);
+  _appParams.useSeparateSource.addListener(this,
+                                           &ofApp::onTypedParameterChanged<bool>);
   _paramsChanged = true;
   _postProc.init(ofGetWidth(), ofGetHeight());
   _bloom = _postProc.createPass<BloomPass>();
@@ -57,9 +66,13 @@ void ofApp::update() {
     _paramsChanged = false;
   }
   _threshLines.clear();
+  if (_pointSystem2) {
+    _pointSystem2->update();
+  }
   if (_pointSystem) {
     _pointSystem->update();
-    _thresholder.generate(*_pointSystem, &_threshLines);
+    _thresholder.generate(_pointSystem.get(), _pointSystem2.get(),
+                          &_threshLines);
   }
   _bloom->setEnabled(_appParams.enableBloom.get());
   _kaleidoscope->setEnabled(_appParams.enableKaliedoscope.get());
@@ -80,6 +93,8 @@ void ofApp::draw() {
   if (_drawInputPoints) {
     if (_pointSystem)
       _pointSystem->draw();
+    if (_pointSystem2)
+      _pointSystem2->draw();
   }
   
   if (_drawThreshLines) {

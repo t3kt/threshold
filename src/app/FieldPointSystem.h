@@ -11,7 +11,6 @@
 
 #include "PointSystem.h"
 #include "AppParameters.h"
-#include "PointSet.h"
 
 class FieldPointSystem : public PointSystem {
 public:

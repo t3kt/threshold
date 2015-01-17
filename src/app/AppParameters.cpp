@@ -22,12 +22,14 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(maxLines.set("Max Lines", 1000, 1, 20000));
   paramGroup.add(hasMaxPerSource.set("Max Per Source?", false));
   paramGroup.add(maxLinesPerSource.set("Max Lines Per Source", 10, 1, 100));
+  paramGroup.add(useSeparateSource.set("Use Separate Source?", false));
   hasMinDist.enableEvents();
   hasMaxDist.enableEvents();
   distRange.enableEvents();
   maxLines.enableEvents();
   hasMaxPerSource.enableEvents();
   maxLinesPerSource.enableEvents();
+  useSeparateSource.enableEvents();
   
   paramGroup.add(numPoints.set("Points", 800, 10, 2000));
   paramGroup.add(pointOpacity.set("Point Opacity", .6, 0, 1));
@@ -58,6 +60,7 @@ void ThreshAppParameters::applyTo(ThreshParameters &params) const {
   params.maxDist = hasMaxDist.get() ? dist[1] : -1;
   params.maxLines = maxLines.get();
   params.maxLinesPerSource = hasMaxPerSource.get() ? maxLinesPerSource.get() : -1;
+  params.useSeparateSource = useSeparateSource.get();
 }
 
 void ThreshAppParameters::readFrom(const ThreshParameters &params) {
@@ -68,4 +71,5 @@ void ThreshAppParameters::readFrom(const ThreshParameters &params) {
   maxLines.set(params.maxLines);
   hasMaxPerSource.set(params.hasMaxLinesPerSource());
   maxLinesPerSource.set(params.hasMaxLinesPerSource() ? params.maxLinesPerSource : 1);
+  useSeparateSource.set(params.useSeparateSource);
 }

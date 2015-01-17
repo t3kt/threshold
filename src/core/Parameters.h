@@ -15,12 +15,13 @@ public:
   float maxDist;
   int maxLines;
   int maxLinesPerSource;
+  bool useSeparateSource;
   
   ThreshParameters();
   
-  bool hasMinDist() const { return minDist >= 0; }
-  bool hasMaxDist() const { return maxDist >= 0; }
-  bool hasMaxLinesPerSource() const {
+  inline bool hasMinDist() const { return minDist >= 0; }
+  inline bool hasMaxDist() const { return maxDist >= 0; }
+  inline bool hasMaxLinesPerSource() const {
     return maxLinesPerSource > 0;
   }
 };

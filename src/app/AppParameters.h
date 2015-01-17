@@ -29,6 +29,7 @@ public:
   ofParameter<int> maxLines;
   ofParameter<bool> hasMaxPerSource;
   ofParameter<int> maxLinesPerSource;
+  ofParameter<bool> useSeparateSource;
   
   ofParameter<int> numPoints;
   ofParameter<float> pointOpacity;

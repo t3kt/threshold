@@ -43,9 +43,14 @@ public:
 private:
   void loadParameters(const CHOP_FloatInput* inputs);
   void loadChannels(const CHOP_InputArrays* inputs);
-  void outputLine(const ThreshLine& line, std::size_t i,
-                  float** channels,
-                  const CHOP_InputArrays *inputs) const;
+  void outputLineSingle(const ThreshLine& line,
+                        std::size_t i,
+                        float** channels,
+                        const CHOP_InputArrays *inputs) const;
+  void outputLineSeparate(const ThreshLine& line,
+                          std::size_t i,
+                          float** channels,
+                          const CHOP_InputArrays *inputs) const;
   
   Thresholder _thresholder;
   LineSet _lines;

@@ -124,15 +124,18 @@ void ofApp::draw() {
       auto alpha = line.closeness;
       auto color1 = _pointSystem->getColor(line.startIndex);
       ofFloatColor color2;
+      ofVec3f pos2;
       if (_appParams.useSeparateSource.get()) {
         color2 = _pointSystem2->getColor(line.endIndex);
+        pos2 = _pointSystem2->getPosition(line.endIndex);
       } else {
         color2 = _pointSystem->getColor(line.endIndex);
+        pos2 = _pointSystem->getPosition(line.endIndex);
       }
       color1.a = color2.a = alpha;
       linesMesh.addVertex(_pointSystem->getPosition(line.startIndex));
       linesMesh.addColor(color1);
-      linesMesh.addVertex(_pointSystem->getPosition(line.endIndex));
+      linesMesh.addVertex(pos2);
       linesMesh.addColor(color2);
     }
     ofNoFill();

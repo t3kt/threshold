@@ -236,3 +236,6 @@ zprivate/
 ThresholderCHOP/bin/
 
 *.trace*
+*.tlog
+*.idb
+*.lastbuildstate

@@ -21,6 +21,7 @@ FieldPointSystem::FieldPointSystem(ThreshAppParameters& appParams,
                      &FieldPointSystem::onPointColorChanged);
   color2.addListener(this,
                      &FieldPointSystem::onPointColorChanged);
+  assignPointColors();
 }
 
 FieldPointSystem::~FieldPointSystem() {

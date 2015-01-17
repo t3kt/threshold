@@ -29,12 +29,15 @@ public:
   ofParameter<int> maxLines;
   ofParameter<bool> hasMaxPerSource;
   ofParameter<int> maxLinesPerSource;
+  ofParameter<bool> useSeparateSource;
   
   ofParameter<int> numPoints;
   ofParameter<float> pointOpacity;
   ofParameter<float> pointSize;
   ofParameter<ofFloatColor> pointColor1;
   ofParameter<ofFloatColor> pointColor2;
+  ofParameter<ofFloatColor> pointColor3;
+  ofParameter<ofFloatColor> pointColor4;
   ofParameter<float> lineWidth;
   
   ofParameter<bool> enableBloom;

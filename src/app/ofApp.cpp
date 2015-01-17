@@ -8,6 +8,7 @@
 #include "Logging.h"
 #include "AppCommon.h"
 #include "FieldPointSystem.h"
+#include "PrimitivePointSystem.h"
 
 void ofApp::setup() {
   _threshParams.maxLines = _appParams.numPoints.get();
@@ -16,7 +17,31 @@ void ofApp::setup() {
   _threshParams.maxLines = 10000;
   _thresholder.configure(_threshParams);
   _appParams.readFrom(_threshParams);
-  _pointSystem.reset(new FieldPointSystem(_appParams));
+  _pointSystem.reset(new FieldPointSystem(_appParams,
+                                          _appParams.pointColor1,
+                                          _appParams.pointColor2));
+  {
+//    shared_ptr<ofBoxPrimitive> box(new ofBoxPrimitive(0.5, 0.7, 0.4, 5, 4, 3));
+//    box->enableColors();
+//    for (int i = 0; i < box->getMesh().getNumVertices(); ++i) {
+//      box->getMesh().addColor(ofFloatColor::blue);
+//    }
+//    _pointSystem2.reset(new PrimitivePointSystem(_appParams,
+//                                                box));
+  }
+  _pointSystem2.reset(new FieldPointSystem(_appParams,
+                                          _appParams.pointColor3,
+                                          _appParams.pointColor4));
+  {
+//    shared_ptr<ofSpherePrimitive> sphere(new ofSpherePrimitive(0.5, 4));
+//    sphere->enableColors();
+//    for (int i = 0; i < sphere->getMesh().getNumVertices(); ++i) {
+//      sphere->getMesh().addColor(ofFloatColor::red);
+//    }
+//    auto sys = new PrimitivePointSystem(_appParams, sphere);
+////    sys->setSpinRate(ofVec3f(10, 17, 12));
+//    _pointSystem2.reset(sys);
+  }
   _drawInputPoints = true;
   _drawThreshLines = true;
   _cam.setAutoDistance(true);
@@ -36,6 +61,8 @@ void ofApp::setup() {
                                          &ofApp::onTypedParameterChanged<bool>);
   _appParams.maxLinesPerSource.addListener(this,
                                            &ofApp::onTypedParameterChanged<int>);
+  _appParams.useSeparateSource.addListener(this,
+                                           &ofApp::onTypedParameterChanged<bool>);
   _paramsChanged = true;
   _postProc.init(ofGetWidth(), ofGetHeight());
   _bloom = _postProc.createPass<BloomPass>();
@@ -57,9 +84,13 @@ void ofApp::update() {
     _paramsChanged = false;
   }
   _threshLines.clear();
+  if (_pointSystem2) {
+    _pointSystem2->update();
+  }
   if (_pointSystem) {
     _pointSystem->update();
-    _thresholder.generate(*_pointSystem, &_threshLines);
+    _thresholder.generate(_pointSystem.get(), _pointSystem2.get(),
+                          &_threshLines);
   }
   _bloom->setEnabled(_appParams.enableBloom.get());
   _kaleidoscope->setEnabled(_appParams.enableKaliedoscope.get());
@@ -80,6 +111,8 @@ void ofApp::draw() {
   if (_drawInputPoints) {
     if (_pointSystem)
       _pointSystem->draw();
+    if (_pointSystem2)
+      _pointSystem2->draw();
   }
   
   if (_drawThreshLines) {
@@ -90,11 +123,19 @@ void ofApp::draw() {
     for (const auto& line : _threshLines) {
       auto alpha = line.closeness;
       auto color1 = _pointSystem->getColor(line.startIndex);
-      auto color2 = _pointSystem->getColor(line.endIndex);
+      ofFloatColor color2;
+      ofVec3f pos2;
+      if (_appParams.useSeparateSource.get()) {
+        color2 = _pointSystem2->getColor(line.endIndex);
+        pos2 = _pointSystem2->getPosition(line.endIndex);
+      } else {
+        color2 = _pointSystem->getColor(line.endIndex);
+        pos2 = _pointSystem->getPosition(line.endIndex);
+      }
       color1.a = color2.a = alpha;
       linesMesh.addVertex(_pointSystem->getPosition(line.startIndex));
       linesMesh.addColor(color1);
-      linesMesh.addVertex(_pointSystem->getPosition(line.endIndex));
+      linesMesh.addVertex(pos2);
       linesMesh.addColor(color2);
     }
     ofNoFill();

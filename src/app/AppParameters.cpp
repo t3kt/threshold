@@ -23,6 +23,8 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(hasMaxPerSource.set("Max Per Source?", false));
   paramGroup.add(maxLinesPerSource.set("Max Lines Per Source", 10, 1, 100));
   paramGroup.add(useSeparateSource.set("Use Separate Source?", false));
+  paramGroup.add(usePrimitive1.set("Primitive 1?", false));
+  paramGroup.add(usePrimitive2.set("Primitive 2?", false));
   hasMinDist.enableEvents();
   hasMaxDist.enableEvents();
   distRange.enableEvents();
@@ -30,6 +32,8 @@ ThreshAppParameters::ThreshAppParameters() {
   hasMaxPerSource.enableEvents();
   maxLinesPerSource.enableEvents();
   useSeparateSource.enableEvents();
+  usePrimitive1.enableEvents();
+  usePrimitive2.enableEvents();
   
   paramGroup.add(numPoints.set("Points", 800, 10, 2000));
   paramGroup.add(pointOpacity.set("Point Opacity", .6, 0, 1));

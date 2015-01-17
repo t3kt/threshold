@@ -8,7 +8,45 @@
 #include "Logging.h"
 #include "AppCommon.h"
 #include "FieldPointSystem.h"
-#include "PrimitivePointSystem.h"
+#include "MeshPointSystem.h"
+
+static shared_ptr<PointSystem>
+createFieldSystem1(ThreshAppParameters& appParams) {
+  auto sys = new FieldPointSystem(appParams,
+                                  appParams.pointColor1,
+                                  appParams.pointColor2);
+  return shared_ptr<PointSystem>(sys);
+}
+
+static shared_ptr<PointSystem>
+createFieldSystem2(ThreshAppParameters& appParams) {
+  auto sys = new FieldPointSystem(appParams,
+                                  appParams.pointColor3,
+                                  appParams.pointColor4);
+  return shared_ptr<PointSystem>(sys);
+}
+
+static shared_ptr<PointSystem>
+createBoxSystem1(ThreshAppParameters& appParams) {
+  auto box = ofBoxPrimitive(0.5, 0.7, 0.4, 5, 4, 3);
+  auto sys = new MeshPointSystem(appParams,
+                                 box.getMesh(),
+                                 appParams.pointColor1,
+                                 appParams.pointColor2);
+  sys->spinRate.set(.03, .008, .01);
+  return shared_ptr<PointSystem>(sys);
+}
+
+static shared_ptr<PointSystem>
+createSphereSystem2(ThreshAppParameters& appParams) {
+  auto sphere = ofSpherePrimitive(0.5, 12);
+  auto sys = new MeshPointSystem(appParams,
+                                 sphere.getMesh(), // intentional copying
+                                 appParams.pointColor3,
+                                 appParams.pointColor4);
+  sys->spinRate.set(-.03, .01, -.005);
+  return shared_ptr<PointSystem>(sys);
+}
 
 void ofApp::setup() {
   _threshParams.maxLines = _appParams.numPoints.get();
@@ -17,31 +55,8 @@ void ofApp::setup() {
   _threshParams.maxLines = 10000;
   _thresholder.configure(_threshParams);
   _appParams.readFrom(_threshParams);
-  _pointSystem.reset(new FieldPointSystem(_appParams,
-                                          _appParams.pointColor1,
-                                          _appParams.pointColor2));
-  {
-//    shared_ptr<ofBoxPrimitive> box(new ofBoxPrimitive(0.5, 0.7, 0.4, 5, 4, 3));
-//    box->enableColors();
-//    for (int i = 0; i < box->getMesh().getNumVertices(); ++i) {
-//      box->getMesh().addColor(ofFloatColor::blue);
-//    }
-//    _pointSystem2.reset(new PrimitivePointSystem(_appParams,
-//                                                box));
-  }
-  _pointSystem2.reset(new FieldPointSystem(_appParams,
-                                          _appParams.pointColor3,
-                                          _appParams.pointColor4));
-  {
-//    shared_ptr<ofSpherePrimitive> sphere(new ofSpherePrimitive(0.5, 4));
-//    sphere->enableColors();
-//    for (int i = 0; i < sphere->getMesh().getNumVertices(); ++i) {
-//      sphere->getMesh().addColor(ofFloatColor::red);
-//    }
-//    auto sys = new PrimitivePointSystem(_appParams, sphere);
-////    sys->setSpinRate(ofVec3f(10, 17, 12));
-//    _pointSystem2.reset(sys);
-  }
+  _changingSystem1 = true;
+  _changingSystem2 = true;
   _drawInputPoints = true;
   _drawThreshLines = true;
   _cam.setAutoDistance(true);
@@ -63,10 +78,22 @@ void ofApp::setup() {
                                            &ofApp::onTypedParameterChanged<int>);
   _appParams.useSeparateSource.addListener(this,
                                            &ofApp::onTypedParameterChanged<bool>);
+  _appParams.usePrimitive1.addListener(this,
+                                       &ofApp::onUsePrimitive1Changed);
+  _appParams.usePrimitive2.addListener(this,
+                                       &ofApp::onUsePrimitive2Changed);
   _paramsChanged = true;
   _postProc.init(ofGetWidth(), ofGetHeight());
   _bloom = _postProc.createPass<BloomPass>();
   _kaleidoscope = _postProc.createPass<KaleidoscopePass>();
+}
+
+void ofApp::onUsePrimitive1Changed(bool &) {
+  _changingSystem1 = true;
+}
+
+void ofApp::onUsePrimitive2Changed(bool &) {
+  _changingSystem2 = true;
 }
 
 void ofApp::onParameterChanged(ofAbstractParameter&) {
@@ -82,6 +109,20 @@ void ofApp::update() {
   if (_paramsChanged) {
     _thresholder.configure(_threshParams);
     _paramsChanged = false;
+  }
+  if (_changingSystem1) {
+    if (_appParams.usePrimitive1.get())
+      _pointSystem = createBoxSystem1(_appParams);
+    else
+      _pointSystem = createFieldSystem1(_appParams);
+    _changingSystem1 = false;
+  }
+  if (_changingSystem2) {
+    if (_appParams.usePrimitive2.get())
+      _pointSystem2 = createSphereSystem2(_appParams);
+    else
+      _pointSystem2 = createFieldSystem2(_appParams);
+    _changingSystem2 = false;
   }
   _threshLines.clear();
   if (_pointSystem2) {

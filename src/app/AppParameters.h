@@ -39,6 +39,8 @@ public:
   ofParameter<ofFloatColor> pointColor3;
   ofParameter<ofFloatColor> pointColor4;
   ofParameter<float> lineWidth;
+  ofParameter<bool> usePrimitive1;
+  ofParameter<bool> usePrimitive2;
   
   ofParameter<bool> enableBloom;
   ofParameter<bool> enableKaliedoscope;

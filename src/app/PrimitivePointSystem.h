@@ -16,13 +16,16 @@
 
 class PrimitivePointSystem : public PointSystem {
 public:
-  PrimitivePointSystem(shared_ptr<of3dPrimitive> prim);
+  PrimitivePointSystem(ThreshAppParameters& appParams, shared_ptr<of3dPrimitive> prim);
   ~PrimitivePointSystem();
+  PrimitivePointSystem& setSpinRate(ofVec3f spin);
   void update() override;
   void draw() override;
   int size() const override;
   ThreshPoint operator[](int i) const override;
 private:
+  ofVec3f _spinRate;
+  ThreshAppParameters& _appParams;
   shared_ptr<of3dPrimitive> _primitive;
 };
 

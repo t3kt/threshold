@@ -14,7 +14,9 @@
 
 class FieldPointSystem : public PointSystem {
 public:
-  FieldPointSystem(ThreshAppParameters& appParams);
+  FieldPointSystem(ThreshAppParameters& appParams,
+                   ofParameter<ofFloatColor>& color1,
+                   ofParameter<ofFloatColor>& color2);
   ~FieldPointSystem();
   void update() override;
   void draw() override;
@@ -25,6 +27,8 @@ private:
   void assignPointColors();
   
   ThreshAppParameters& _appParams;
+  ofParameter<ofFloatColor>& _color1;
+  ofParameter<ofFloatColor>& _color2;
   std::vector<ThreshPoint> _points;
   std::vector<ofVec3f> _pointNoiseOffsets;
 };

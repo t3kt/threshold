@@ -42,7 +42,19 @@ ThreshAppParameters::ThreshAppParameters() {
                                  ofFloatColor(0, .9f, .2f),
                                  ofFloatColor(0, 0, 0, 0),
                                  ofFloatColor(1, 1, 1, 1)));
+  paramGroup.add(pointColor3.set("Point Color 3",
+                                 ofFloatColor(.5f, 0, .3f),
+                                 ofFloatColor(0, 0, 0, 0),
+                                 ofFloatColor(1, 1, 1, 1)));
+  paramGroup.add(pointColor4.set("Point Color 4",
+                                 ofFloatColor(.9f, 0, .5f),
+                                 ofFloatColor(0, 0, 0, 0),
+                                 ofFloatColor(1, 1, 1, 1)));
   paramGroup.add(lineWidth.set("Line Width", .2, 0.001, 5));
+  pointColor1.enableEvents();
+  pointColor2.enableEvents();
+  pointColor3.enableEvents();
+  pointColor4.enableEvents();
   
   ofParameterGroup postParams;
   postParams.setName("Post-Processing");

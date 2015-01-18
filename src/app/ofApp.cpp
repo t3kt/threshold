@@ -8,6 +8,45 @@
 #include "Logging.h"
 #include "AppCommon.h"
 #include "FieldPointSystem.h"
+#include "MeshPointSystem.h"
+
+static shared_ptr<PointSystem>
+createFieldSystem1(ThreshAppParameters& appParams) {
+  auto sys = new FieldPointSystem(appParams,
+                                  appParams.pointColor1,
+                                  appParams.pointColor2);
+  return shared_ptr<PointSystem>(sys);
+}
+
+static shared_ptr<PointSystem>
+createFieldSystem2(ThreshAppParameters& appParams) {
+  auto sys = new FieldPointSystem(appParams,
+                                  appParams.pointColor3,
+                                  appParams.pointColor4);
+  return shared_ptr<PointSystem>(sys);
+}
+
+static shared_ptr<PointSystem>
+createBoxSystem1(ThreshAppParameters& appParams) {
+  auto box = ofBoxPrimitive(0.5, 0.7, 0.4, 5, 4, 3);
+  auto sys = new MeshPointSystem(appParams,
+                                 box.getMesh(),
+                                 appParams.pointColor1,
+                                 appParams.pointColor2);
+  sys->spinRate.set(.03, .008, .01);
+  return shared_ptr<PointSystem>(sys);
+}
+
+static shared_ptr<PointSystem>
+createSphereSystem2(ThreshAppParameters& appParams) {
+  auto sphere = ofSpherePrimitive(0.5, 12);
+  auto sys = new MeshPointSystem(appParams,
+                                 sphere.getMesh(), // intentional copying
+                                 appParams.pointColor3,
+                                 appParams.pointColor4);
+  sys->spinRate.set(-.03, .01, -.005);
+  return shared_ptr<PointSystem>(sys);
+}
 
 void ofApp::setup() {
   _threshParams.maxLines = _appParams.numPoints.get();
@@ -16,7 +55,8 @@ void ofApp::setup() {
   _threshParams.maxLines = 10000;
   _thresholder.configure(_threshParams);
   _appParams.readFrom(_threshParams);
-  _pointSystem.reset(new FieldPointSystem(_appParams));
+  _changingSystem1 = true;
+  _changingSystem2 = true;
   _drawInputPoints = true;
   _drawThreshLines = true;
   _cam.setAutoDistance(true);
@@ -36,10 +76,24 @@ void ofApp::setup() {
                                          &ofApp::onTypedParameterChanged<bool>);
   _appParams.maxLinesPerSource.addListener(this,
                                            &ofApp::onTypedParameterChanged<int>);
+  _appParams.useSeparateSource.addListener(this,
+                                           &ofApp::onTypedParameterChanged<bool>);
+  _appParams.usePrimitive1.addListener(this,
+                                       &ofApp::onUsePrimitive1Changed);
+  _appParams.usePrimitive2.addListener(this,
+                                       &ofApp::onUsePrimitive2Changed);
   _paramsChanged = true;
   _postProc.init(ofGetWidth(), ofGetHeight());
   _bloom = _postProc.createPass<BloomPass>();
   _kaleidoscope = _postProc.createPass<KaleidoscopePass>();
+}
+
+void ofApp::onUsePrimitive1Changed(bool &) {
+  _changingSystem1 = true;
+}
+
+void ofApp::onUsePrimitive2Changed(bool &) {
+  _changingSystem2 = true;
 }
 
 void ofApp::onParameterChanged(ofAbstractParameter&) {
@@ -56,10 +110,28 @@ void ofApp::update() {
     _thresholder.configure(_threshParams);
     _paramsChanged = false;
   }
+  if (_changingSystem1) {
+    if (_appParams.usePrimitive1.get())
+      _pointSystem = createBoxSystem1(_appParams);
+    else
+      _pointSystem = createFieldSystem1(_appParams);
+    _changingSystem1 = false;
+  }
+  if (_changingSystem2) {
+    if (_appParams.usePrimitive2.get())
+      _pointSystem2 = createSphereSystem2(_appParams);
+    else
+      _pointSystem2 = createFieldSystem2(_appParams);
+    _changingSystem2 = false;
+  }
   _threshLines.clear();
+  if (_pointSystem2) {
+    _pointSystem2->update();
+  }
   if (_pointSystem) {
     _pointSystem->update();
-    _thresholder.generate(*_pointSystem, &_threshLines);
+    _thresholder.generate(_pointSystem.get(), _pointSystem2.get(),
+                          &_threshLines);
   }
   _bloom->setEnabled(_appParams.enableBloom.get());
   _kaleidoscope->setEnabled(_appParams.enableKaliedoscope.get());
@@ -80,6 +152,8 @@ void ofApp::draw() {
   if (_drawInputPoints) {
     if (_pointSystem)
       _pointSystem->draw();
+    if (_pointSystem2)
+      _pointSystem2->draw();
   }
   
   if (_drawThreshLines) {
@@ -90,11 +164,19 @@ void ofApp::draw() {
     for (const auto& line : _threshLines) {
       auto alpha = line.closeness;
       auto color1 = _pointSystem->getColor(line.startIndex);
-      auto color2 = _pointSystem->getColor(line.endIndex);
+      ofFloatColor color2;
+      ofVec3f pos2;
+      if (_appParams.useSeparateSource.get()) {
+        color2 = _pointSystem2->getColor(line.endIndex);
+        pos2 = _pointSystem2->getPosition(line.endIndex);
+      } else {
+        color2 = _pointSystem->getColor(line.endIndex);
+        pos2 = _pointSystem->getPosition(line.endIndex);
+      }
       color1.a = color2.a = alpha;
       linesMesh.addVertex(_pointSystem->getPosition(line.startIndex));
       linesMesh.addColor(color1);
-      linesMesh.addVertex(_pointSystem->getPosition(line.endIndex));
+      linesMesh.addVertex(pos2);
       linesMesh.addColor(color2);
     }
     ofNoFill();

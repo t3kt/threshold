@@ -36,6 +36,8 @@ private:
   void onTypedParameterChanged(T&) {
     updateParameters();
   }
+  void onUsePrimitive1Changed(bool&);
+  void onUsePrimitive2Changed(bool&);
   
   bool _drawInputPoints;
   bool _drawThreshLines;
@@ -43,6 +45,7 @@ private:
   ThreshParameters _threshParams;
   bool _paramsChanged;
   shared_ptr<PointSystem> _pointSystem;
+  shared_ptr<PointSystem> _pointSystem2;
   Thresholder _thresholder;
   LineSet _threshLines;
   ofxPanel _gui;
@@ -50,4 +53,6 @@ private:
   ofxPostProcessing _postProc;
   shared_ptr<BloomPass> _bloom;
   shared_ptr<KaleidoscopePass> _kaleidoscope;
+  bool _changingSystem1;
+  bool _changingSystem2;
 };

@@ -15,8 +15,12 @@ void Thresholder::configure(const ThreshParameters &params) {
   _params = params;
 }
 
-void Thresholder::generate(const PointSource &points,
-                           LineSet *lines) {
+const ThreshParameters& Thresholder::params() const {
+  return _params;
+}
+
+void Thresholder::generateSingleSource(const PointSource &points,
+                                       LineSet *lines) {
   for (int indexA = 0; indexA < points.size(); indexA++) {
     const auto& pointA = points[indexA];
     int linesFromPointA = 0;
@@ -31,10 +35,44 @@ void Thresholder::generate(const PointSource &points,
           break;
         }
         if (lines->size() >= _params.maxLines) {
-          break;
+          return;
         }
       }
     }
+  }
+}
+
+void Thresholder::generateSeprateSources(const PointSource &pointsA,
+                                         const PointSource &pointsB,
+                                         LineSet *lines) {
+  for (int indexA = 0; indexA < pointsA.size(); ++indexA) {
+    const auto& pointA = pointsA[indexA];
+    int linesFromPointA = 0;
+    for (int indexB = 0; indexB < pointsB.size(); ++indexB) {
+      const auto& pointB = pointsB[indexB];
+      auto line = createLine(pointA, pointB);
+      if (testLine(line)) {
+        lines->push_back(line);
+        linesFromPointA++;
+        if (_params.hasMaxLinesPerSource() &&
+            linesFromPointA >= _params.maxLinesPerSource) {
+          break;
+        }
+        if (lines->size() >= _params.maxLines) {
+          return;
+        }
+      }
+    }
+  }
+}
+
+void Thresholder::generate(const PointSource *pointsA,
+                           const PointSource *pointsB,
+                           LineSet *lines) {
+  if (pointsB && _params.useSeparateSource) {
+    generateSeprateSources(*pointsA, *pointsB, lines);
+  } else {
+    generateSingleSource(*pointsA, lines);
   }
 }
 

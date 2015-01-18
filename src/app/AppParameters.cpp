@@ -22,12 +22,18 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(maxLines.set("Max Lines", 1000, 1, 20000));
   paramGroup.add(hasMaxPerSource.set("Max Per Source?", false));
   paramGroup.add(maxLinesPerSource.set("Max Lines Per Source", 10, 1, 100));
+  paramGroup.add(useSeparateSource.set("Use Separate Source?", false));
+  paramGroup.add(usePrimitive1.set("Primitive 1?", false));
+  paramGroup.add(usePrimitive2.set("Primitive 2?", false));
   hasMinDist.enableEvents();
   hasMaxDist.enableEvents();
   distRange.enableEvents();
   maxLines.enableEvents();
   hasMaxPerSource.enableEvents();
   maxLinesPerSource.enableEvents();
+  useSeparateSource.enableEvents();
+  usePrimitive1.enableEvents();
+  usePrimitive2.enableEvents();
   
   paramGroup.add(numPoints.set("Points", 800, 10, 2000));
   paramGroup.add(pointOpacity.set("Point Opacity", .6, 0, 1));
@@ -40,7 +46,19 @@ ThreshAppParameters::ThreshAppParameters() {
                                  ofFloatColor(0, .9f, .2f),
                                  ofFloatColor(0, 0, 0, 0),
                                  ofFloatColor(1, 1, 1, 1)));
+  paramGroup.add(pointColor3.set("Point Color 3",
+                                 ofFloatColor(.5f, 0, .3f),
+                                 ofFloatColor(0, 0, 0, 0),
+                                 ofFloatColor(1, 1, 1, 1)));
+  paramGroup.add(pointColor4.set("Point Color 4",
+                                 ofFloatColor(.9f, 0, .5f),
+                                 ofFloatColor(0, 0, 0, 0),
+                                 ofFloatColor(1, 1, 1, 1)));
   paramGroup.add(lineWidth.set("Line Width", .2, 0.001, 5));
+  pointColor1.enableEvents();
+  pointColor2.enableEvents();
+  pointColor3.enableEvents();
+  pointColor4.enableEvents();
   
   ofParameterGroup postParams;
   postParams.setName("Post-Processing");
@@ -58,6 +76,7 @@ void ThreshAppParameters::applyTo(ThreshParameters &params) const {
   params.maxDist = hasMaxDist.get() ? dist[1] : -1;
   params.maxLines = maxLines.get();
   params.maxLinesPerSource = hasMaxPerSource.get() ? maxLinesPerSource.get() : -1;
+  params.useSeparateSource = useSeparateSource.get();
 }
 
 void ThreshAppParameters::readFrom(const ThreshParameters &params) {
@@ -68,4 +87,5 @@ void ThreshAppParameters::readFrom(const ThreshParameters &params) {
   maxLines.set(params.maxLines);
   hasMaxPerSource.set(params.hasMaxLinesPerSource());
   maxLinesPerSource.set(params.hasMaxLinesPerSource() ? params.maxLinesPerSource : 1);
+  useSeparateSource.set(params.useSeparateSource);
 }

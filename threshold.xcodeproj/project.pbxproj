@@ -10,6 +10,7 @@
 		0B79D1370C521A99743B84F8 /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3413947B945ACD229F00DBBE /* ofxSliderGroup.cpp */; };
 		181852019B0A9DEA7D78D274 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53463E8ADDB554FA0DAD6DC5 /* ofxPanel.cpp */; };
 		1E5FEDF788EB25A15DC2460C /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB71DBDC0C28F5821B4445E /* ofxGuiGroup.cpp */; };
+		326DC50C1A6B22C000F95F24 /* MeshPointSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 326DC50A1A6B22C000F95F24 /* MeshPointSystem.cpp */; };
 		328008C41A637DBB00AA5118 /* PointSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328008C21A637DBB00AA5118 /* PointSystem.cpp */; };
 		328008C71A63806E00AA5118 /* FieldPointSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328008C51A63806E00AA5118 /* FieldPointSystem.cpp */; };
 		329F68CB1A5CC64300B1FED7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68C81A5CC64300B1FED7 /* main.cpp */; };
@@ -114,6 +115,8 @@
 		23592480DBEBA93375CA50BA /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxToggle.h; path = ../of_v0.8.4_osx_release/addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
 		29E08F03037BBF49169FF56C /* ofxButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxButton.h; path = ../of_v0.8.4_osx_release/addons/ofxGui/src/ofxButton.h; sourceTree = SOURCE_ROOT; };
 		2D95F9E0A8ED9E600501D0DE /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxToggle.cpp; path = ../of_v0.8.4_osx_release/addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
+		326DC50A1A6B22C000F95F24 /* MeshPointSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshPointSystem.cpp; path = app/MeshPointSystem.cpp; sourceTree = "<group>"; };
+		326DC50B1A6B22C000F95F24 /* MeshPointSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshPointSystem.h; path = app/MeshPointSystem.h; sourceTree = "<group>"; };
 		328008C21A637DBB00AA5118 /* PointSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointSystem.cpp; path = app/PointSystem.cpp; sourceTree = "<group>"; };
 		328008C31A637DBB00AA5118 /* PointSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointSystem.h; path = app/PointSystem.h; sourceTree = "<group>"; };
 		328008C51A63806E00AA5118 /* FieldPointSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FieldPointSystem.cpp; path = app/FieldPointSystem.cpp; sourceTree = "<group>"; };
@@ -288,6 +291,8 @@
 				328008C31A637DBB00AA5118 /* PointSystem.h */,
 				328008C51A63806E00AA5118 /* FieldPointSystem.cpp */,
 				328008C61A63806E00AA5118 /* FieldPointSystem.h */,
+				326DC50A1A6B22C000F95F24 /* MeshPointSystem.cpp */,
+				326DC50B1A6B22C000F95F24 /* MeshPointSystem.h */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -638,6 +643,7 @@
 				32BD66D81A63166600544ED2 /* DofPass.cpp in Sources */,
 				32BD66EA1A63166600544ED2 /* ZoomBlurPass.cpp in Sources */,
 				66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */,
+				326DC50C1A6B22C000F95F24 /* MeshPointSystem.cpp in Sources */,
 				329F68D71A5CC73F00B1FED7 /* Point.cpp in Sources */,
 				181852019B0A9DEA7D78D274 /* ofxPanel.cpp in Sources */,
 				32E054CA1A60AB3B001CAC3A /* Logging.cpp in Sources */,

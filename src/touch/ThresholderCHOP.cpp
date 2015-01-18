@@ -142,11 +142,19 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   if (!hasEnoughInputs(info->inputArrays))
     return false;
   loadParameters(info->inputArrays->floatInputs);
-  CHOPInputPointSet points(&info->inputArrays->CHOPInputs[0],
+  CHOPInputPointSet pointsA(&info->inputArrays->CHOPInputs[0],
                            _xInputIndex,
                            _yInputIndex,
                            _zInputIndex);
-  _thresholder.generate(points, &_lines);
+  if (info->inputArrays->numCHOPInputs > 1) {
+    CHOPInputPointSet pointsB(&info->inputArrays->CHOPInputs[1],
+                              _xInputIndex,
+                              _yInputIndex,
+                              _zInputIndex);
+    _thresholder.generate(&pointsA, &pointsB, &_lines);
+  } else {
+    _thresholder.generate(&pointsA, NULL, &_lines);
+  }
   if (_lines.empty()) {
     info->length = 1;
   } else {
@@ -172,10 +180,10 @@ const char* ThresholderCHOP::getChannelName(int index,
   return NULL;
 }
 
-void ThresholderCHOP::outputLine(const ThreshLine& line,
-                                 std::size_t i,
-                                 float **channels,
-                                 const CHOP_InputArrays *inputs) const {
+void ThresholderCHOP::outputLineSingle(const ThreshLine& line,
+                                       std::size_t i,
+                                       float **channels,
+                                       const CHOP_InputArrays *inputs) const {
   const auto& startIndex = line.startIndex;
   const auto& endIndex = line.endIndex;
   channels[OUT_INDEX1][i] = static_cast<float>(startIndex);
@@ -190,17 +198,48 @@ void ThresholderCHOP::outputLine(const ThreshLine& line,
   }
 }
 
+void ThresholderCHOP::outputLineSeparate(const ThreshLine& line,
+                                         std::size_t i,
+                                         float **channels,
+                                         const CHOP_InputArrays *inputs) const {
+  const auto& startIndex = line.startIndex;
+  const auto& endIndex = line.endIndex;
+  channels[OUT_INDEX1][i] = static_cast<float>(startIndex);
+  channels[OUT_INDEX2][i] = static_cast<float>(endIndex);
+  channels[OUT_SQRDIST][i] = line.squareDistance;
+  channels[OUT_CLOSENESS][i] = line.closeness;
+  auto inChansA = inputs->CHOPInputs[0].channels;
+  auto inChansB = inputs->CHOPInputs[1].channels;
+  for (const auto& outChan : _pointChannels) {
+    if (outChan.isStart) {
+      auto val = inChansA[outChan.sourceIndex][startIndex];
+      channels[outChan.outIndex][i] = val;
+    } else {
+      auto val = inChansB[outChan.sourceIndex][endIndex];
+      channels[outChan.outIndex][i] = val;
+    }
+  }
+}
+
 void ThresholderCHOP::execute(const CHOP_Output *outputs,
                               const CHOP_InputArrays *inputs,
                               void *reserved) {
   if (_lines.empty()) {
     ThreshLine dummy;
-    outputLine(dummy, 0, outputs->channels, inputs);
+    outputLineSingle(dummy, 0, outputs->channels, inputs);
   } else {
     auto length = _lines.size();
-    for (std::size_t i = 0; i < length; ++i) {
-      const auto& line = _lines[i];
-      outputLine(line, i, outputs->channels, inputs);
+    if (inputs->numCHOPInputs > 1 &&
+        _thresholder.params().useSeparateSource) {
+      for (std::size_t i = 0; i < length; ++i) {
+        const auto& line = _lines[i];
+        outputLineSeparate(line, i, outputs->channels, inputs);
+      }
+    } else {
+      for (std::size_t i = 0; i < length; ++i) {
+        const auto& line = _lines[i];
+        outputLineSingle(line, i, outputs->channels, inputs);
+      }
     }
   }
 }

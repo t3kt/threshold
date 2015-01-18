@@ -31,6 +31,10 @@ public:
   ofParameter<int> maxLinesPerSource;
   ofParameter<bool> useSeparateSource;
   
+  ofParameter<bool> useExtend;
+  ofParameter<float> extendRatioStart;
+  ofParameter<float> extendRatioEnd;
+  
   ofParameter<int> numPoints;
   ofParameter<float> pointOpacity;
   ofParameter<float> pointSize;

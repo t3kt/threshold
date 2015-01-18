@@ -138,6 +138,55 @@ void ofApp::update() {
   _kaleidoscope->setSegments(_appParams.kaliedoscopeSegments.get());
 }
 
+static void extendPoints(ofVec3f& pos1, ofVec3f& pos2,
+                         float extend1, float extend2) {
+  auto diff = pos2 - pos1;
+  pos1 = pos1 + (diff * extend1);
+  pos2 = pos2 - (diff * extend2);
+}
+
+void ofApp::addLineToMesh(ofMesh *mesh,
+                          const ThreshLine &line) const {
+  ofVec3f pos1 = _pointSystem->getPosition(line.startIndex);
+  ofFloatColor color1 = _pointSystem->getColor(line.startIndex);
+  
+  ofVec3f pos2;
+  ofFloatColor color2;
+  if (_appParams.useSeparateSource.get()) {
+    pos2 = _pointSystem2->getPosition(line.endIndex);
+    color2 = _pointSystem2->getColor(line.endIndex);
+  } else {
+    pos2 = _pointSystem->getPosition(line.endIndex);
+    color2 = _pointSystem->getColor(line.endIndex);
+  }
+  if (_appParams.useExtend.get()) {
+    extendPoints(pos1, pos2,
+                 _appParams.extendRatioStart.get(),
+                 _appParams.extendRatioEnd.get());
+  }
+//  color1.a *= line.closeness;
+//  color2.a *= line.closeness;
+  color1.a = color2.a = line.closeness;
+  //...
+  mesh->addVertex(pos1);
+  mesh->addColor(color1);
+  mesh->addVertex(pos2);
+  mesh->addColor(color2);
+}
+
+void ofApp::drawLines() const {
+  ofPushStyle();
+  ofSetLineWidth(_appParams.lineWidth.get());
+  ofMesh linesMesh;
+  linesMesh.setMode(OF_PRIMITIVE_LINES);
+  for (const auto& line : _threshLines) {
+    addLineToMesh(&linesMesh, line);
+  }
+  ofNoFill();
+  linesMesh.drawWireframe();
+  ofPopStyle();
+}
+
 void ofApp::draw() {
   ofBackground(0);
   glPushAttrib(GL_ENABLE_BIT);
@@ -157,31 +206,7 @@ void ofApp::draw() {
   }
   
   if (_drawThreshLines) {
-    ofPushStyle();
-    ofSetLineWidth(_appParams.lineWidth.get());
-    ofMesh linesMesh;
-    linesMesh.setMode(OF_PRIMITIVE_LINES);
-    for (const auto& line : _threshLines) {
-      auto alpha = line.closeness;
-      auto color1 = _pointSystem->getColor(line.startIndex);
-      ofFloatColor color2;
-      ofVec3f pos2;
-      if (_appParams.useSeparateSource.get()) {
-        color2 = _pointSystem2->getColor(line.endIndex);
-        pos2 = _pointSystem2->getPosition(line.endIndex);
-      } else {
-        color2 = _pointSystem->getColor(line.endIndex);
-        pos2 = _pointSystem->getPosition(line.endIndex);
-      }
-      color1.a = color2.a = alpha;
-      linesMesh.addVertex(_pointSystem->getPosition(line.startIndex));
-      linesMesh.addColor(color1);
-      linesMesh.addVertex(pos2);
-      linesMesh.addColor(color2);
-    }
-    ofNoFill();
-    linesMesh.drawWireframe();
-    ofPopStyle();
+    drawLines();
   }
   
   ofPopMatrix();

@@ -25,6 +25,9 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(useSeparateSource.set("Use Separate Source?", false));
   paramGroup.add(usePrimitive1.set("Primitive 1?", false));
   paramGroup.add(usePrimitive2.set("Primitive 2?", false));
+  paramGroup.add(useExtend.set("Extend?", false));
+  paramGroup.add(extendRatioStart.set("Extend Ratio 1", 1, -3, 3));
+  paramGroup.add(extendRatioEnd.set("Extend Ratio 2", 1, -3, 3));
   hasMinDist.enableEvents();
   hasMaxDist.enableEvents();
   distRange.enableEvents();

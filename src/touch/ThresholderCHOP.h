@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <utility>
 
 #include "ChopCPP_wrapper.h"
 
@@ -18,16 +19,18 @@
 #include "PointSet.h"
 #include "LineSet.h"
 
+typedef std::pair<int, int> IndexPair;
+
 struct OutputChannel {
   std::string outName;
-  std::size_t outIndex;
+  int outIndex;
   bool isStart;
-  std::size_t sourceIndex;
+  IndexPair sourceIndex;
 };
 
 class ThresholderCHOP : public CHOP_CPlusPlusBase {
 public:
-  ThresholderCHOP(const CHOP_NodeInfo* info) : _xInputIndex(-1), _yInputIndex(-1), _zInputIndex(-1) {}
+  explicit ThresholderCHOP(const CHOP_NodeInfo* info);
   virtual ~ThresholderCHOP() {}
   
   void getGeneralInfo(CHOP_GeneralInfo* info) override;
@@ -43,6 +46,7 @@ public:
 private:
   void loadParameters(const CHOP_FloatInput* inputs);
   void loadChannels(const CHOP_InputArrays* inputs);
+  void loadChannelsSeparate(const CHOP_InputArrays* inputs);
   void outputLineSingle(const ThreshLine& line,
                         std::size_t i,
                         float** channels,
@@ -54,9 +58,12 @@ private:
   
   Thresholder _thresholder;
   LineSet _lines;
-  int _xInputIndex;
-  int _yInputIndex;
-  int _zInputIndex;
+  OutputChannel _xChannel;
+  OutputChannel _yChannel;
+  OutputChannel _zChannel;
+  IndexPair _xInputIndex;
+  IndexPair _yInputIndex;
+  IndexPair _zInputIndex;
   std::vector<OutputChannel> _pointChannels;
 };
 

@@ -20,7 +20,7 @@ enum {
   SETTING_MAXLINES,
   SETTING_MAXPERSOURCE,
   SETTING_RESET_CHANS,
-  //  SETTING_SEPARATESOURCE,
+  SETTING_SEPARATESOURCE,
   NUM_SETTINGS
 };
 
@@ -66,9 +66,11 @@ static void setParameter(const CHOP_FloatInput& input,
 void
 ThresholderCHOP::loadParameters(const CHOP_FloatInput* inputs) {
   ThreshParameters params;
-  for (int i = 0; i < NUM_SETTINGS; ++i) {
-    setParameter(inputs[i], &params);
-  }
+  params.minDist = inputs[SETTING_DISTRANGE].values[0];
+  params.maxDist = inputs[SETTING_DISTRANGE].values[1];
+  params.maxLines = static_cast<int>(inputs[SETTING_MAXLINES].values[0]);
+  params.maxLinesPerSource = static_cast<int>(inputs[SETTING_MAXPERSOURCE].values[0]);
+  params.useSeparateSource = inputs[SETTING_SEPARATESOURCE].values[0] > 0;
   _thresholder.configure(params);
 }
 

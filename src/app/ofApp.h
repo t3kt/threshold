@@ -38,6 +38,9 @@ private:
   }
   void onUsePrimitive1Changed(bool&);
   void onUsePrimitive2Changed(bool&);
+  void addLineToMesh(ofMesh* mesh,
+                     const ThreshLine& line) const;
+  void drawLines() const;
   
   bool _drawInputPoints;
   bool _drawThreshLines;

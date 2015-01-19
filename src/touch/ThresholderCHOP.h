@@ -45,6 +45,7 @@ public:
   void getInfoCHOPChan(int index, CHOP_InfoCHOPChan *chan) override;
 private:
   void loadParameters(const CHOP_FloatInput* inputs);
+  bool shouldLoadChannels(const CHOP_InputArrays* inputs) const;
   void loadChannels(const CHOP_InputArrays* inputs);
   void loadChannelsSeparate(const CHOP_InputArrays* inputs);
   void outputLineSingle(const ThreshLine& line,

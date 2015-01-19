@@ -41,27 +41,29 @@ ThreshAppParameters::ThreshAppParameters() {
   paramGroup.add(numPoints.set("Points", 800, 10, 2000));
   paramGroup.add(pointOpacity.set("Point Opacity", .6, 0, 1));
   paramGroup.add(pointSize.set("Point Size", 0.005, 0.0001, 0.02));
-  paramGroup.add(pointColor1.set("Point Color 1",
+  paramGroup.add(lineWidth.set("Line Width", .2, 0.001, 5));
+  ofParameterGroup colorParams;
+  colorParams.add(pointColor1.set("Point Color 1",
                                  ofFloatColor(0, .4f, .7f),
                                  ofFloatColor(0, 0, 0, 0),
                                  ofFloatColor(1, 1, 1, 1)));
-  paramGroup.add(pointColor2.set("Point Color 2",
+  colorParams.add(pointColor2.set("Point Color 2",
                                  ofFloatColor(0, .9f, .2f),
                                  ofFloatColor(0, 0, 0, 0),
                                  ofFloatColor(1, 1, 1, 1)));
-  paramGroup.add(pointColor3.set("Point Color 3",
+  colorParams.add(pointColor3.set("Point Color 3",
                                  ofFloatColor(.5f, 0, .3f),
                                  ofFloatColor(0, 0, 0, 0),
                                  ofFloatColor(1, 1, 1, 1)));
-  paramGroup.add(pointColor4.set("Point Color 4",
+  colorParams.add(pointColor4.set("Point Color 4",
                                  ofFloatColor(.9f, 0, .5f),
                                  ofFloatColor(0, 0, 0, 0),
                                  ofFloatColor(1, 1, 1, 1)));
-  paramGroup.add(lineWidth.set("Line Width", .2, 0.001, 5));
   pointColor1.enableEvents();
   pointColor2.enableEvents();
   pointColor3.enableEvents();
   pointColor4.enableEvents();
+//  paramGroup.add(colorParams);
   
   ofParameterGroup postParams;
   postParams.setName("Post-Processing");

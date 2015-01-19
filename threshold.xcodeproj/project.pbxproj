@@ -17,6 +17,8 @@
 		326DC52D1A6CABD100F95F24 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326DC5261A6CABD100F95F24 /* Syphon.framework */; };
 		326DC52E1A6CABD100F95F24 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 326DC5291A6CABD100F95F24 /* SyphonNameboundClient.m */; };
 		326DC5371A6CAFA600F95F24 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 326DC5261A6CABD100F95F24 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		326DC53A1A6CD90B00F95F24 /* LineRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 326DC5381A6CD90B00F95F24 /* LineRenderer.cpp */; };
+		326DC53D1A6CD93B00F95F24 /* AppState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 326DC53B1A6CD93B00F95F24 /* AppState.cpp */; };
 		328008C41A637DBB00AA5118 /* PointSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328008C21A637DBB00AA5118 /* PointSystem.cpp */; };
 		328008C71A63806E00AA5118 /* FieldPointSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328008C51A63806E00AA5118 /* FieldPointSystem.cpp */; };
 		329F68CB1A5CC64300B1FED7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 329F68C81A5CC64300B1FED7 /* main.cpp */; };
@@ -134,6 +136,10 @@
 		326DC5261A6CABD100F95F24 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		326DC5281A6CABD100F95F24 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
 		326DC5291A6CABD100F95F24 /* SyphonNameboundClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyphonNameboundClient.m; sourceTree = "<group>"; };
+		326DC5381A6CD90B00F95F24 /* LineRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LineRenderer.cpp; path = app/LineRenderer.cpp; sourceTree = "<group>"; };
+		326DC5391A6CD90B00F95F24 /* LineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineRenderer.h; path = app/LineRenderer.h; sourceTree = "<group>"; };
+		326DC53B1A6CD93B00F95F24 /* AppState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppState.cpp; path = app/AppState.cpp; sourceTree = "<group>"; };
+		326DC53C1A6CD93B00F95F24 /* AppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppState.h; path = app/AppState.h; sourceTree = "<group>"; };
 		328008C21A637DBB00AA5118 /* PointSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointSystem.cpp; path = app/PointSystem.cpp; sourceTree = "<group>"; };
 		328008C31A637DBB00AA5118 /* PointSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointSystem.h; path = app/PointSystem.h; sourceTree = "<group>"; };
 		328008C51A63806E00AA5118 /* FieldPointSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FieldPointSystem.cpp; path = app/FieldPointSystem.cpp; sourceTree = "<group>"; };
@@ -378,6 +384,10 @@
 				328008C61A63806E00AA5118 /* FieldPointSystem.h */,
 				326DC50A1A6B22C000F95F24 /* MeshPointSystem.cpp */,
 				326DC50B1A6B22C000F95F24 /* MeshPointSystem.h */,
+				326DC5381A6CD90B00F95F24 /* LineRenderer.cpp */,
+				326DC5391A6CD90B00F95F24 /* LineRenderer.h */,
+				326DC53B1A6CD93B00F95F24 /* AppState.cpp */,
+				326DC53C1A6CD93B00F95F24 /* AppState.h */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -728,6 +738,7 @@
 				329F68DA1A5CC8A300B1FED7 /* LineSet.cpp in Sources */,
 				329F68D41A5CC6AA00B1FED7 /* Thresholder.cpp in Sources */,
 				328008C71A63806E00AA5118 /* FieldPointSystem.cpp in Sources */,
+				326DC53D1A6CD93B00F95F24 /* AppState.cpp in Sources */,
 				32BD66D81A63166600544ED2 /* DofPass.cpp in Sources */,
 				32BD66EA1A63166600544ED2 /* ZoomBlurPass.cpp in Sources */,
 				66810C01C7565033ADB09359 /* ofxLabel.cpp in Sources */,
@@ -759,6 +770,7 @@
 				32BD66E51A63166600544ED2 /* RGBShiftPass.cpp in Sources */,
 				32BD66DF1A63166600544ED2 /* LimbDarkeningPass.cpp in Sources */,
 				8E4B38BFD068409CC33E8EF4 /* tinyxmlerror.cpp in Sources */,
+				326DC53A1A6CD90B00F95F24 /* LineRenderer.cpp in Sources */,
 				326DC52A1A6CABD100F95F24 /* ofxSyphonClient.mm in Sources */,
 				32BD66D91A63166600544ED2 /* EdgePass.cpp in Sources */,
 				AB8A4587A21CD2325D587E8A /* tinyxmlparser.cpp in Sources */,

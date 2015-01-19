@@ -42,6 +42,7 @@ public:
   ofParameter<ofFloatColor> pointColor2;
   ofParameter<ofFloatColor> pointColor3;
   ofParameter<ofFloatColor> pointColor4;
+  ofParameter<bool> applyClosenessToAlpha;
   ofParameter<float> lineWidth;
   ofParameter<bool> usePrimitive1;
   ofParameter<bool> usePrimitive2;

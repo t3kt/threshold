@@ -38,13 +38,14 @@ ThreshAppParameters::ThreshAppParameters() {
   usePrimitive1.enableEvents();
   usePrimitive2.enableEvents();
   
-  paramGroup.add(numPoints.set("Points", 800, 10, 2000));
+  paramGroup.add(numPoints.set("Points", 300, 10, 2000));
   paramGroup.add(pointOpacity.set("Point Opacity", .6, 0, 1));
   paramGroup.add(pointSize.set("Point Size", 0.005, 0.0001, 0.02));
-  paramGroup.add(lineWidth.set("Line Width", .2, 0.001, 5));
+  paramGroup.add(lineWidth.set("Line Width", 1, 0.001, 5));
+  paramGroup.add(applyClosenessToAlpha.set("Closeness Alpha?", true));
   ofParameterGroup colorParams;
   colorParams.add(pointColor1.set("Point Color 1",
-                                 ofFloatColor(0, .4f, .7f),
+                                 ofFloatColor(0.1, 1, 1),
                                  ofFloatColor(0, 0, 0, 0),
                                  ofFloatColor(1, 1, 1, 1)));
   colorParams.add(pointColor2.set("Point Color 2",
@@ -63,7 +64,7 @@ ThreshAppParameters::ThreshAppParameters() {
   pointColor2.enableEvents();
   pointColor3.enableEvents();
   pointColor4.enableEvents();
-//  paramGroup.add(colorParams);
+  paramGroup.add(colorParams);
   
   ofParameterGroup postParams;
   postParams.setName("Post-Processing");

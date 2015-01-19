@@ -15,6 +15,8 @@
 #include "Parameters.h"
 #include "AppParameters.h"
 #include "PointSystem.h"
+#include "AppState.h"
+#include "LineRenderer.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -42,19 +44,15 @@ private:
   }
   void onUsePrimitive1Changed(bool&);
   void onUsePrimitive2Changed(bool&);
-  void addLineToMesh(ofMesh* mesh,
-                     const ThreshLine& line) const;
-  void drawLines() const;
   
+  ThreshAppState _state;
   bool _drawInputPoints;
   bool _drawThreshLines;
-  ThreshAppParameters _appParams;
-  ThreshParameters _threshParams;
   bool _paramsChanged;
   shared_ptr<PointSystem> _pointSystem;
   shared_ptr<PointSystem> _pointSystem2;
   Thresholder _thresholder;
-  LineSet _threshLines;
+  shared_ptr<LineRenderer> _lineRenderer;
   ofxPanel _gui;
   ofEasyCam _cam;
   ofxPostProcessing _postProc;

@@ -201,7 +201,7 @@ void ofApp::draw() {
   if (_drawInputPoints) {
     if (_pointSystem)
       _pointSystem->draw();
-    if (_pointSystem2)
+    if (_pointSystem2 && _appParams.useSeparateSource.get())
       _pointSystem2->draw();
   }
   

@@ -49,6 +49,10 @@ createSphereSystem2(ThreshAppParameters& appParams) {
 }
 
 void ofApp::setup() {
+  ofSetWindowTitle("Threshold");
+#ifdef USING_SYPHON
+  _syphonServer.setName("Threshold Output");
+#endif
   _threshParams.maxLines = _appParams.numPoints.get();
   _threshParams.minDist = 0;
   _threshParams.maxDist = 0.05f;
@@ -188,6 +192,7 @@ void ofApp::drawLines() const {
 }
 
 void ofApp::draw() {
+  ofClear(0);
   ofBackground(0);
   glPushAttrib(GL_ENABLE_BIT);
   glEnable(GL_DEPTH_TEST);
@@ -212,6 +217,9 @@ void ofApp::draw() {
   ofPopMatrix();
   _postProc.end();
   glPopAttrib();
+#ifdef USING_SYPHON
+  _syphonServer.publishScreen();
+#endif
   if (_pointSystem && _appParams.showDebugInfo.get()) {
     ofVec2f position;
     position.x = 10;

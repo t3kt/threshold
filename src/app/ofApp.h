@@ -5,6 +5,10 @@
 #include <ofxPostProcessing.h>
 #include <vector>
 
+#ifdef USING_SYPHON
+#include <ofxSyphon.h>
+#endif
+
 #include "Thresholder.h"
 #include "LineSet.h"
 #include "PointSet.h"
@@ -58,4 +62,7 @@ private:
   shared_ptr<KaleidoscopePass> _kaleidoscope;
   bool _changingSystem1;
   bool _changingSystem2;
+#ifdef USING_SYPHON
+  ofxSyphonServer _syphonServer;
+#endif
 };

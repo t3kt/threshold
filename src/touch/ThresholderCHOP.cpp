@@ -18,15 +18,6 @@
 #include "TouchCommon.h"
 
 enum {
-  SETTING_DISTRANGE,
-  SETTING_MAXLINES,
-  SETTING_MAXPERSOURCE,
-  SETTING_RESET_CHANS,
-  SETTING_SEPARATESOURCE,
-  NUM_SETTINGS
-};
-
-enum {
   OUT_INDEX1,
   OUT_INDEX2,
   OUT_SQRDIST,
@@ -39,18 +30,6 @@ ThresholderCHOP::ThresholderCHOP(const OP_NodeInfo* info)
 : _xInputIndex(-1, -1)
 , _yInputIndex(-1, -1)
 , _zInputIndex(-1, -1) { }
-
-static inline OP_NumericParameter
-createNumericPar(const char* name, const char* label, float defaultValues[4]) {
-  OP_NumericParameter par;
-  par.name = name;
-  par.label = label;
-  par.defaultValues[0] = defaultValues[0];
-  par.defaultValues[1] = defaultValues[1];
-  par.defaultValues[2] = defaultValues[2];
-  par.defaultValues[3] = defaultValues[3];
-  return par;
-}
 
 static const char* PAR_PAGE = "Threshold";
 

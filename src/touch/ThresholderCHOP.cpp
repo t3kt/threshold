@@ -176,19 +176,25 @@ void
 ThresholderCHOP::loadParameters(OP_Inputs* inputs) {
   ThreshParameters params;
   if (inputs->getParInt("Hasmindist")) {
+    inputs->enablePar("Mindist", true);
     params.minDist = static_cast<float>(inputs->getParDouble("Mindist"));
   } else {
+    inputs->enablePar("Mindist", false);
     params.minDist = -1.0;
   }
   if (inputs->getParInt("Hasmaxdist")) {
+    inputs->enablePar("Maxdist", true);
     params.maxDist = static_cast<float>(inputs->getParDouble("Maxdist"));
   } else {
+    inputs->enablePar("Maxdist", false);
     params.maxDist = -1.0;
   }
   params.maxLines = inputs->getParInt("Maxlines");
   if (inputs->getParInt("Hasmaxpersource")) {
+    inputs->enablePar("Maxpersource", true);
     params.maxLinesPerSource = inputs->getParInt("Maxpersource");
   } else {
+    inputs->enablePar("Maxpersource", false);
     params.maxLinesPerSource = -1;
   }
 

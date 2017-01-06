@@ -30,32 +30,43 @@ struct OutputChannel {
 
 class ThresholderCHOP : public CHOP_CPlusPlusBase {
 public:
-  explicit ThresholderCHOP(const CHOP_NodeInfo* info);
+  explicit ThresholderCHOP(const OP_NodeInfo* info);
   virtual ~ThresholderCHOP() {}
-  
-  void getGeneralInfo(CHOP_GeneralInfo* info) override;
-  bool getOutputInfo(CHOP_OutputInfo* info) override;
-  const char*	getChannelName(int index, void* reserved) override;
-  
-  void execute(const CHOP_Output* outputs,
-               const CHOP_InputArrays* inputs,
-               void* reserved) override;
-  
-  int getNumInfoCHOPChans() override;
-  void getInfoCHOPChan(int index, CHOP_InfoCHOPChan *chan) override;
+
+  virtual void		getGeneralInfo(CHOP_GeneralInfo*) override;
+  virtual bool		getOutputInfo(CHOP_OutputInfo*) override;
+  virtual const char*	getChannelName(int index, void* reserved) override;
+
+  virtual void		execute(const CHOP_Output*,
+    OP_Inputs*,
+    void* reserved) override;
+
+  virtual int			getNumInfoCHOPChans() override;
+  virtual void		getInfoCHOPChan(int index,
+    OP_InfoCHOPChan* chan) override;
+
+  virtual bool		getInfoDATSize(OP_InfoDATSize* infoSize) override {
+    return false;
+  }
+  virtual void		getInfoDATEntries(int index,
+    int nEntries,
+    OP_InfoDATEntries* entries) override {}
+
+  virtual void		setupParameters(OP_ParameterManager* manager) override;
+  virtual void		pulsePressed(const char* name) override;
 private:
-  void loadParameters(const CHOP_FloatInput* inputs);
-  bool shouldLoadChannels(const CHOP_InputArrays* inputs) const;
-  void loadChannels(const CHOP_InputArrays* inputs);
-  void loadChannelsSeparate(const CHOP_InputArrays* inputs);
+  void loadParameters(OP_Inputs* inputs);
+  bool shouldLoadChannels(OP_Inputs* inputs) const;
+  void loadChannels(OP_Inputs* inputs);
+  void loadChannelsSeparate(OP_Inputs* inputs);
   void outputLineSingle(const ThreshLine& line,
                         std::size_t i,
                         float** channels,
-                        const CHOP_InputArrays *inputs) const;
+                        OP_Inputs *inputs) const;
   void outputLineSeparate(const ThreshLine& line,
                           std::size_t i,
                           float** channels,
-                          const CHOP_InputArrays *inputs) const;
+                          OP_Inputs *inputs) const;
   
   Thresholder _thresholder;
   LineSet _lines;

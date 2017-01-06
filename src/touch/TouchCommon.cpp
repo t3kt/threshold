@@ -10,22 +10,22 @@
 
 #include "ChopCPP_wrapper.h"
 
-int CHOPInputPointSet::size() const  { return _inputs->length; }
+int CHOPInputPointSet::size() const  { return _inputs->numSamples; }
 
 ThreshPoint CHOPInputPointSet::operator[](int i) const {
   ThreshPoint point;
   point.index = i;
-  point.position.x = _inputs->channels[_xInputIndex][i];
-  point.position.y = _inputs->channels[_yInputIndex][i];
-  point.position.z = _inputs->channels[_zInputIndex][i];
+  point.position.x = _inputs->getChannelData(_xInputIndex)[i];
+  point.position.y = _inputs->getChannelData(_yInputIndex)[i];
+  point.position.z = _inputs->getChannelData(_zInputIndex)[i];
   //color ... probably going to remove that...?
   return point;
 }
 
 ThVec3f CHOPInputPointSet::getPosition(int i) const {
   ThVec3f position;
-  position.x = _inputs->channels[_xInputIndex][i];
-  position.y = _inputs->channels[_yInputIndex][i];
-  position.z = _inputs->channels[_zInputIndex][i];
+  position.x = _inputs->getChannelData(_xInputIndex)[i];
+  position.y = _inputs->getChannelData(_yInputIndex)[i];
+  position.z = _inputs->getChannelData(_zInputIndex)[i];
   return position;
 }

@@ -80,5 +80,8 @@
     <ClInclude Include="..\src\touch\TouchCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\touch\CPlusPlus_Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

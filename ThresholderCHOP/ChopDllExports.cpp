@@ -13,7 +13,7 @@ extern "C"
     return CHOP_CPLUSPLUS_API_VERSION;
   }
 
-  DLLEXPORT CHOP_CPlusPlusBase* CreateCHOPInstance(const CHOP_NodeInfo *info)
+  DLLEXPORT CHOP_CPlusPlusBase* CreateCHOPInstance(const OP_NodeInfo *info)
   {
     // Return a new instance of your class every time this is called.
     // It will be called once per CHOP that is using the .dll

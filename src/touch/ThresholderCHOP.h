@@ -41,17 +41,6 @@ public:
     OP_Inputs*,
     void* reserved) override;
 
-  virtual int			getNumInfoCHOPChans() override;
-  virtual void		getInfoCHOPChan(int index,
-    OP_InfoCHOPChan* chan) override;
-
-  virtual bool		getInfoDATSize(OP_InfoDATSize* infoSize) override {
-    return false;
-  }
-  virtual void		getInfoDATEntries(int index,
-    int nEntries,
-    OP_InfoDATEntries* entries) override {}
-
   virtual void		setupParameters(OP_ParameterManager* manager) override;
   virtual void		pulsePressed(const char* name) override;
 private:

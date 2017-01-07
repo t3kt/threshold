@@ -423,6 +423,9 @@ void ThresholderCHOP::outputLineSeparate(const ThreshLine& line,
 void ThresholderCHOP::execute(const CHOP_Output *outputs,
                               OP_Inputs *inputs,
                               void *reserved) {
+  if (!outputs->channels) {
+    return;
+  }
   if (_lines.empty()) {
     ThreshLine dummy;
     dummy.startIndex = 0;
@@ -443,15 +446,6 @@ void ThresholderCHOP::execute(const CHOP_Output *outputs,
       }
     }
   }
-}
-
-int ThresholderCHOP::getNumInfoCHOPChans() {
-  return 0;
-}
-
-void ThresholderCHOP::getInfoCHOPChan(int index,
-                                      OP_InfoCHOPChan *chan) {
-  
 }
 
 void ThresholderCHOP::pulsePressed(const char* name) {

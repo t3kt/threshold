@@ -66,6 +66,7 @@ private:
   IndexPair _yInputIndex;
   IndexPair _zInputIndex;
   std::vector<OutputChannel> _pointChannels;
+  bool _resetChans;
 };
 
 #endif /* defined(__threshold__ThresholderCHOP__) */

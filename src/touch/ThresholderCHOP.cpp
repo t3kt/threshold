@@ -29,7 +29,8 @@ enum {
 ThresholderCHOP::ThresholderCHOP(const OP_NodeInfo* info)
 : _xInputIndex(-1, -1)
 , _yInputIndex(-1, -1)
-, _zInputIndex(-1, -1) { }
+, _zInputIndex(-1, -1)
+, _resetChans(false) { }
 
 static const char* PAR_PAGE = "Threshold";
 
@@ -237,7 +238,7 @@ bool ThresholderCHOP::shouldLoadChannels(OP_Inputs* inputs) const {
     return false;
   if (_xInputIndex.first == -1)
     return true;
-  if (inputs->getParInt("Resetchans") != 0) {
+  if (inputs->getParInt("Resetchans") != 0 || _resetChans) {
     return true;
   }
   return false;
@@ -335,6 +336,7 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
     } else {
       loadChannels(info->opInputs);
     }
+    _resetChans = false;
   }
   info->numChannels = NUM_MAIN_OUTS + static_cast<int>(_pointChannels.size());
   CHOPInputPointSet pointsA(info->opInputs->getInputCHOP(0),
@@ -450,7 +452,7 @@ void ThresholderCHOP::execute(const CHOP_Output *outputs,
 
 void ThresholderCHOP::pulsePressed(const char* name) {
   if (0 == strcmp(name, "Resetchanspulse")) {
-    // TODO: IMPLEMENT THIS!
+    _resetChans = true;
   }
 }
 

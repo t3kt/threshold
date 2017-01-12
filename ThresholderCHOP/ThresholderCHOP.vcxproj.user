@@ -3,12 +3,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>C:\Program Files\Derivative\TouchDesigner099\bin\TouchDesigner099.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>"C:\Users\tekt\creations\broadway\touch\broadway.toe"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"C:\Users\tekt\creations\threshold\ThresholderCHOP\ThresholderCHOP_tester.toe"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerCommand>C:\Program Files\Derivative\TouchDesigner099\bin\TouchDesigner099.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>"C:\Users\tekt\creations\broadway\touch\broadway.toe"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"C:\Users\tekt\creations\threshold\ThresholderCHOP\ThresholderCHOP_tester.toe"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>C:\Program Files\Derivative\TouchDesigner099\bin\TouchDesigner099.exe</LocalDebuggerCommand>

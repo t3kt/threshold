@@ -16,6 +16,7 @@
 #include "ChopCPP_wrapper.h"
 
 #include "Thresholder.h"
+#include "TouchCommon.h"
 #include "PointSet.h"
 #include "LineSet.h"
 
@@ -27,6 +28,8 @@ struct OutputChannel {
   bool isStart;
   IndexPair sourceIndex;
 };
+
+using TouchThresholder = Thresholder<TouchPoint>;
 
 class ThresholderCHOP : public CHOP_CPlusPlusBase {
 public:
@@ -57,7 +60,7 @@ private:
                           float** channels,
                           OP_Inputs *inputs) const;
   
-  Thresholder _thresholder;
+  TouchThresholder _thresholder;
   LineSet _lines;
   OutputChannel _xChannel;
   OutputChannel _yChannel;

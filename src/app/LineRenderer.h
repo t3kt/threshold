@@ -1,13 +1,8 @@
 //
 //  LineRenderer.h
-//  threshold
-//
-//  Created by tekt on 1/19/15.
-//
 //
 
-#ifndef __threshold__LineRenderer__
-#define __threshold__LineRenderer__
+#pragma once
 
 #include "AppState.h"
 
@@ -20,4 +15,3 @@ private:
   ThreshAppState& _state;
 };
 
-#endif /* defined(__threshold__LineRenderer__) */

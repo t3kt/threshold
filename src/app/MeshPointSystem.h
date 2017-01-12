@@ -1,20 +1,16 @@
 //
 //  MeshPointSystem.h
-//  threshold
-//
-//  Created by tekt on 1/17/15.
-//
 //
 
-#ifndef __threshold__MeshPointSystem__
-#define __threshold__MeshPointSystem__
+#pragma once
 
 #include <ofMesh.h>
 
 #include "PointSystem.h"
 #include "AppParameters.h"
+#include "AppCommon.h"
 
-class MeshPointSystem : public PointSystem {
+class MeshPointSystem : public AppPointSystem {
 public:
   MeshPointSystem(ThreshAppParameters& appParams,
                   ofMesh mesh,
@@ -24,7 +20,7 @@ public:
   void update() override;
   void draw() override;
   int size() const override;
-  ThreshPoint operator[](int i) const override;
+  AppPoint operator[](int i) const override;
   ofVec3f spinRate;
 private:
   void onPointColorChanged(ofFloatColor&);
@@ -36,4 +32,3 @@ private:
   ofMesh _mesh;
 };
 
-#endif /* defined(__threshold__MeshPointSystem__) */

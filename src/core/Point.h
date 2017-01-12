@@ -2,20 +2,18 @@
 //  Point.h
 //  threshold
 //
-//  Created by tekt on 1/6/15.
-//
-//
 
-#ifndef __threshold__Point__
-#define __threshold__Point__
+#pragma once
 
-#include "Common.h"
+//#include "Common.h"
 
+template<typename TVec, typename TColor>
 class ThreshPoint {
 public:
-  int index;
-  ThVec3f position;
-  ThColor color;
-};
+  using VecT = TVec;
+  using ColorT = TColor;
 
-#endif /* defined(__threshold__Point__) */
+  int index;
+  VecT position;
+  ColorT color;
+};

@@ -12,8 +12,8 @@
 
 int CHOPInputPointSet::size() const  { return _inputs->numSamples; }
 
-ThreshPoint CHOPInputPointSet::operator[](int i) const {
-  ThreshPoint point;
+TouchPoint CHOPInputPointSet::operator[](int i) const {
+  TouchPoint point;
   point.index = i;
   point.position.x = _inputs->getChannelData(_xInputIndex)[i];
   point.position.y = _inputs->getChannelData(_yInputIndex)[i];

@@ -76,11 +76,12 @@ int MeshPointSystem::size() const {
   return _mesh.getNumVertices();
 }
 
-ThreshPoint MeshPointSystem::operator[](int i) const {
-  ThreshPoint pt;
+AppPoint MeshPointSystem::operator[](int i) const {
+  AppPoint pt;
   pt.index = i;
-  pt.position = toThVec(_mesh.getVertex(i));
-  if (_mesh.hasColors())
-    pt.color = toThColor(_mesh.getColor(i));
+  pt.position = _mesh.getVertex(i);
+  if (_mesh.hasColors()) {
+    pt.color = _mesh.getColor(i);
+  }
   return pt;
 }

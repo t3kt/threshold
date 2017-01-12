@@ -22,6 +22,8 @@
 #include "AppState.h"
 #include "LineRenderer.h"
 
+using AppThresholder = Thresholder<AppPoint>;
+
 class ofApp : public ofBaseApp {
 public:
   void setup() override;
@@ -45,9 +47,9 @@ private:
   bool _drawInputPoints;
   bool _drawThreshLines;
   bool _paramsChanged;
-  shared_ptr<PointSystem> _pointSystem;
-  shared_ptr<PointSystem> _pointSystem2;
-  Thresholder _thresholder;
+  shared_ptr<AppPointSystem> _pointSystem;
+  shared_ptr<AppPointSystem> _pointSystem2;
+  AppThresholder _thresholder;
   shared_ptr<LineRenderer> _lineRenderer;
   ofxPanel _gui;
   ofEasyCam _cam;

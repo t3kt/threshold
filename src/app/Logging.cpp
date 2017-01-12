@@ -15,7 +15,7 @@
 #include "Common.h"
 #include "AppCommon.h"
 
-std::ostream& operator<<(std::ostream& os, const ThreshPoint& pt) {
+std::ostream& operator<<(std::ostream& os, const AppPoint& pt) {
   os << "Point{#" << pt.index;
   os << ", (" << pt.position.x <<
         ", " << pt.position.y <<
@@ -37,7 +37,7 @@ std::ostream& operator<<(std::ostream& os, const ThreshLine& ln) {
   return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const PointSource& points) {
+std::ostream& operator<<(std::ostream& os, const AppPointSource& points) {
   outputSet(os, points, "PointSet");
   return os << std::endl;
 }

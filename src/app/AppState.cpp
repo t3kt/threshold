@@ -9,8 +9,8 @@
 #include "AppState.h"
 
 bool ThreshAppState::getLinePointsRaw(const ThreshLine &line,
-                                      ThreshPoint *pt1,
-                                      ThreshPoint *pt2) const {
+                                      AppPoint *pt1,
+                                      AppPoint *pt2) const {
   if (!points1)
     return false;
   *pt1 = (*points1)[line.startIndex];
@@ -21,7 +21,7 @@ bool ThreshAppState::getLinePointsRaw(const ThreshLine &line,
   return true;
 }
 
-static void extendPoints(ThVec3f& pos1, ThVec3f& pos2,
+static void extendPoints(ofVec3f& pos1, ofVec3f& pos2,
                          float extend1, float extend2) {
   auto diff = pos2 - pos1;
   pos1 = pos1 + (diff * extend1);
@@ -29,13 +29,13 @@ static void extendPoints(ThVec3f& pos1, ThVec3f& pos2,
 }
 
 bool ThreshAppState::getLinePoints(const ThreshLine &line,
-                                   ThreshPoint *pt1,
-                                   ThreshPoint *pt2) const {
+                                   AppPoint *pt1,
+                                   AppPoint *pt2) const {
   if (!getLinePointsRaw(line, pt1, pt2))
     return false;
   if (appParams.useExtend.get()) {
-    ThVec3f pos1 = pt1->position;
-    ThVec3f pos2 = pt2->position;
+    auto pos1 = pt1->position;
+    auto pos2 = pt2->position;
     extendPoints(pos1, pos2,
                  appParams.extendRatioStart,
                  appParams.extendRatioEnd);

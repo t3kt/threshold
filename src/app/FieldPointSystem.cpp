@@ -36,8 +36,8 @@ void FieldPointSystem::onPointColorChanged(ofFloatColor &) {
 }
 
 void FieldPointSystem::assignPointColors() {
-  const auto& color1 = toThColor(_color1.get());
-  const auto& color2 = toThColor(_color2.get());
+  const auto& color1 = _color1.get();
+  const auto& color2 = _color2.get();
   for (int i = 0; i < _points.size(); i++) {
     _points[i].color = (i % 2 == 1) ? color2 : color1;
   }
@@ -52,8 +52,8 @@ void FieldPointSystem::update() {
     for (int i = _points.size(); i < count; ++i) {
       auto noisePos = createRandomVec3f(1007000.342f);
       auto pos = createSignedNoiseVec3f(-noisePos);
-      ThreshPoint pt;
-      pt.position = toThVec(pos);
+      AppPoint pt;
+      pt.position = pos;
       pt.index = i;
       _points.push_back(pt);
       _pointNoiseOffsets.push_back(noisePos);
@@ -65,10 +65,10 @@ void FieldPointSystem::update() {
   for (int i = 0; i < count; i++) {
     auto& point = _points[i];
     auto noisePos = _pointNoiseOffsets[i] + time * 0.3f;
-    ofVec3f position = toOfVec(point.position);
+    auto position = point.position;
     position += createSignedNoiseVec3f(noisePos) * pointStep;
     position = wrapVec(position, -1, 1);
-    point.position = toThVec(position);
+    point.position = position;
   }
 }
 
@@ -80,10 +80,10 @@ void FieldPointSystem::draw() {
   auto numPoints = _points.size();
   for (int i = 0; i < numPoints; i++) {
     const auto& vertex = _points[i];
-    ofFloatColor color = toOfColor(vertex.color);
+    auto color = vertex.color;
     color.a = opacity;
     ofSetColor(color);
-    ofDrawSphere(toOfVec(vertex.position), radius);
+    ofDrawSphere(vertex.position, radius);
   }
   ofPopStyle();
 }
@@ -92,6 +92,6 @@ int FieldPointSystem::size() const {
   return _points.size();
 }
 
-ThreshPoint FieldPointSystem::operator[](int i) const {
+AppPoint FieldPointSystem::operator[](int i) const {
   return _points[i];
 }

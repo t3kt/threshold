@@ -10,6 +10,7 @@
 #define __threshold__AppState__
 
 #include "AppParameters.h"
+#include "AppCommon.h"
 #include "Common.h"
 #include "Parameters.h"
 #include "PointSet.h"
@@ -19,17 +20,17 @@ class ThreshAppState {
 public:
   
   bool getLinePointsRaw(const ThreshLine& line,
-                        ThreshPoint* pt1,
-                        ThreshPoint* pt2) const;
+                        AppPoint* pt1,
+                        AppPoint* pt2) const;
   
   bool getLinePoints(const ThreshLine& line,
-                     ThreshPoint* pt1,
-                     ThreshPoint* pt2) const;
+                     AppPoint* pt1,
+                     AppPoint* pt2) const;
   
   ThreshAppParameters appParams;
   ThreshParameters params;
-  PointSource* points1;
-  PointSource* points2;
+  AppPointSource* points1;
+  AppPointSource* points2;
   LineSet lines;
 };
 

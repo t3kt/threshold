@@ -30,14 +30,12 @@
 		60464E10B8D6B1428F670033 /* SSAOPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20C3BFD6DC117AA6B3391C24 /* SSAOPass.cpp */; };
 		60C0F24E43C2E04399F8A80E /* AppParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B1EA976C3295181487B1B58 /* AppParameters.cpp */; };
 		617E3931E5853B1660C5A525 /* RimHighlightingPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D623E129333ED3386C4D762E /* RimHighlightingPass.cpp */; };
-		64718BE6212ED9A1246E8175 /* PointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADDE79EFD3A3DEE415CFAFDF /* PointSet.cpp */; };
 		656C48CB3BED518EE651E9C3 /* LUTPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D187EC5B1BAE71A023F0C48 /* LUTPass.cpp */; };
 		665ABDAF6F89FB81AC3D7874 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DDD3016B620F449408AF73B /* ofxLabel.cpp */; };
 		6D226E2803987F88A82C4D24 /* HsbShiftPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6200B3ACB05C905A62CDF0AB /* HsbShiftPass.cpp */; };
 		724851192FDEBEC09AF42785 /* ContrastPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A419D4DCA30B7F1A6F6B1B44 /* ContrastPass.cpp */; };
 		7A13956B0A641BCA6E99A707 /* PixelatePass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80B4C5445A4661C2DF9CEB04 /* PixelatePass.cpp */; };
 		81C0F193C4339D214C97021D /* HorizontalTiltShifPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF54AA8D2A70A7E580B8E7C2 /* HorizontalTiltShifPass.cpp */; };
-		825293D99A44F4DFBB4C0A9B /* LineSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BB650288CDE28941BCC992E /* LineSet.cpp */; };
 		8413AF8A9D415187F2FF8E58 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B243931243BD58B36DDB118 /* Logging.cpp */; };
 		9212138E158B99EA18AB1A02 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 336573FA34EC1F001C283295 /* ofxXmlSettings.cpp */; };
 		93CDE072BB3C7E773CA3369E /* DofPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 584C7AFDA874D66F3E47D161 /* DofPass.cpp */; };
@@ -54,11 +52,9 @@
 		CA4DA440C96222E313187F4C /* AppState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8599FD08BE80E609B5C2B25 /* AppState.cpp */; };
 		CE9359204DFE0AE899EE4BDA /* TouchCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71069EAA8BDDABF2E131BD06 /* TouchCommon.cpp */; };
 		CF1153B747D8342DA24676C9 /* PostProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4ED25B0410C1958F0F3E2EF /* PostProcessing.cpp */; };
-		D1586160D0F1820B06338819 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50069C8CC8E4A983C37E38AC /* Line.cpp */; };
 		D186C96468AF8B17001F6495 /* EdgePass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04392AAFBB8BC9C4CA90174F /* EdgePass.cpp */; };
 		D233E7F21C9A9E0D94627A5D /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C902CFF9DAE6FEFAA3BCF20 /* Parameters.cpp */; };
 		D265D6207B2184FB12FD93AC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 823FBC6F9791944E4D93726D /* main.cpp */; };
-		D48AFEB883D58A548B7ED8FD /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 639DC10C1CA08A93E3E8CB04 /* Point.cpp */; };
 		DA927660FD0C61FEBC8BD11D /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FCE0FEC757F742D554F939A /* ofxPanel.cpp */; };
 		E1A3FD40C8BCD507345F1126 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D58DCB2C0AEFDE6171E29540 /* Syphon.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -147,7 +143,6 @@
 		4EB1AEEE6AB95018F46C46B5 /* HsbShiftPass.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = HsbShiftPass.h; path = ../openFrameworks/addons/ofxPostProcessing/src/HsbShiftPass.h; sourceTree = SOURCE_ROOT; };
 		4ECF529BC04A96C62DE7CC2E /* ZoomBlurPass.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ZoomBlurPass.h; path = ../openFrameworks/addons/ofxPostProcessing/src/ZoomBlurPass.h; sourceTree = SOURCE_ROOT; };
 		4FA709E41B16A607352F083D /* LimbDarkeningPass.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LimbDarkeningPass.cpp; path = ../openFrameworks/addons/ofxPostProcessing/src/LimbDarkeningPass.cpp; sourceTree = SOURCE_ROOT; };
-		50069C8CC8E4A983C37E38AC /* Line.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Line.cpp; path = src/core/Line.cpp; sourceTree = SOURCE_ROOT; };
 		50CE5E27DCDD2F46BF86A790 /* PointSystem.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = PointSystem.h; path = src/app/PointSystem.h; sourceTree = SOURCE_ROOT; };
 		584C7AFDA874D66F3E47D161 /* DofPass.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = DofPass.cpp; path = ../openFrameworks/addons/ofxPostProcessing/src/DofPass.cpp; sourceTree = SOURCE_ROOT; };
 		58EA99BF217DB322E428454E /* PointSet.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = PointSet.h; path = src/core/PointSet.h; sourceTree = SOURCE_ROOT; };
@@ -156,7 +151,6 @@
 		5EA0A1032F532D62BFD5CCB4 /* AppParameters.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = AppParameters.h; path = src/app/AppParameters.h; sourceTree = SOURCE_ROOT; };
 		6200B3ACB05C905A62CDF0AB /* HsbShiftPass.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = HsbShiftPass.cpp; path = ../openFrameworks/addons/ofxPostProcessing/src/HsbShiftPass.cpp; sourceTree = SOURCE_ROOT; };
 		6391A5CACB9D35C37DD9418C /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
-		639DC10C1CA08A93E3E8CB04 /* Point.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Point.cpp; path = src/core/Point.cpp; sourceTree = SOURCE_ROOT; };
 		63B69432F225F4CD0C4A10FC /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
 		64F0CE8962D784FD2932A7A1 /* CPlusPlus_Common.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = CPlusPlus_Common.h; path = src/touch/CPlusPlus_Common.h; sourceTree = SOURCE_ROOT; };
 		6A406354C1D34EE73E925887 /* ofxButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxButton.cpp; path = ../openFrameworks/addons/ofxGui/src/ofxButton.cpp; sourceTree = SOURCE_ROOT; };
@@ -179,7 +173,6 @@
 		89021D7A0579BDD0F2202F2E /* FieldPointSystem.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = FieldPointSystem.cpp; path = src/app/FieldPointSystem.cpp; sourceTree = SOURCE_ROOT; };
 		8AEEEA82825BAC378C9E347D /* Common.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Common.h; path = src/core/Common.h; sourceTree = SOURCE_ROOT; };
 		8B92800F11823B3C89442C21 /* DofAltPass.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DofAltPass.h; path = ../openFrameworks/addons/ofxPostProcessing/src/DofAltPass.h; sourceTree = SOURCE_ROOT; };
-		8BB650288CDE28941BCC992E /* LineSet.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LineSet.cpp; path = src/core/LineSet.cpp; sourceTree = SOURCE_ROOT; };
 		8E89CD00DE186297FF6A7D88 /* VerticalTiltShifPass.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = VerticalTiltShifPass.h; path = ../openFrameworks/addons/ofxPostProcessing/src/VerticalTiltShifPass.h; sourceTree = SOURCE_ROOT; };
 		95AF571A63874DB6ADD0B13C /* RimHighlightingPass.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = RimHighlightingPass.h; path = ../openFrameworks/addons/ofxPostProcessing/src/RimHighlightingPass.h; sourceTree = SOURCE_ROOT; };
 		9624260F34E7D6B9685F6104 /* ofxSliderGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSliderGroup.h; path = ../openFrameworks/addons/ofxGui/src/ofxSliderGroup.h; sourceTree = SOURCE_ROOT; };
@@ -195,7 +188,6 @@
 		A9A0946B6AE0491B10801BF2 /* ofxSyphon.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSyphon.h; path = ../openFrameworks/addons/ofxSyphon/src/ofxSyphon.h; sourceTree = SOURCE_ROOT; };
 		A9F1FDE0E514800761713D32 /* ToonPass.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ToonPass.h; path = ../openFrameworks/addons/ofxPostProcessing/src/ToonPass.h; sourceTree = SOURCE_ROOT; };
 		AA8ED947744A824EE323F786 /* NoiseWarpPass.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = NoiseWarpPass.cpp; path = ../openFrameworks/addons/ofxPostProcessing/src/NoiseWarpPass.cpp; sourceTree = SOURCE_ROOT; };
-		ADDE79EFD3A3DEE415CFAFDF /* PointSet.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PointSet.cpp; path = src/core/PointSet.cpp; sourceTree = SOURCE_ROOT; };
 		AE35D71B0B0AA160F5D6AE2C /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSliderGroup.cpp; path = ../openFrameworks/addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
 		AFE398339BABA64138B17C3A /* Thresholder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Thresholder.cpp; path = src/core/Thresholder.cpp; sourceTree = SOURCE_ROOT; };
 		B10D9A4C4D69F318E4DF5F5B /* Common.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Common.cpp; path = src/core/Common.cpp; sourceTree = SOURCE_ROOT; };
@@ -454,15 +446,11 @@
 			children = (
 				B10D9A4C4D69F318E4DF5F5B /* Common.cpp */,
 				8AEEEA82825BAC378C9E347D /* Common.h */,
-				50069C8CC8E4A983C37E38AC /* Line.cpp */,
 				215C01EB3421972DD89879AB /* Line.h */,
-				8BB650288CDE28941BCC992E /* LineSet.cpp */,
 				FC782118982D8ED7FE1FD7E2 /* LineSet.h */,
 				9C902CFF9DAE6FEFAA3BCF20 /* Parameters.cpp */,
 				A5ADBA4AE292607D8FCF8B7F /* Parameters.h */,
-				639DC10C1CA08A93E3E8CB04 /* Point.cpp */,
 				BCA5A86A4F4F14E1A3871B5D /* Point.h */,
-				ADDE79EFD3A3DEE415CFAFDF /* PointSet.cpp */,
 				58EA99BF217DB322E428454E /* PointSet.h */,
 				AFE398339BABA64138B17C3A /* Thresholder.cpp */,
 				6FDC75ED557F13978751DFE6 /* Thresholder.h */,
@@ -670,11 +658,7 @@
 				2E42688699B3D08D42B632DB /* ofApp.cpp in Sources */,
 				224C1E6B484D7C5E322A895B /* PointSystem.cpp in Sources */,
 				3FE0CFF89D530BE09E0C2503 /* Common.cpp in Sources */,
-				D1586160D0F1820B06338819 /* Line.cpp in Sources */,
-				825293D99A44F4DFBB4C0A9B /* LineSet.cpp in Sources */,
 				D233E7F21C9A9E0D94627A5D /* Parameters.cpp in Sources */,
-				D48AFEB883D58A548B7ED8FD /* Point.cpp in Sources */,
-				64718BE6212ED9A1246E8175 /* PointSet.cpp in Sources */,
 				02D7372D5B49C91661B5E029 /* Thresholder.cpp in Sources */,
 				3236CCF8E5CB0BE3D545FD4D /* ThresholderCHOP.cpp in Sources */,
 				CE9359204DFE0AE899EE4BDA /* TouchCommon.cpp in Sources */,

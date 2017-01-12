@@ -10,23 +10,23 @@
 #include "FieldPointSystem.h"
 #include "MeshPointSystem.h"
 
-static shared_ptr<PointSystem>
+static shared_ptr<AppPointSystem>
 createFieldSystem1(ThreshAppParameters& appParams) {
   auto sys = new FieldPointSystem(appParams,
                                   appParams.pointColor1,
                                   appParams.pointColor2);
-  return shared_ptr<PointSystem>(sys);
+  return shared_ptr<AppPointSystem>(sys);
 }
 
-static shared_ptr<PointSystem>
+static shared_ptr<AppPointSystem>
 createFieldSystem2(ThreshAppParameters& appParams) {
   auto sys = new FieldPointSystem(appParams,
                                   appParams.pointColor3,
                                   appParams.pointColor4);
-  return shared_ptr<PointSystem>(sys);
+  return shared_ptr<AppPointSystem>(sys);
 }
 
-static shared_ptr<PointSystem>
+static shared_ptr<AppPointSystem>
 createBoxSystem1(ThreshAppParameters& appParams) {
   auto box = ofBoxPrimitive(0.5, 0.7, 0.4, 5, 4, 3);
   auto sys = new MeshPointSystem(appParams,
@@ -34,10 +34,10 @@ createBoxSystem1(ThreshAppParameters& appParams) {
                                  appParams.pointColor1,
                                  appParams.pointColor2);
   sys->spinRate.set(.03, .008, .01);
-  return shared_ptr<PointSystem>(sys);
+  return shared_ptr<AppPointSystem>(sys);
 }
 
-static shared_ptr<PointSystem>
+static shared_ptr<AppPointSystem>
 createSphereSystem2(ThreshAppParameters& appParams) {
   auto sphere = ofSpherePrimitive(0.5, 12);
   auto sys = new MeshPointSystem(appParams,
@@ -45,7 +45,7 @@ createSphereSystem2(ThreshAppParameters& appParams) {
                                  appParams.pointColor3,
                                  appParams.pointColor4);
   sys->spinRate.set(-.03, .01, -.005);
-  return shared_ptr<PointSystem>(sys);
+  return shared_ptr<AppPointSystem>(sys);
 }
 
 void ofApp::setup() {

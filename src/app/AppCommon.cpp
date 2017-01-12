@@ -1,9 +1,5 @@
 //
 //  AppCommon.cpp
-//  threshold
-//
-//  Created by tekt on 1/10/15.
-//
 //
 
 #include "AppCommon.h"

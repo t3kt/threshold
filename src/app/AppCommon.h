@@ -1,13 +1,8 @@
 //
 //  AppCommon.h
-//  threshold
-//
-//  Created by tekt on 1/10/15.
-//
 //
 
-#ifndef __threshold__AppCommon__
-#define __threshold__AppCommon__
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -16,6 +11,13 @@
 #include <ofColor.h>
 
 #include "Common.h"
+#include "Point.h"
+#include "PointSet.h"
+#include "PointSystem.h"
+
+using AppPoint = ThreshPoint<ofVec3f, ofFloatColor>;
+using AppPointSource = PointSource<AppPoint>;
+using AppPointSystem = PointSystem<AppPoint>;
 
 // see http://stackoverflow.com/q/1489830/1456378
 template <class T>
@@ -51,35 +53,3 @@ ofVec3f createRandomVec3f(const ofVec3f& mins,
 ofVec3f createRandomVec3f(float max);
 ofVec3f wrapVec(ofVec3f vec, float min, float max);
 
-inline ThVec3f toThVec(const ofVec3f& vec) {
-  return ThVec3f(vec.x, vec.y, vec.z);
-}
-//inline ofVec3f toOf(const ThVec3f& vec) {
-//  return ofVec3f(vec.x, vec.y, vec.z);
-//}
-inline ofVec3f toOfVec(ThVec3f vec) {
-  return ofVec3f(vec.x, vec.y, vec.z);
-}
-//inline const ThVec3f& toTh(const ofVec3f& v) {
-//  return *reinterpret_cast<const ThVec3f*>(&v);
-//}
-//inline const ofVec3f& toOf(const ThVec3f& v) {
-//  return *reinterpret_cast<const ofVec3f*>(&v);
-//}
-//inline const ofVec3f & toOf(const glm::vec3 & v){
-//  return *reinterpret_cast<const ofVec3f*>(&v);
-//}
-//inline const ofFloatColor& toOf(const ThColor& col) {
-//  return *reinterpret_cast<const ofFloatColor*>(&col);
-//}
-//inline ofFloatColor toOf(const ThColor& col) {
-//  return ofFloatColor(col.r, col.g, col.b, col.a);
-//}
-inline ofFloatColor toOfColor(ThColor col) {
-  return ofFloatColor(col.r, col.g, col.b, col.a);
-}
-inline ThColor toThColor(ofFloatColor col) {
-  return ThColor(col.r, col.g, col.b, col.a);
-}
-
-#endif /* defined(__threshold__AppCommon__) */

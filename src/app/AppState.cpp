@@ -21,7 +21,7 @@ bool ThreshAppState::getLinePointsRaw(const ThreshLine &line,
   return true;
 }
 
-static void extendPoints(ofVec3f& pos1, ofVec3f& pos2,
+static void extendPoints(ThVec3f& pos1, ThVec3f& pos2,
                          float extend1, float extend2) {
   auto diff = pos2 - pos1;
   pos1 = pos1 + (diff * extend1);
@@ -34,8 +34,8 @@ bool ThreshAppState::getLinePoints(const ThreshLine &line,
   if (!getLinePointsRaw(line, pt1, pt2))
     return false;
   if (appParams.useExtend.get()) {
-    ofVec3f pos1 = pt1->position;
-    ofVec3f pos2 = pt2->position;
+    ThVec3f pos1 = pt1->position;
+    ThVec3f pos2 = pt2->position;
     extendPoints(pos1, pos2,
                  appParams.extendRatioStart,
                  appParams.extendRatioEnd);

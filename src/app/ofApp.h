@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef TARGET_OSX
+#define USING_SYPHON
+#endif
+
 #include <ofMain.h>
 #include <ofxGui.h>
 #include <ofxPostProcessing.h>

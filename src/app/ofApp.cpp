@@ -70,7 +70,7 @@ void ofApp::setup() {
   ofEnableSmoothing();
   _gui.setup(_state.appParams.paramGroup);
   auto& appParams = _state.appParams;
-  ofAddListener(appParams.paramGroup.parameterChangedE,
+  ofAddListener(appParams.paramGroup.parameterChangedE(),
                 this, &ofApp::onParameterChanged);
   appParams.hasMinDist.addListener(this,
                                     &ofApp::onTypedParameterChanged<bool>);

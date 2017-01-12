@@ -1,0 +1,44 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "93DFE2874EA770363FE066F560478BFBE5B91B22",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2DE9C8846D9375EAACFABA8963120E8E7719BAF5" : 0,
+    "93DFE2874EA770363FE066F560478BFBE5B91B22" : 0,
+    "95F70890EFD46183734FEDFE52CF53391DE6937E" : 0,
+    "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A9EE4709-321D-4A2D-80EA-00DA34FDB18A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2DE9C8846D9375EAACFABA8963120E8E7719BAF5" : "openFrameworks\/",
+    "93DFE2874EA770363FE066F560478BFBE5B91B22" : "threshold\/",
+    "95F70890EFD46183734FEDFE52CF53391DE6937E" : "openFrameworks\/addons\/ofxPostProcessing\/",
+    "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : "openFrameworks\/addons\/ofxSyphon\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "threshold",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "threshold.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/openframeworks\/openFrameworks.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2DE9C8846D9375EAACFABA8963120E8E7719BAF5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/t3kt\/threshold.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "93DFE2874EA770363FE066F560478BFBE5B91B22"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/neilmendoza\/ofxPostProcessing.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "95F70890EFD46183734FEDFE52CF53391DE6937E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/astellato\/ofxSyphon.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F4CCB893AFADB97238A965FD2F28717F1CAAE613"
+    }
+  ]
+}

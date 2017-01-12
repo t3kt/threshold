@@ -6,8 +6,10 @@
 //
 //
 
+#include "AppCommon.h"
 #include "MeshPointSystem.h"
 #include <ofMain.h>
+#include <glm/gtx/rotate_vector.hpp>
 
 MeshPointSystem::MeshPointSystem(ThreshAppParameters& appParams,
                                  ofMesh mesh,
@@ -49,8 +51,9 @@ void MeshPointSystem::update() {
   auto rotation = time * spinRate;
   auto numPoints = _mesh.getNumVertices();
   for (int i = 0; i < numPoints; ++i) {
-    auto& pt = _mesh.getVertices()[i];
+    ofVec3f pt = _mesh.getVertex(i);
     pt.rotate(rotation.x, rotation.y, rotation.z);
+    _mesh.setVertex(i, pt);
   }
 }
 
@@ -76,8 +79,8 @@ int MeshPointSystem::size() const {
 ThreshPoint MeshPointSystem::operator[](int i) const {
   ThreshPoint pt;
   pt.index = i;
-  pt.position = _mesh.getVertex(i);
+  pt.position = toThVec(_mesh.getVertex(i));
   if (_mesh.hasColors())
-    pt.color = _mesh.getColor(i);
+    pt.color = toThColor(_mesh.getColor(i));
   return pt;
 }

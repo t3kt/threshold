@@ -1,2 +1,4 @@
 ofxGui
+ofxPostProcessing
+ofxSyphon
 ofxXmlSettings

@@ -10,6 +10,7 @@
 #define __threshold__AppState__
 
 #include "AppParameters.h"
+#include "Common.h"
 #include "Parameters.h"
 #include "PointSet.h"
 #include "LineSet.h"

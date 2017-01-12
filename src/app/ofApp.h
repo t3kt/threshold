@@ -22,7 +22,7 @@
 #include "AppState.h"
 #include "LineRenderer.h"
 
-using AppThresholder = Thresholder<AppPoint>;
+using AppThresholder = Thresholder<AppPoint, AppPointSystem>;
 
 class ofApp : public ofBaseApp {
 public:

@@ -92,6 +92,6 @@ int FieldPointSystem::size() const {
   return _points.size();
 }
 
-AppPoint FieldPointSystem::operator[](int i) const {
+AppPoint FieldPointSystem::getPoint(int i) const {
   return _points[i];
 }

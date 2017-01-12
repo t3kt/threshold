@@ -76,7 +76,7 @@ int MeshPointSystem::size() const {
   return _mesh.getNumVertices();
 }
 
-AppPoint MeshPointSystem::operator[](int i) const {
+AppPoint MeshPointSystem::getPoint(int i) const {
   AppPoint pt;
   pt.index = i;
   pt.position = _mesh.getVertex(i);

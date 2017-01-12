@@ -17,7 +17,7 @@ public:
   void update() override;
   void draw() override;
   int size() const override;
-  PointT operator[](int i) const override;
+  PointT getPoint(int i) const override;
 private:
   void onPointColorChanged(ofFloatColor&);
   void assignPointColors();

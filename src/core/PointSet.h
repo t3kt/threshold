@@ -1,13 +1,8 @@
 //
 //  PointSet.h
-//  threshold
-//
-//  Created by tekt on 1/6/15.
-//
 //
 
-#ifndef __threshold__PointSet__
-#define __threshold__PointSet__
+#pragma once
 
 #include <vector>
 
@@ -21,12 +16,15 @@ public:
   using ColorT = typename TPoint::ColorT;
 
   virtual int size() const = 0;
-  virtual PointT operator[](int i) const = 0;
+  PointT operator[](int i) const {
+    return getPoint(i);
+  }
+  virtual PointT getPoint(int i) const = 0;
   virtual VecT getPosition(int i) const {
-    return (*this)[i].position;
+    return getPoint(i).position;
   }
   virtual ColorT getColor(int i) const {
-    return (*this)[i].color;
+    return getPoint(i).color;
   }
 };
 
@@ -40,11 +38,11 @@ public:
   int size() const override {
     return points.size();
   }
-  PointT operator[](int i) const override {
+  PointT getPoint(int i) const override {
     return points[i];
   }
+
 private:
   StorageT points;
 };
 
-#endif /* defined(__threshold__PointSet__) */

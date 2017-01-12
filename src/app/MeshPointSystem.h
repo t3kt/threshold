@@ -20,7 +20,7 @@ public:
   void update() override;
   void draw() override;
   int size() const override;
-  AppPoint operator[](int i) const override;
+  AppPoint getPoint(int i) const override;
   ofVec3f spinRate;
 private:
   void onPointColorChanged(ofFloatColor&);

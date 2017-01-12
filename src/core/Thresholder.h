@@ -20,11 +20,11 @@ namespace _ThreshUtil {
                  float outputMin, float outputMax);
 }
 
-template<typename TPoint>
+template<typename TPoint, typename TPointSource>
 class Thresholder {
 public:
   using PointT = TPoint;
-  using PointSourceT = PointSource<TPoint>;
+  using PointSourceT = TPointSource;
 
   void configure(const ThreshParameters& params) {
     _params = params;
@@ -45,10 +45,10 @@ private:
   void generateSingleSource(const PointSourceT& points,
                             LineSet* lines) {
     for (int indexA = 0; indexA < points.size(); indexA++) {
-      const auto& pointA = points[indexA];
+      const auto& pointA = points.getPoint(indexA);
       int linesFromPointA = 0;
       for (int indexB = indexA + 1; indexB < points.size(); indexB++) {
-        const auto& pointB = points[indexB];
+        const auto& pointB = points.getPoint(indexB);
         auto line = createLine(pointA, pointB);
         if (testLine(line)) {
           lines->push_back(line);
@@ -68,10 +68,10 @@ private:
                                const PointSourceT& pointsB,
                                LineSet* lines) {
     for (int indexA = 0; indexA < pointsA.size(); ++indexA) {
-      const auto& pointA = pointsA[indexA];
+      const auto& pointA = pointsA.getPoint(indexA);
       int linesFromPointA = 0;
       for (int indexB = 0; indexB < pointsB.size(); ++indexB) {
-        const auto& pointB = pointsB[indexB];
+        const auto& pointB = pointsB.getPoint(indexB);
         auto line = createLine(pointA, pointB);
         if (testLine(line)) {
           lines->push_back(line);

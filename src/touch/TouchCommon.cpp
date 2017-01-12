@@ -12,12 +12,10 @@
 
 int CHOPInputPointSet::size() const  { return _inputs->numSamples; }
 
-TouchPoint CHOPInputPointSet::operator[](int i) const {
+TouchPoint CHOPInputPointSet::getPoint(int i) const {
   TouchPoint point;
   point.index = i;
-  point.position.x = _inputs->getChannelData(_xInputIndex)[i];
-  point.position.y = _inputs->getChannelData(_yInputIndex)[i];
-  point.position.z = _inputs->getChannelData(_zInputIndex)[i];
+  point.position = getPosition(i);
   //color ... probably going to remove that...?
   return point;
 }

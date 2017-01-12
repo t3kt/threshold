@@ -21,7 +21,7 @@ public:
   , _xInputIndex(xI), _yInputIndex(yI) , _zInputIndex(zI) { }
   
   int size() const override;
-  PointT operator[](int i) const override;
+  PointT getPoint(int i) const override;
   VecT getPosition(int i) const override;
   //  ColorT getColor(int i) const override;
   

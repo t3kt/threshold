@@ -29,7 +29,7 @@ struct OutputChannel {
   IndexPair sourceIndex;
 };
 
-using TouchThresholder = Thresholder<TouchPoint>;
+using TouchThresholder = Thresholder<TouchPoint, CHOPInputPointSet>;
 
 class ThresholderCHOP : public CHOP_CPlusPlusBase {
 public:

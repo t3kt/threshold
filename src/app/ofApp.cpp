@@ -77,7 +77,7 @@ void ofApp::setup() {
   appParams.hasMaxDist.addListener(this,
                                     &ofApp::onTypedParameterChanged<bool>);
   appParams.distRange.addListener(this,
-                                   &ofApp::onTypedParameterChanged<ofVec2f>);
+                                   &ofApp::onTypedParameterChanged<glm::vec2>);
   appParams.maxLines.addListener(this,
                                   &ofApp::onTypedParameterChanged<int>);
   appParams.hasMaxPerSource.addListener(this,

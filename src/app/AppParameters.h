@@ -25,7 +25,7 @@ public:
   
   ofParameter<bool> hasMinDist;
   ofParameter<bool> hasMaxDist;
-  ofParameter<ofVec2f> distRange;
+  ofParameter<glm::vec2> distRange;
   ofParameter<int> maxLines;
   ofParameter<bool> hasMaxPerSource;
   ofParameter<int> maxLinesPerSource;

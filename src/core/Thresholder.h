@@ -24,9 +24,9 @@ public:
 private:
   void generateSingleSource(const PointSource& points,
                             LineSet* lines);
-  void generateSeprateSources(const PointSource& pointsA,
-                              const PointSource& pointsB,
-                              LineSet* lines);
+  void generateSeparateSources(const PointSource& pointsA,
+                               const PointSource& pointsB,
+                               LineSet* lines);
   ThreshLine createLine(const ThreshPoint& start,
                         const ThreshPoint& end);
   bool testLine(const ThreshLine& line);

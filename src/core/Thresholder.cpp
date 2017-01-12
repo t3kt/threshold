@@ -42,7 +42,7 @@ void Thresholder::generateSingleSource(const PointSource &points,
   }
 }
 
-void Thresholder::generateSeprateSources(const PointSource &pointsA,
+void Thresholder::generateSeparateSources(const PointSource &pointsA,
                                          const PointSource &pointsB,
                                          LineSet *lines) {
   for (int indexA = 0; indexA < pointsA.size(); ++indexA) {
@@ -70,7 +70,7 @@ void Thresholder::generate(const PointSource *pointsA,
                            const PointSource *pointsB,
                            LineSet *lines) {
   if (pointsB && _params.useSeparateSource) {
-    generateSeprateSources(*pointsA, *pointsB, lines);
+    generateSeparateSources(*pointsA, *pointsB, lines);
   } else {
     generateSingleSource(*pointsA, lines);
   }

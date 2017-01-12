@@ -11,11 +11,11 @@
 
 #include "PointSet.h"
 
-class CHOP_CHOPInput;
+class OP_CHOPInput;
 
 class CHOPInputPointSet : public PointSource {
 public:
-  CHOPInputPointSet(const CHOP_CHOPInput* inputs,
+  CHOPInputPointSet(const OP_CHOPInput* inputs,
                     int xI, int yI, int zI)
   : _inputs(inputs)
   , _xInputIndex(xI), _yInputIndex(yI) , _zInputIndex(zI) { }
@@ -33,7 +33,7 @@ private:
   int _xInputIndex;
   int _yInputIndex;
   int _zInputIndex;
-  const CHOP_CHOPInput* _inputs;
+  const OP_CHOPInput* _inputs;
 };
 
 #endif /* defined(__threshold__TouchCommon__) */

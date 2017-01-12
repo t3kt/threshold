@@ -8,7 +8,7 @@
 #include "Point.h"
 #include "PointSet.h"
 
-using TouchPoint = ThreshPoint<ThVec3f, ThColor>;
+using TouchPoint = ThreshPoint<ThVec3f>;
 using TouchPointSource = PointSource<TouchPoint>;
 
 class OP_CHOPInput;
@@ -23,12 +23,6 @@ public:
   int size() const override;
   PointT getPoint(int i) const override;
   VecT getPosition(int i) const override;
-  //  ColorT getColor(int i) const override;
-  
-  //  int rInputIndex;
-  //  int gInputIndex;
-  //  int bInputIndex;
-  //  int aInputIndex;
 private:
   int _xInputIndex;
   int _yInputIndex;

@@ -13,7 +13,6 @@ class PointSource {
 public:
   using PointT = TPoint;
   using VecT = typename TPoint::VecT;
-  using ColorT = typename TPoint::ColorT;
 
   virtual int size() const = 0;
   PointT operator[](int i) const {
@@ -22,9 +21,6 @@ public:
   virtual PointT getPoint(int i) const = 0;
   virtual VecT getPosition(int i) const {
     return getPoint(i).position;
-  }
-  virtual ColorT getColor(int i) const {
-    return getPoint(i).color;
   }
 };
 

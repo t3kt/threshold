@@ -52,10 +52,6 @@ std::ostream& operator<<(std::ostream& os, const AppPoint& pt) {
   os << ", (" << pt.position.x <<
         ", " << pt.position.y <<
         ", " << pt.position.z << ")";
-  os << ", color:(" << pt.color.r
-            << ", " << pt.color.g
-            << ", " << pt.color.b
-            << ", " << pt.color.a << ")";
   os << "}";
   return os;
 }

@@ -12,7 +12,12 @@
 #include "PointSet.h"
 #include "PointSystem.h"
 
-using AppPoint = ThreshPoint<ofVec3f, ofFloatColor>;
+class AppPoint
+: public ThreshPoint<ofVec3f> {
+public:
+  ofFloatColor color;
+};
+
 using AppPointSource = PointSource<AppPoint>;
 using AppPointSystem = PointSystem<AppPoint>;
 

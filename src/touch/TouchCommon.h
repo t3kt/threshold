@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <vector>
+#include <array>
 #include <stdexcept>
 #include <string>
 #include <cstring>
@@ -37,21 +37,19 @@ private:
   const OP_CHOPInput* _inputs;
 };
 
+template<std::size_t RowCount, std::size_t BufferSize = 4096>
 class SimpleInfoTable {
 public:
   void clear() {
-    _column0.clear();
-    _column1.clear();
-  }
-
-  void setRowCount(int rowCount) {
-    _column0.resize(rowCount);
-    _column1.resize(rowCount);
+    for (int rowIndex = 0; rowIndex < RowCount; ++rowIndex) {
+      _column0[rowIndex].clear();
+      _column1[rowIndex].clear();
+    }
   }
 
   void setRow(int rowIndex, const char* key, const char* value) {
-    _column0.at(rowIndex) = key;
-    _column1.at(rowIndex) = value;
+    _column0[rowIndex] = key;
+    _column1[rowIndex] = value;
   }
 
   template<typename T>
@@ -70,29 +68,31 @@ public:
     if (rowIndex < 0 || rowIndex > _column0.size()) {
       return;
     }
-    static char buffer0[4096];
-    static char buffer1[4096];
 
     if (count >= 1) {
       const auto& val = _column0[0];
       if (val.empty()) {
-        strcpy_s(buffer0, "");
+        strcpy_s(_buffer0, "");
       } else {
-        strcpy_s(buffer0, val.c_str());
+        strcpy_s(_buffer0, val.c_str());
       }
+      entries->values[0] = _buffer0;
     }
     if (count >= 2) {
       const auto& val = _column1[0];
       if (val.empty()) {
-        strcpy_s(buffer1, "");
+        strcpy_s(_buffer1, "");
       }
       else {
-        strcpy_s(buffer1, val.c_str());
+        strcpy_s(_buffer1, val.c_str());
       }
+      entries->values[1] = _buffer1;
     }
   }
 private:
-  std::vector<std::string> _column0;
-  std::vector<std::string> _column1;
+  std::array<std::string, RowCount> _column0;
+  std::array<std::string, RowCount> _column1;
+  char _buffer0[BufferSize];
+  char _buffer1[BufferSize];
 };
 

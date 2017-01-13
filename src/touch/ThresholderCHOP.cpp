@@ -30,7 +30,9 @@ ThresholderCHOP::ThresholderCHOP(const OP_NodeInfo* info)
 : _xInputIndex(-1, -1)
 , _yInputIndex(-1, -1)
 , _zInputIndex(-1, -1)
-, _resetChans(false) { }
+, _resetChans(false) {
+  //_debugInfo.setLabel(INFO_ROW_STATUS, "status");
+}
 
 static const char* PAR_PAGE = "Threshold";
 
@@ -148,6 +150,16 @@ void ThresholderCHOP::setupParameters(OP_ParameterManager* manager) {
     par.page = PAR_PAGE;
 
     auto result = manager->appendPulse(par);
+    assert(result == PARAMETER_APPEND_SUCCESS);
+  }
+  // Debug
+  {
+    auto par = OP_NumericParameter("Debug");
+    par.label = "Enable Debugging";
+    par.page = PAR_PAGE;
+    par.defaultValues[0] = 0.0;
+
+    auto result = manager->appendToggle(par);
     assert(result == PARAMETER_APPEND_SUCCESS);
   }
 }
@@ -323,8 +335,20 @@ void ThresholderCHOP::getGeneralInfo(CHOP_GeneralInfo *ginfo)
 bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   _lines.clear();
   info->numSamples = 0;
-  if (!hasEnoughInputs(info->opInputs))
+  _error.clear();
+  _warning.clear();
+  _info.clear();
+  //_debugEnabled = info->opInputs->getParInt("Debug");
+  //if (_debugEnabled) {
+  //  _debugInfo.clearValues();
+  //}
+  if (!hasEnoughInputs(info->opInputs)) {
+    if (_debugEnabled) {
+      //_debugInfo[INFO_ROW_STATUS] = "not enough inputs";
+      _error = "not enough inputs";
+    }
     return false;
+  }
   loadParameters(info->opInputs);
   if (shouldLoadChannels(info->opInputs)) {
     _xInputIndex.first = _xInputIndex.second = 0;
@@ -344,12 +368,14 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
                            _yInputIndex.first,
                            _zInputIndex.first);
   if (info->opInputs->getNumInputs() > 1) {
+    _info = "generating for separate inputs";
     CHOPInputPointSet pointsB(info->opInputs->getInputCHOP(1),
                               _xInputIndex.second,
                               _yInputIndex.second,
                               _zInputIndex.second);
     _thresholder.generate(&pointsA, &pointsB, &_lines);
   } else {
+    _info = "generating for single input";
     _thresholder.generate(&pointsA, NULL, &_lines);
   }
   if (_lines.empty()) {

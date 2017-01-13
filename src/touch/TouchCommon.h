@@ -40,37 +40,47 @@ private:
 template<std::size_t RowCount, std::size_t BufferSize = 4096>
 class SimpleInfoTable {
 public:
-  void clear() {
+  void setLabel(int rowIndex, const char* key) {
+    _labels[rowIndex] = key;
+  }
+
+  void clearValues() {
     for (int rowIndex = 0; rowIndex < RowCount; ++rowIndex) {
-      _column0[rowIndex].clear();
-      _column1[rowIndex].clear();
+      clearValue(rowIndex);
     }
   }
 
-  void setRow(int rowIndex, const char* key, const char* value) {
-    _column0[rowIndex] = key;
-    _column1[rowIndex] = value;
+  void clearValue(int rowIndex) {
+    _labels[rowIndex].clear();
+  }
+
+  void setValue(int rowIndex, const char* value) {
+    _values[rowIndex] = value;
+  }
+
+  std::string& operator[](int rowIndex) {
+    return _values[rowIndex];
   }
 
   template<typename T>
-  void setRow(int rowIndex, const char* key, const T& value) {
+  void setValue(int rowIndex, const T& value) {
     std::ostringstream os;
     os << value;
-    setRow(rowIndex, key, os.str().c_str());
+    setValue(rowIndex, value);
   }
 
   void fillInfoSize(OP_InfoDATSize* size) {
-    size->rows = static_cast<int>(_column0.size());
+    size->rows = static_cast<int>(_labels.size());
     size->cols = 2;
   }
 
   void fillInfoRowEntries(int rowIndex, int count, OP_InfoDATEntries* entries) {
-    if (rowIndex < 0 || rowIndex > _column0.size()) {
+    if (rowIndex < 0 || rowIndex > _labels.size()) {
       return;
     }
 
     if (count >= 1) {
-      const auto& val = _column0[0];
+      const auto& val = _labels[0];
       if (val.empty()) {
         strcpy_s(_buffer0, "");
       } else {
@@ -79,7 +89,7 @@ public:
       entries->values[0] = _buffer0;
     }
     if (count >= 2) {
-      const auto& val = _column1[0];
+      const auto& val = _values[0];
       if (val.empty()) {
         strcpy_s(_buffer1, "");
       }
@@ -90,8 +100,8 @@ public:
     }
   }
 private:
-  std::array<std::string, RowCount> _column0;
-  std::array<std::string, RowCount> _column1;
+  std::array<std::string, RowCount> _labels;
+  std::array<std::string, RowCount> _values;
   char _buffer0[BufferSize];
   char _buffer1[BufferSize];
 };

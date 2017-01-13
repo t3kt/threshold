@@ -425,7 +425,7 @@ void ThresholderCHOP::outputLineSeparate(const ThreshLine& line,
 void ThresholderCHOP::execute(const CHOP_Output *outputs,
                               OP_Inputs *inputs,
                               void *reserved) {
-  if (!outputs->channels) {
+  if (!outputs->channels || outputs->numChannels == 0 || outputs->numSamples == 0) {
     return;
   }
   if (_lines.empty()) {

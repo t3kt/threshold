@@ -16,6 +16,7 @@ public:
   int maxLines;
   int maxLinesPerSource;
   bool useSeparateSource;
+  bool distinctGroups;
   
   ThreshParameters();
   

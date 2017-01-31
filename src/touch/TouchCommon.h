@@ -23,17 +23,20 @@ class OP_CHOPInput;
 class CHOPInputPointSet : public TouchPointSource {
 public:
   CHOPInputPointSet(const OP_CHOPInput* inputs,
-                    int xI, int yI, int zI)
+                    int xI, int yI, int zI, int gI = -1)
   : _inputs(inputs)
-  , _xInputIndex(xI), _yInputIndex(yI) , _zInputIndex(zI) { }
+  , _xInputIndex(xI), _yInputIndex(yI) , _zInputIndex(zI)
+  , _groupInputIndex(gI) { }
   
   int size() const override;
   PointT getPoint(int i) const override;
   VecT getPosition(int i) const override;
+  int getGroup(int i) const override;
 private:
   int _xInputIndex;
   int _yInputIndex;
   int _zInputIndex;
+  int _groupInputIndex;
   const OP_CHOPInput* _inputs;
 };
 

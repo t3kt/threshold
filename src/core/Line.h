@@ -17,6 +17,8 @@ public:
   int endIndex;
   float squareDistance;
   float closeness;
+  int startGroup;
+  int endGroup;
 };
 
 #endif /* defined(__threshold__Line__) */

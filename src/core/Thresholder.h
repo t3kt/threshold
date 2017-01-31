@@ -93,6 +93,8 @@ private:
     ThreshLine line;
     line.startIndex = start.index;
     line.endIndex = end.index;
+    line.startGroup = start.group;
+    line.endGroup = end.group;
     line.squareDistance
     = _ThreshUtil::distanceSquared(start.position.x,
                                    start.position.y,
@@ -121,6 +123,9 @@ private:
       return false;
     }
     if (_params.hasMaxDist() && dist > _params.maxDist) {
+      return false;
+    }
+    if (_params.distinctGroups && line.startGroup == line.endGroup) {
       return false;
     }
     return true;

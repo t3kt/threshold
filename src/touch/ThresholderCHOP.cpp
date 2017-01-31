@@ -133,6 +133,16 @@ void ThresholderCHOP::setupParameters(OP_ParameterManager* manager) {
     auto result = manager->appendToggle(par);
     assert(result == PARAMETER_APPEND_SUCCESS);
   }
+  // Distinctgroups
+  {
+    auto par = OP_NumericParameter("Distinctgroups");
+    par.label = "Require Distinct Groups";
+    par.defaultValues[0] = 0.0;
+    par.page = PAR_PAGE;
+
+    auto result = manager->appendToggle(par);
+    assert(result == PARAMETER_APPEND_SUCCESS);
+  }
   // Resetchans
   {
     auto par = OP_NumericParameter("Resetchans");
@@ -191,6 +201,8 @@ ThresholderCHOP::loadParameters(OP_Inputs* inputs) {
   }
 
   params.useSeparateSource = inputs->getParInt("Useseparatesource") && inputs->getNumInputs() > 1;
+
+  params.distinctGroups = inputs->getParInt("Distinctgroups");
   
   _thresholder.configure(params);
 }
@@ -258,6 +270,7 @@ bool ThresholderCHOP::shouldLoadChannels(OP_Inputs* inputs) const {
 
 void ThresholderCHOP::loadChannels(OP_Inputs *inputs) {
   auto chopIn = inputs->getInputCHOP(0);
+  _groupIndex.first = -1;
   for (int i = 0; i < chopIn->numChannels; ++i) {
     const auto& name = chopIn->getChannelName(i);
     if (strcmp(name, "x") == 0) {
@@ -272,6 +285,10 @@ void ThresholderCHOP::loadChannels(OP_Inputs *inputs) {
       _zInputIndex.first = i;
       addChannel(_pointChannels, "tz1", true, i, -1);
       addChannel(_pointChannels, "tz2", false, i, -1);
+    } else if (strcmp(name, "group") == 0) {
+      _groupIndex.first = i;
+      addChannel(_pointChannels, "group1", true, i, -1);
+      addChannel(_pointChannels, "group1", false, i, -1);
     } else {
       addChannel(_pointChannels, std::string(name) + '1',
                   true, i, -1);
@@ -285,6 +302,7 @@ void ThresholderCHOP::loadChannelsSeparate(OP_Inputs *inputs) {
   auto chopInA = inputs->getInputCHOP(0);
   auto chopInB = inputs->getInputCHOP(1);
   ChannelMap channelsByName;
+  _groupIndex.first = -1;
   for (int i = 0; i < chopInA->numChannels; ++i) {
     std::string name = chopInA->getChannelName(i);
     std::string outNameBase;
@@ -297,12 +315,16 @@ void ThresholderCHOP::loadChannelsSeparate(OP_Inputs *inputs) {
     } else if (name == "z") {
       _zInputIndex.first = i;
       outNameBase = "tz";
+    } else if (name == "group") {
+      _groupIndex.first = i;
+      outNameBase = name;
     } else {
       outNameBase = name;
     }
     addChannelPair(_pointChannels, name, outNameBase,
                    i, -1, &channelsByName);
   }
+  _groupIndex.second = -1;
   for (int i = 0; i < chopInB->numChannels; ++i) {
     std::string name = chopInB->getChannelName(i);
     auto channelsIter = channelsByName.find(name);
@@ -319,6 +341,8 @@ void ThresholderCHOP::loadChannelsSeparate(OP_Inputs *inputs) {
       _yInputIndex.second = i;
     } else if (name == "z") {
       _zInputIndex.second = i;
+    } else if (name == "group") {
+      _groupIndex.second = i;
     }
   }
 }

@@ -10,5 +10,6 @@ public:
   using VecT = TVec;
 
   int index;
+  int group;
   VecT position;
 };

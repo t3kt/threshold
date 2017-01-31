@@ -22,6 +22,7 @@ public:
   virtual VecT getPosition(int i) const {
     return getPoint(i).position;
   }
+  virtual int getGroup(int i) const { return getPoint(i).group; }
 };
 
 template<typename TPoint>

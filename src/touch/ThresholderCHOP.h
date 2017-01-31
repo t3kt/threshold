@@ -94,6 +94,7 @@ private:
   IndexPair _xInputIndex;
   IndexPair _yInputIndex;
   IndexPair _zInputIndex;
+  IndexPair _groupIndex;
   std::vector<OutputChannel> _pointChannels;
   bool _resetChans;
   //SimpleInfoTable<NUM_INFO_ROWS> _debugInfo;

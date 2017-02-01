@@ -202,7 +202,7 @@ ThresholderCHOP::loadParameters(OP_Inputs* inputs) {
 
   params.useSeparateSource = inputs->getParInt("Useseparatesource") && inputs->getNumInputs() > 1;
 
-  params.distinctGroups = inputs->getParInt("Distinctgroups");
+  params.distinctGroups = inputs->getParInt("Distinctgroups") != 0;
   
   _thresholder.configure(params);
 }
@@ -390,13 +390,15 @@ bool ThresholderCHOP::getOutputInfo(CHOP_OutputInfo *info) {
   CHOPInputPointSet pointsA(info->opInputs->getInputCHOP(0),
                            _xInputIndex.first,
                            _yInputIndex.first,
-                           _zInputIndex.first);
+                           _zInputIndex.first,
+                           _groupIndex.first);
   if (info->opInputs->getNumInputs() > 1) {
     _info = "generating for separate inputs";
     CHOPInputPointSet pointsB(info->opInputs->getInputCHOP(1),
                               _xInputIndex.second,
                               _yInputIndex.second,
-                              _zInputIndex.second);
+                              _zInputIndex.second,
+                              _groupIndex.second);
     _thresholder.generate(&pointsA, &pointsB, &_lines);
   } else {
     _info = "generating for single input";
